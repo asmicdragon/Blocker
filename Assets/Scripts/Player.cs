@@ -6,6 +6,10 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float _speed = 3.5f;
+
+    private float _stacked;
+    private bool hasStacked = false;
+    private bool canMove = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,9 +20,13 @@ public class Player : MonoBehaviour
     void Update()
     {
         CalculateMovement();
+        OnStack();
     }
     void CalculateMovement()
     {
+        //Checks if canMove is true, which is always true, to be able to move.
+        //When canMove is switched to false, the player will stop moving
+        if(canMove == true){
         float _verticalMovement = -1.5f;
         float _horizontalInput = Input.GetAxis("Horizontal");
         //Movement method, using Vector2 as it is a 2D Game
@@ -29,13 +37,27 @@ public class Player : MonoBehaviour
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
         transform.position = new Vector2(Mathf.Clamp(transform.position.x,-7.8f, 7.8f),transform.position.y);
-   
+        }
     }
-    void OnTriggerEnter(Collider other) {
+    void OnTriggerEnter2D(Collider2D other) {
 
         if(other.tag == "Floor"){
 
-            Destroy(this.gameObject);
+        Destroy(this.gameObject);
+        
+        }
+        
+        if(other.tag == "Stack"){
+            Debug.Log("Stack!");
+            Vector2 _stacked = new Vector2(0,-2.26368f);
+            transform.position = _stacked;
+            hasStacked = true;
+        }
+    }
+    void OnStack() {
+
+        if(hasStacked == true){
+            canMove = false;
         }
     }
 }
