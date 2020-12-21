@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
         if (Input.GetButtonDown("Fire1")){
 
             StartingBlock.CurrentBlock.Stop();
+            
         }
     }
 }

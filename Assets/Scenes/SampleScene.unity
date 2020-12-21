@@ -391,6 +391,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 0
   _verticalMovement: 0
+  currentBlockPos: {x: 0.05, y: 4.4}
 --- !u!1 &967170772
 GameObject:
   m_ObjectHideFlags: 0
@@ -637,7 +638,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 3.5
-  _verticalMovement: -1.5
+  _verticalMovement: 0
+  currentBlockPos: {x: 0, y: 4.4}
 --- !u!114 &2077586440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -759,7 +761,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2077586438}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.55, y: 2.72, z: 0}
+  m_LocalPosition: {x: -2, y: -2.25012, z: 0}
   m_LocalScale: {x: 1.054789, y: 0.30907828, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
