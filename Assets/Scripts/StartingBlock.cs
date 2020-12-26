@@ -19,10 +19,12 @@ public class StartingBlock : MonoBehaviour
     private void OnEnable() 
     {
         if (LastBlock == null)
+        {
             //this makes it so the lastBlock becomes the gameobject 'Stack'
             LastBlock = GameObject.Find("Stack").GetComponent<StartingBlock>();
-
+        }
         CurrentBlock = this;
+        Debug.Log("Current Block: " + CurrentBlock.name);
         
     }
 
@@ -33,6 +35,7 @@ public class StartingBlock : MonoBehaviour
         //hangover is the part that hangsout and gets trimmed
         float hangover = transform.position.x - LastBlock.transform.position.x;
         SplitBlockOnX(hangover);
+        Debug.Log("hangover: " + hangover);
         
     }
 
@@ -53,23 +56,17 @@ public class StartingBlock : MonoBehaviour
         float newXSize = LastBlock.transform.localScale.x - Mathf.Abs(hangover);
         float newXPosition = LastBlock.transform.position.x + (hangover / 2f);
 
-        if(_speed >= 0) {
         //inputting the new variables in the game newXSize and newXPosition
-        transform.localScale = new Vector2(newXSize, transform.localScale.y);
-        transform.position = new Vector2(newXPosition, transform.position.y);
+        transform.localScale = new Vector3(newXSize, transform.localScale.y, transform.localScale.z);
+        transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
         Debug.Log(hangover);
-        }
+        
     }
-    [SerializeField]
-    Vector2 currentBlockPos = new Vector2(0.05f,4.4f);
-    void SetPosition(){
-        //gives the position only to this GameObject so that when we use it on other gameobjects, it doesnt transfer the position.
-        currentBlockPos = this.transform.position;
-    }
+    
     // Start is called before the first frame update
     void Start()
     {
-        SetPosition();
+
     }
     void CalculateMovement()
     {
@@ -81,25 +78,25 @@ public class StartingBlock : MonoBehaviour
         //Movement method, using Vector2 as it is a 2D Game
         // only making horizontal input so that the player cant move up and down aswell
 
-        Vector2 direction = new Vector2(_horizontalInput,0);
-        Vector2 goingDown = new Vector2(0,_verticalMovement);
+        Vector2 direction = new Vector3(_horizontalInput,0 , 0);
+        Vector2 goingDown = new Vector3(0,_verticalMovement , 0);
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
-        transform.position = new Vector2(Mathf.Clamp(transform.position.x,-7.8f, 7.8f),transform.position.y);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x,-7.8f, 7.8f),transform.position.y, transform.position.z);
     }
     // Update is called once per frame
     void Update()
     {
         CalculateMovement();
     }
-    
-    void OnTriggerEnter2D(Collider2D other) {
-
-        if(other.tag == "Floor"){
-
-        Destroy(this.gameObject);
-        
+    //This method is calling the Stop() method when the startingblock collides with the stack
+    //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
+    private void OnTriggerEnter(Collider other) {
+        if(other.enabled){
+            Stop();
+            CurrentBlock = LastBlock;
+            _verticalMovement = 0;
+            
         }
-        
     }
 }
