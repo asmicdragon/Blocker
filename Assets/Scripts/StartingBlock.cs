@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,8 +14,10 @@ public class StartingBlock : MonoBehaviour
     private float _speed = 3.5f;
 
     [SerializeField]
-    float _verticalMovement = -1.5f;
+    public float _verticalMovement = -1.5f;
     //Enabling the game to set the variable currentBlock to this gameobject
+
+
     private void OnEnable() 
     {
         if (LastBlock == null)
@@ -27,7 +29,14 @@ public class StartingBlock : MonoBehaviour
         Debug.Log("Current Block: " + CurrentBlock.name);
         
     }
+    private void OnTriggerEnter(Collider other) {
+        if(LastBlock != null && other.Equals(LastBlock)){
+            Debug.Log("Collision with Stack!");
+        } else {
+            Debug.Log("Collision is not the Stack");
+        }
 
+    }
     internal void Stop()
     {
         //turns the speed to zero when the method is called
@@ -36,6 +45,7 @@ public class StartingBlock : MonoBehaviour
         float hangover = transform.position.x - LastBlock.transform.position.x;
         SplitBlockOnX(hangover);
         Debug.Log("hangover: " + hangover);
+        
         
     }
 
@@ -66,7 +76,7 @@ public class StartingBlock : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
     void CalculateMovement()
     {
@@ -78,8 +88,8 @@ public class StartingBlock : MonoBehaviour
         //Movement method, using Vector2 as it is a 2D Game
         // only making horizontal input so that the player cant move up and down aswell
 
-        Vector2 direction = new Vector3(_horizontalInput,0 , 0);
-        Vector2 goingDown = new Vector3(0,_verticalMovement , 0);
+        Vector3 direction = new Vector3(_horizontalInput,0 , 0);
+        Vector3 goingDown = new Vector3(0,_verticalMovement , 0);
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x,-7.8f, 7.8f),transform.position.y, transform.position.z);
@@ -91,12 +101,5 @@ public class StartingBlock : MonoBehaviour
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
-    private void OnTriggerEnter(Collider other) {
-        if(other.enabled){
-            Stop();
-            CurrentBlock = LastBlock;
-            _verticalMovement = 0;
-            
-        }
-    }
+
 }
