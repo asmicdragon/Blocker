@@ -7,18 +7,21 @@ public class StartingBlock : MonoBehaviour
 {
     //currentblock variable to declare the block so that we can have 2 different blocks, the one current and the one placed.
     
-    public static StartingBlock CurrentBlock {   get; private set;  }
-    public static StartingBlock LastBlock {   get; private set;  }
+    public static StartingBlock CurrentBlock {   get; set;  }
+    public static StartingBlock LastBlock {   get; set;  }
 
     public static Rigidbody rigidBlock;
     public static Rigidbody2D rigidBlock2D;
     [SerializeField]
     public float _speed = 3.5f;
 
+    public bool hasStacked = false;
+    public bool canTrim = false;
+
     [SerializeField]
     public float _verticalMovement = -1.5f;
     //Enabling the game to set the variable currentBlock to this gameobject
-    
+
     private void OnEnable() 
     {
         if (LastBlock == null)
@@ -29,16 +32,25 @@ public class StartingBlock : MonoBehaviour
         CurrentBlock = this;
         Debug.Log("Current Block: " + CurrentBlock.name);
         Debug.Log("Last block name: " + LastBlock.name);
+
         
     }
     internal void Stop()
     {
         //turns the speed to zero when the method is called
-        _speed = 0;
-        //hangover is the part that hangsout and gets trimmed
-        float hangover = transform.position.x - LastBlock.transform.position.x;
-        SplitBlockOnX(hangover);
-        Debug.Log("hangover: " + hangover);
+        if(canTrim == false){
+
+            return;
+            
+        } else {
+
+            _speed = 0;
+            //hangover is the part that hangsout and gets trimmed
+            float hangover = transform.position.x - LastBlock.transform.position.x;
+            SplitBlockOnX(hangover);
+            Debug.Log("hangover: " + hangover);
+            hasStacked = true;
+        }
         
     }
     private void SplitBlockOnX(float hangover)
@@ -91,16 +103,26 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(hasStacked == true){
+            canTrim = false;
+        }
         CalculateMovement();
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.name == "Stack"){
-            Stop();
             _verticalMovement = 0;
             CurrentBlock = LastBlock;
+            canTrim = true;
+            Stop();
             Debug.Log("Collided with " + LastBlock.name);
+        } else {
+            canTrim = true;
+            _verticalMovement = 0;
+            CurrentBlock = LastBlock;
+            Stop();
+            Debug.Log("Collided with Last Block");
         }
     }
 }
