@@ -11,13 +11,14 @@ public class StartingBlock : MonoBehaviour
     public static StartingBlock LastBlock {   get; private set;  }
 
     public static Rigidbody rigidBlock;
+    public static Rigidbody2D rigidBlock2D;
     [SerializeField]
     public float _speed = 3.5f;
 
     [SerializeField]
     public float _verticalMovement = -1.5f;
     //Enabling the game to set the variable currentBlock to this gameobject
-
+    
     private void OnEnable() 
     {
         if (LastBlock == null)
@@ -27,9 +28,9 @@ public class StartingBlock : MonoBehaviour
         }
         CurrentBlock = this;
         Debug.Log("Current Block: " + CurrentBlock.name);
+        Debug.Log("Last block name: " + LastBlock.name);
         
     }
-
     internal void Stop()
     {
         //turns the speed to zero when the method is called
@@ -84,6 +85,9 @@ public class StartingBlock : MonoBehaviour
         
         
     }
+    void Start() {
+    
+    }
     // Update is called once per frame
     void Update()
     {
@@ -91,6 +95,13 @@ public class StartingBlock : MonoBehaviour
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
-
+    private void OnTriggerEnter2D(Collider2D other) {
+        if(other.name == "Stack"){
+            Stop();
+            _verticalMovement = 0;
+            CurrentBlock = LastBlock;
+            Debug.Log("Collided with " + LastBlock.name);
+        }
+    }
 }
 
