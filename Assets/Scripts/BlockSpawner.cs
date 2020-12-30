@@ -12,6 +12,6 @@ public class BlockSpawner : MonoBehaviour
         //This class file is done so that the block spawns after being placed
         var block = Instantiate(blockPreFab);
         // placing the position of the new block at this flat position
-        block.transform.position = new Vector2(transform.position.x, 1.47f);
+        block.transform.position = new Vector2(transform.position.x, 4.54f);
     }
 }

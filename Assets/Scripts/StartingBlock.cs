@@ -12,10 +12,10 @@ public class StartingBlock : MonoBehaviour
 
     public static Rigidbody rigidBlock;
     [SerializeField]
-    private float _speed = 3.5f;
+    public float _speed = 3.5f;
 
     [SerializeField]
-    float _verticalMovement = -1.5f;
+    public float _verticalMovement = -1.5f;
     //Enabling the game to set the variable currentBlock to this gameobject
 
     private void OnEnable() 
@@ -29,6 +29,7 @@ public class StartingBlock : MonoBehaviour
         Debug.Log("Current Block: " + CurrentBlock.name);
         
     }
+
     internal void Stop()
     {
         //turns the speed to zero when the method is called
@@ -57,21 +58,14 @@ public class StartingBlock : MonoBehaviour
         float newXPosition = LastBlock.transform.position.x + (hangover / 2f);
 
         //inputting the new variables in the game newXSize and newXPosition
-        transform.localScale = new Vector2(newXSize, transform.localScale.y);
-        transform.position = new Vector2(newXPosition, transform.position.y);
+        transform.localScale = new Vector3(newXSize, transform.localScale.y, transform.localScale.z);
+        transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
         Debug.Log(hangover);
         
     }
-    void OnCollisionEnter2D(Collision2D other) {
-        if(other.collider == GameObject.Find("Stack") && GameObject.Find("LastBlock")){
 
-        }    
-    }
     // Start is called before the first frame update
-    void Start()
-    {
 
-    }
     void CalculateMovement()
     {
         //Checks if canMove is true, which is always true, to be able to move.
@@ -82,8 +76,8 @@ public class StartingBlock : MonoBehaviour
         //Movement method, using Vector2 as it is a 2D Game
         // only making horizontal input so that the player cant move up and down aswell
 
-        Vector2 direction = new Vector2(_horizontalInput,0);
-        Vector2 goingDown = new Vector2(0,_verticalMovement);
+        Vector3 direction = new Vector3(_horizontalInput,0, 0);
+        Vector3 goingDown = new Vector3(0,_verticalMovement, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
         transform.position = new Vector3(Mathf.Clamp(transform.position.x,-2.41f, 2.41f),transform.position.y, transform.position.z);
