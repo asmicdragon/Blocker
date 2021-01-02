@@ -17,6 +17,8 @@ public class StartingBlock : MonoBehaviour
     public float _speed = 3.5f;
     public bool spaceKeyPressed;
     public bool hasStacked = false;
+
+    public float LastBlockXSize;
     [SerializeField]
     public float _verticalMovement = -1.5f;
 
@@ -27,7 +29,7 @@ public class StartingBlock : MonoBehaviour
         {
             //this makes it so the lastBlock becomes the gameobject 'Stack'
             LastBlock = GameObject.Find("Stack").GetComponent<StartingBlock>();
-        }
+        } 
             CurrentBlock = this;
             Debug.Log("Current Block: " + CurrentBlock.name);
             Debug.Log("Last block name: " + LastBlock.name);
@@ -63,7 +65,7 @@ public class StartingBlock : MonoBehaviour
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
             CurrentBlock.SplitBlockOnX(hangover, direction);
-            Debug.Log("hangover: " + hangover);
+
     }
     private void SplitBlockOnX(float hangover, float direction)
     {
@@ -79,13 +81,15 @@ public class StartingBlock : MonoBehaviour
         //inputting the new variables in the game newXSize and newXPosition
         transform.localScale = new Vector3(newXSize, transform.localScale.y, transform.localScale.z);
         transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
-        Debug.Log(hangover);
         
+        LastBlockXSize = Mathf.Abs(newXSize);
+
         float blockEdge = transform.position.x + (newXSize /2f * direction); //multiplying by the direction calculates if its on the left or the right side
         float fallingBlockXPosition = blockEdge + fallingBlockSize / 2f * direction;
         
         SpawnDropBlock(fallingBlockXPosition, fallingBlockSize);
     }
+
     //this method is to generate the falling block when trimming to make it look as if it actually cut
     private void SpawnDropBlock(float fallingBlockXPosition, float fallingBlockSize){
 
@@ -126,10 +130,8 @@ public class StartingBlock : MonoBehaviour
             
             spaceKeyPressed = true;
             
-        } /*else {
+        } 
 
-            spaceKeyPressed = false;
-        }*/
         CalculateMovement();
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
@@ -142,14 +144,15 @@ public class StartingBlock : MonoBehaviour
             _verticalMovement = 0;
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
             CurrentBlock = LastBlock;
-            Debug.Log("Collided with " + LastBlock.name);
             //sets the hasStacked boolean to true
             hasStacked = true;
+            Debug.Log("new size of lastblock: " + LastBlockXSize);
         } else {
 
             _verticalMovement = 0;
             CurrentBlock = LastBlock;
             hasStacked = true;
+            Debug.Log("new size of lastblock: " +  LastBlockXSize);
         }
 
     }
