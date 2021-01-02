@@ -18,6 +18,9 @@ public class StartingBlock : MonoBehaviour
     public bool spaceKeyPressed;
     public bool hasStacked = false;
 
+    //we will use the canPressAgain to make a switch toggle when we can press spacebar again
+    public bool canPressAgain = true;
+
     public float LastBlockXSize;
     [SerializeField]
     public float _verticalMovement = -1.5f;
@@ -31,8 +34,6 @@ public class StartingBlock : MonoBehaviour
             LastBlock = GameObject.Find("Stack").GetComponent<StartingBlock>();
         } 
             CurrentBlock = this;
-            Debug.Log("Current Block: " + CurrentBlock.name);
-            Debug.Log("Last block name: " + LastBlock.name);
 
             //OnEnable starts the local scale of the current cube to these set of parameters
             transform.localScale = new Vector3(LastBlock.transform.localScale.x, transform.localScale.y, LastBlock.transform.localScale.z);
@@ -64,6 +65,7 @@ public class StartingBlock : MonoBehaviour
             
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
+            
             CurrentBlock.SplitBlockOnX(hangover, direction);
 
     }
@@ -126,10 +128,14 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Jump")){
-            
-            spaceKeyPressed = true;
-            
+        //if canPressAgain is set to true, we can press spacebar, else nothing happens
+        if(canPressAgain == true){
+
+            if(Input.GetButtonDown("Jump")){
+                
+                spaceKeyPressed = true;
+                canPressAgain = false;
+            }
         } 
 
         CalculateMovement();
@@ -142,17 +148,26 @@ public class StartingBlock : MonoBehaviour
 
             CurrentBlock.Stop();
             _verticalMovement = 0;
+
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
+            
             CurrentBlock = LastBlock;
+            
             //sets the hasStacked boolean to true
             hasStacked = true;
-            Debug.Log("new size of lastblock: " + LastBlockXSize);
-        } else {
+            Debug.Log("The new size of " + LastBlock.name + " is " + LastBlockXSize);
+
+        } else  {
 
             _verticalMovement = 0;
+            
             CurrentBlock = LastBlock;
+            
             hasStacked = true;
-            Debug.Log("new size of lastblock: " +  LastBlockXSize);
+            canPressAgain = true;
+            Debug.Log("The new size of " + LastBlock.name + "is " + LastBlockXSize);
+            
+
         }
 
     }
