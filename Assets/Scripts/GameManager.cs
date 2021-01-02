@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     private void Update()
     {
         
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && StartingBlock.CurrentBlock.canPressAgain == true)
         {
             if(StartingBlock.CurrentBlock != null) {
 
