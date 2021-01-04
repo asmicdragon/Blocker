@@ -10,7 +10,6 @@ public class BlockSpawner : MonoBehaviour
 
     public void SpawnBlock()
     {
-
         //This class file is done so that the block spawns after being placed
         var block = Instantiate(blockPreFab);
         block.name = "StartingBlock " + cloneIncrement;
