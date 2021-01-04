@@ -44,6 +44,7 @@ MonoBehaviour:
     height: 817
   m_ShowMode: 4
   m_Title: 
+<<<<<<< HEAD
   m_RootView: {fileID: 7}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -99,6 +100,13 @@ MonoBehaviour:
   vertical: 0
   controlID: 768
 --- !u!114 &5
+=======
+  m_RootView: {fileID: 4}
+  m_MinSize: {x: 875, y: 300}
+  m_MaxSize: {x: 10000, y: 10000}
+  m_Maximized: 1
+--- !u!114 &2
+>>>>>>> parent of fefda9b... Bug fixing
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,8 +156,13 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
+<<<<<<< HEAD
   controlID: 79
 --- !u!114 &7
+=======
+  controlID: 35
+--- !u!114 &4
+>>>>>>> parent of fefda9b... Bug fixing
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,11 +230,19 @@ MonoBehaviour:
     y: 30
     width: 1600
     height: 767
+<<<<<<< HEAD
   m_MinSize: {x: 708, y: 471}
   m_MaxSize: {x: 18003, y: 14021}
   vertical: 0
   controlID: 28
 --- !u!114 &10
+=======
+  m_MinSize: {x: 709, y: 492}
+  m_MaxSize: {x: 18004, y: 14042}
+  vertical: 0
+  controlID: 79
+--- !u!114 &7
+>>>>>>> parent of fefda9b... Bug fixing
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,8 +313,13 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 471}
   m_MaxSize: {x: 10002, y: 14021}
   vertical: 1
+<<<<<<< HEAD
   controlID: 29
 --- !u!114 &13
+=======
+  controlID: 80
+--- !u!114 &10
+>>>>>>> parent of fefda9b... Bug fixing
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,9 +338,15 @@ MonoBehaviour:
     y: 0
     width: 388
     height: 767
+<<<<<<< HEAD
   m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
+=======
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
+  m_ActualView: {fileID: 14}
+>>>>>>> parent of fefda9b... Bug fixing
   m_Panes:
   - {fileID: 18}
   - {fileID: 17}
@@ -518,7 +550,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 6c340000
     m_LastClickedID: 13420
+<<<<<<< HEAD
     m_ExpandedIDs: 000000008a3900008c3900008e3900009039000092390000
+=======
+    m_ExpandedIDs: 
+>>>>>>> parent of fefda9b... Bug fixing
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -546,7 +582,11 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+<<<<<<< HEAD
     m_ExpandedIDs: ffffffff000000008a3900008c3900008e3900009039000092390000
+=======
+    m_ExpandedIDs: ffffffff000000007c480000a0480000124900002c490000
+>>>>>>> parent of fefda9b... Bug fixing
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: StartingBlock
@@ -838,9 +878,15 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
+<<<<<<< HEAD
       m_SelectedIDs: 208bffff
       m_LastClickedID: 0
       m_ExpandedIDs: 3efbffff
+=======
+      m_SelectedIDs: 2ef8ffff
+      m_LastClickedID: -2002
+      m_ExpandedIDs: 0afafffff0faffff
+>>>>>>> parent of fefda9b... Bug fixing
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
