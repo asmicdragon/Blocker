@@ -44,11 +44,75 @@ MonoBehaviour:
     height: 817
   m_ShowMode: 4
   m_Title: 
+
+  m_RootView: {fileID: 4}
+  m_MinSize: {x: 875, y: 300}
+  m_MaxSize: {x: 10000, y: 10000}
+  m_Maximized: 1
+--- !u!114 &2
+
+  m_RootView: {fileID: 7}
+  m_MinSize: {x: 875, y: 521}
+  m_MaxSize: {x: 10000, y: 10000}
+  m_Maximized: 1
+--- !u!114 &3
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: ConsoleWindow
+  m_EditorClassIdentifier: 
+  m_Children: []
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 801
+    height: 423
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 16}
+  m_Panes:
+  - {fileID: 16}
+  m_Selected: 0
+  m_LastSelected: 0
+--- !u!114 &4
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 3}
+  m_Position:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 801
+    height: 423
+  m_MinSize: {x: 100, y: 121}
+  m_MaxSize: {x: 4000, y: 4021}
+  vertical: 0
+  controlID: 1235
+--- !u!114 &5
+
   m_RootView: {fileID: 7}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &3
+
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -148,8 +212,17 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
+
+
+  controlID: 35
+--- !u!114 &4
+
+  controlID: 85
+--- !u!114 &7
+
   controlID: 79
 --- !u!114 &7
+
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -217,11 +290,26 @@ MonoBehaviour:
     y: 30
     width: 1600
     height: 767
+
+  m_MinSize: {x: 709, y: 492}
+  m_MaxSize: {x: 18004, y: 14042}
+  vertical: 0
+  controlID: 79
+--- !u!114 &7
+
+  m_MinSize: {x: 709, y: 471}
+  m_MaxSize: {x: 18004, y: 14021}
+  vertical: 0
+  controlID: 181
+--- !u!114 &10
+
+
   m_MinSize: {x: 708, y: 471}
   m_MaxSize: {x: 18003, y: 14021}
   vertical: 0
   controlID: 28
 --- !u!114 &10
+
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,8 +380,16 @@ MonoBehaviour:
   m_MinSize: {x: 232, y: 471}
   m_MaxSize: {x: 10002, y: 14021}
   vertical: 1
+
+  controlID: 80
+--- !u!114 &10
+
+  controlID: 130
+--- !u!114 &13
+
   controlID: 29
 --- !u!114 &13
+
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,9 +408,18 @@ MonoBehaviour:
     y: 0
     width: 388
     height: 767
+
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
+
+  m_ActualView: {fileID: 14}
+
+  m_ActualView: {fileID: 18}
+
   m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 18}
+
   m_Panes:
   - {fileID: 18}
   - {fileID: 17}
@@ -518,7 +623,13 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 6c340000
     m_LastClickedID: 13420
+
+    m_ExpandedIDs: 
+
+    m_ExpandedIDs: 00000000923900009439000096390000983900009a390000
+
     m_ExpandedIDs: 000000008a3900008c3900008e3900009039000092390000
+
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -546,7 +657,13 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
+
+    m_ExpandedIDs: ffffffff000000007c480000a0480000124900002c490000
+
+    m_ExpandedIDs: ffffffff00000000923900009439000096390000983900009a390000
+
     m_ExpandedIDs: ffffffff000000008a3900008c3900008e3900009039000092390000
+
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: StartingBlock
@@ -838,9 +955,19 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
+
+      m_SelectedIDs: 2ef8ffff
+      m_LastClickedID: -2002
+      m_ExpandedIDs: 0afafffff0faffff
+
+      m_SelectedIDs: b2d5ffff
+      m_LastClickedID: 0
+      m_ExpandedIDs: 3efbffff
+
       m_SelectedIDs: 208bffff
       m_LastClickedID: 0
       m_ExpandedIDs: 3efbffff
+
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 

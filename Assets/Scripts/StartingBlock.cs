@@ -11,6 +11,9 @@ public class StartingBlock : MonoBehaviour
     public static StartingBlock CurrentBlock {   get; set;  }
     public static StartingBlock LastBlock {   get; set;  }
 
+
+    public static BlockSpawner spawnerBlock { get; set; }
+
     public static Rigidbody rigidBlock;
     public static Rigidbody2D rigidBlock2D;
     [SerializeField]
@@ -33,6 +36,7 @@ public class StartingBlock : MonoBehaviour
             //this makes it so the lastBlock becomes the gameobject 'Stack'
             LastBlock = GameObject.Find("Stack").GetComponent<StartingBlock>();
         } 
+
             CurrentBlock = this;
 
             //OnEnable starts the local scale of the current cube to these set of parameters
@@ -88,7 +92,7 @@ public class StartingBlock : MonoBehaviour
 
         float blockEdge = transform.position.x + (newXSize /2f * direction); //multiplying by the direction calculates if its on the left or the right side
         float fallingBlockXPosition = blockEdge + fallingBlockSize / 2f * direction;
-        
+
         SpawnDropBlock(fallingBlockXPosition, fallingBlockSize);
     }
 
@@ -128,6 +132,7 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //if canPressAgain is set to true, we can press spacebar, else nothing happens
         if(canPressAgain == true){
 
@@ -152,7 +157,7 @@ public class StartingBlock : MonoBehaviour
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
             
             CurrentBlock = LastBlock;
-            
+
             //sets the hasStacked boolean to true
             hasStacked = true;
             Debug.Log("The new size of " + LastBlock.name + " is " + LastBlockXSize);
@@ -165,8 +170,11 @@ public class StartingBlock : MonoBehaviour
             
             hasStacked = true;
             canPressAgain = true;
+
+            Debug.Log("The new size of " + LastBlock.name + " is " + LastBlockXSize);
+
             Debug.Log("The new size of " + LastBlock.name + "is " + LastBlockXSize);
-            
+
 
         }
 
