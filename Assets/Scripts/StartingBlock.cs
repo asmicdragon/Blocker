@@ -11,7 +11,9 @@ public class StartingBlock : MonoBehaviour
     public static StartingBlock CurrentBlock {   get; set;  }
     public static StartingBlock LastBlock {   get; set;  }
 
+
     public static BlockSpawner spawnerBlock { get; set; }
+
     public static Rigidbody rigidBlock;
     public static Rigidbody2D rigidBlock2D;
     [SerializeField]
@@ -69,7 +71,6 @@ public class StartingBlock : MonoBehaviour
             //calculates the trimming on the currentblock only along with the direction it is at
             
             CurrentBlock.SplitBlockOnX(hangover, direction);
-            
 
     }
     private void SplitBlockOnX(float hangover, float direction)
@@ -169,7 +170,11 @@ public class StartingBlock : MonoBehaviour
             
             hasStacked = true;
             canPressAgain = true;
+
             Debug.Log("The new size of " + LastBlock.name + " is " + LastBlockXSize);
+
+            Debug.Log("The new size of " + LastBlock.name + "is " + LastBlockXSize);
+
 
         }
 
