@@ -8,12 +8,21 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
+<<<<<<< HEAD
+  - component: {fileID: 802190243320717318}
+  - component: {fileID: 802190243320717319}
+  - component: {fileID: 802190243320717316}
+  - component: {fileID: 802190243320717314}
+  - component: {fileID: -7087755855149564640}
+  - component: {fileID: -4147790147857351238}
+=======
   - component: {fileID: 8542466141609774938}
   - component: {fileID: 2909104789256295567}
   - component: {fileID: -2569021726419632231}
   - component: {fileID: 1973362798906957355}
   - component: {fileID: 5500046234969957115}
   - component: {fileID: 9141880627303189464}
+>>>>>>> Kieran
   m_Layer: 0
   m_Name: StartingBlock
   m_TagString: Untagged
@@ -104,7 +113,23 @@ BoxCollider2D:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1280073891153465721}
   m_Enabled: 1
+<<<<<<< HEAD
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f32a3e035ca912f46ab09623b0a1f3a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _speed: 1.5
+  _verticalMovement: -0.5
+--- !u!65 &-7087755855149564640
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802190243320717315}
+=======
   m_Density: 1
+>>>>>>> Kieran
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
@@ -120,11 +145,18 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
+<<<<<<< HEAD
+  m_Size: {x: 1, y: 0.99999994, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &-4147790147857351238
+Rigidbody:
+=======
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &9141880627303189464
 Rigidbody2D:
   serializedVersion: 4
+>>>>>>> Kieran
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}

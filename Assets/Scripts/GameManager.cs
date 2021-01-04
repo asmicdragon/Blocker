@@ -5,7 +5,11 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private void Start() {
+<<<<<<< HEAD
+
+=======
         
+>>>>>>> Kieran
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
     }
     private void Update()
