@@ -118,7 +118,7 @@ public class StartingBlock : MonoBehaviour
         Vector3 goingDown = new Vector3(0,_verticalMovement, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x,-4f, 4f),transform.position.y, transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x,-6.43f, 6.43f),transform.position.y, transform.position.z);
         
         
     }

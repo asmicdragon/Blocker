@@ -17,6 +17,9 @@ public class GameManager : MonoBehaviour
 
             StartingBlock.CurrentBlock.Stop(); 
             Debug.Log(StartingBlock.CurrentBlock);  
+            //This sets the verticalmovement to fall faster when pressing spacebar
+            StartingBlock.CurrentBlock._verticalMovement = -3f;
+
             }
         }
         if(StartingBlock.CurrentBlock._verticalMovement >= 0){
