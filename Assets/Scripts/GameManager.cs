@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     IEnumerator moveCameraRoutine() {
         //checks if moveCamera is true, while its true it will wait 0.5 seconds to turn the bool to false
         while(moveCamera == true){
-            yield return new WaitForSeconds(Mathf.Abs(1f));
+            yield return new WaitForSeconds(Mathf.Abs(0.5f));
             moveCamera = false;
         }
     }

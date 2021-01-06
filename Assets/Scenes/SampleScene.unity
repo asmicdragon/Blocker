@@ -253,7 +253,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2a3dfcc782b5e49b6e91b2f5a704d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMoveSpeed: 0.9
+  cameraMoveSpeed: 1.7
   canMove: 0
 --- !u!20 &519420031
 Camera:
@@ -677,7 +677,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 16.51
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
