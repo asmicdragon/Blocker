@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ScoreText : MonoBehaviour
 {
-
+    [SerializeField]
     Text score;
     void Start() {
     //gets the component Text and adds it to the score, which makes this variable 'Text'

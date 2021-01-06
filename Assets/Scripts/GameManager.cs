@@ -38,6 +38,7 @@ public class GameManager : MonoBehaviour
 
             //everytime the block is spawned, the score increments by 1 
             score++;
+            Debug.Log("score: " + score);
         } 
         
     }
