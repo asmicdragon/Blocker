@@ -5,12 +5,15 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public int score;
+    public bool moveCamera;
     private void Start() {
         
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
     }
+    
     private void Update()
     {
+        StartCoroutine(moveCameraRoutine());
 
         if (Input.GetButtonDown("Jump") && StartingBlock.CurrentBlock.canPressAgain == true)
         {
@@ -29,8 +32,21 @@ public class GameManager : MonoBehaviour
             //by making it the lastblock, the game has to automatically wait for the hasStacked variable to turn true before spawning
             StartingBlock.CurrentBlock = StartingBlock.LastBlock;
             FindObjectOfType<BlockSpawner>().SpawnBlock();
+
+            //sets the moveCamera to true everytime the block is spawned
+            moveCamera = true;
+
             //everytime the block is spawned, the score increments by 1 
             score++;
+        } 
+        
+    }
+    //This will make the moveCamera bool turn to false after 0.5 seconds
+    IEnumerator moveCameraRoutine() {
+        //checks if moveCamera is true, while its true it will wait 0.5 seconds to turn the bool to false
+        while(moveCamera == true){
+            yield return new WaitForSeconds(Mathf.Abs(1f));
+            moveCamera = false;
         }
     }
 }

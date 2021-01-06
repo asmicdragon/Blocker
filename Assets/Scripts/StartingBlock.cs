@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,9 +10,12 @@ public class StartingBlock : MonoBehaviour
     
     public static StartingBlock CurrentBlock {   get; set;  }
     public static StartingBlock LastBlock {   get; set;  }
-
+    //this is to use the rigidbody Component
     public static Rigidbody rigidBlock;
+    
+    //this is to use the rigidbody2D Component
     public static Rigidbody2D rigidBlock2D;
+
     [SerializeField]
     public float _speed = 3.5f;
     public bool spaceKeyPressed;
@@ -24,8 +27,6 @@ public class StartingBlock : MonoBehaviour
     public float LastBlockXSize;
     [SerializeField]
     public float _verticalMovement = -1.5f;
-
-    public int score;
 
     //Enabling the game to set the variable currentBlock to this gameobject
     private void OnEnable() 
@@ -63,6 +64,7 @@ public class StartingBlock : MonoBehaviour
                 LastBlock = null;
                 CurrentBlock = null;
                 SceneManager.LoadScene(0);
+                
             }
             
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
@@ -140,10 +142,7 @@ public class StartingBlock : MonoBehaviour
                 canPressAgain = false;
             }
         } 
-        if(CurrentBlock._verticalMovement == 0){
-            LastBlock.score++;
-            Debug.Log("your score is: "+LastBlock.score);
-        }
+ 
 
         CalculateMovement();
     }
@@ -151,13 +150,14 @@ public class StartingBlock : MonoBehaviour
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
     private void OnTriggerEnter2D(Collider2D other) {
         //calls upon the currentBlock and calls the stop method onto it
+
         if(spaceKeyPressed == false){
 
             CurrentBlock.Stop();
             _verticalMovement = 0;
 
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
-            
+ 
             LastBlock = CurrentBlock;
             
             //sets the hasStacked boolean to true
