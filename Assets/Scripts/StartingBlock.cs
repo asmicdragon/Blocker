@@ -25,6 +25,8 @@ public class StartingBlock : MonoBehaviour
     [SerializeField]
     public float _verticalMovement = -1.5f;
 
+    public int score;
+
     //Enabling the game to set the variable currentBlock to this gameobject
     private void OnEnable() 
     {
@@ -56,7 +58,7 @@ public class StartingBlock : MonoBehaviour
             //hangover is the part that hangsout and gets trimmed
             float hangover = transform.position.x - LastBlock.transform.position.x;
             
-            if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x){
+            if(Mathf.Abs(hangover) > LastBlock.transform.localScale.x){
 
                 LastBlock = null;
                 CurrentBlock = null;
@@ -138,6 +140,10 @@ public class StartingBlock : MonoBehaviour
                 canPressAgain = false;
             }
         } 
+        if(CurrentBlock._verticalMovement == 0){
+            LastBlock.score++;
+            Debug.Log("your score is: "+LastBlock.score);
+        }
 
         CalculateMovement();
     }
@@ -156,7 +162,6 @@ public class StartingBlock : MonoBehaviour
             
             //sets the hasStacked boolean to true
             hasStacked = true;
-            Debug.Log("The new size of " + LastBlock.name + " is " + LastBlockXSize);
 
         } else  {
 
@@ -166,10 +171,10 @@ public class StartingBlock : MonoBehaviour
             
             hasStacked = true;
             canPressAgain = true;
-            Debug.Log("The new size of " + LastBlock.name + "is " + LastBlockXSize);
-            
+    
 
         }
+        
 
     }
 }

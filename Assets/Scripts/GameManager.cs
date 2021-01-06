@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-
+    public int score;
     private void Start() {
         
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
@@ -28,7 +28,9 @@ public class GameManager : MonoBehaviour
             //This will turn the current block into the last block and spawn a new one
             //by making it the lastblock, the game has to automatically wait for the hasStacked variable to turn true before spawning
             StartingBlock.CurrentBlock = StartingBlock.LastBlock;
-            FindObjectOfType<BlockSpawner>().SpawnBlock(); 
+            FindObjectOfType<BlockSpawner>().SpawnBlock();
+            //everytime the block is spawned, the score increments by 1 
+            score++;
         }
     }
 }
