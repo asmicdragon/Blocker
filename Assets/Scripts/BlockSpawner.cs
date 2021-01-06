@@ -16,5 +16,8 @@ public class BlockSpawner : MonoBehaviour
         // placing the position of the new block at this flat position
         block.transform.position = new Vector3(StartingBlock.LastBlock.transform.position.x, 4.54f, transform.position.z);
         cloneIncrement++;
+        block.transform.localScale = new Vector3(StartingBlock.LastBlock.transform.localScale.x,
+                                                StartingBlock.LastBlock.transform.localScale.y,
+                                                StartingBlock.LastBlock.transform.localScale.z);
     }
 }

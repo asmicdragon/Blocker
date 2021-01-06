@@ -111,7 +111,7 @@ public class StartingBlock : MonoBehaviour
     {
 
         float _horizontalInput = Input.GetAxis("Horizontal");
-        //Movement method, using Vector2 as it is a 2D Game
+        //Movement method, using Vector3 as it is a 3D Game based as 2D
         // only making horizontal input so that the player cant move up and down aswell
 
         Vector3 direction = new Vector3(_horizontalInput,0, 0);
@@ -128,6 +128,7 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //if canPressAgain is set to true, we can press spacebar, else nothing happens
         if(canPressAgain == true){
 
@@ -151,7 +152,7 @@ public class StartingBlock : MonoBehaviour
 
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
             
-            CurrentBlock = LastBlock;
+            LastBlock = CurrentBlock;
             
             //sets the hasStacked boolean to true
             hasStacked = true;
@@ -161,7 +162,7 @@ public class StartingBlock : MonoBehaviour
 
             _verticalMovement = 0;
             
-            CurrentBlock = LastBlock;
+            LastBlock = CurrentBlock;
             
             hasStacked = true;
             canPressAgain = true;
