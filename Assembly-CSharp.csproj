@@ -36,12 +36,14 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\Scripts\BlockSpawner.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\ScoreText.cs" />
      <Compile Include="Assets\Scripts\StartingBlock.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
+     <Compile Include="Assets\Scripts\Wall2.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

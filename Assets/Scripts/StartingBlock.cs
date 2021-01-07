@@ -63,7 +63,8 @@ public class StartingBlock : MonoBehaviour
 
                 LastBlock = null;
                 CurrentBlock = null;
-                SceneManager.LoadScene(0);
+                SceneManager.LoadScene("MainMenu");
+                
                 
             }
             

@@ -791,8 +791,8 @@ GameObject:
   - component: {fileID: 2118135065}
   - component: {fileID: 2118135064}
   - component: {fileID: 2118135063}
-  - component: {fileID: 2118135062}
   - component: {fileID: 2118135066}
+  - component: {fileID: 2118135062}
   m_Layer: 0
   m_Name: Wall 1
   m_TagString: Untagged
@@ -896,10 +896,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2118135061}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e80f98e327bf8e144a1c8726764577e0, type: 3}
+  m_Script: {fileID: 11500000, guid: 56955650607ac4c479fe8274a3f06f6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeIncrementation: 0
 --- !u!1001 &7464565602678247651
 PrefabInstance:
   m_ObjectHideFlags: 0
