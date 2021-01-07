@@ -59,7 +59,7 @@ public class StartingBlock : MonoBehaviour
             //hangover is the part that hangsout and gets trimmed
             float hangover = transform.position.x - LastBlock.transform.position.x;
             
-            if(Mathf.Abs(hangover) > LastBlock.transform.localScale.x){
+            if(Mathf.Abs(hangover) > LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
 
                 LastBlock = null;
                 CurrentBlock = null;
@@ -122,7 +122,7 @@ public class StartingBlock : MonoBehaviour
         Vector3 goingDown = new Vector3(0,_verticalMovement, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x,-6.43f, 6.43f),transform.position.y, transform.position.z);
+        transform.position = new Vector3(Mathf.Clamp(transform.position.x,-5.57f, 5.57f),transform.position.y, transform.position.z);
         
         
     }
