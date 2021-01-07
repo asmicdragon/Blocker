@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    private GameObject wall {get; set;}
+    private static Wall wall {get; set;}
     // Start is called before the first frame update
     bool moveCamera;
+    [SerializeField]
     float sizeIncrementation;
     void Start()
     {
-        wall = GameObject.Find("Wall");
+        wall = this;
         moveCamera = FindObjectOfType<GameManager>().moveCamera;
         sizeIncrementation = FindObjectOfType<CameraController>().cameraMoveSpeed;
     }
