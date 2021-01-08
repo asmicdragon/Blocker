@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 5722331473087592969}
   - component: {fileID: 3425991258619067687}
   - component: {fileID: 7209338533516359049}
-  - component: {fileID: -802960563255435015}
   - component: {fileID: 6862386528208734455}
   - component: {fileID: -881328074952848670}
   m_Layer: 0
@@ -82,28 +81,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &-802960563255435015
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7762548612553381087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ec4f7128ad17f264b8021c57085ce0b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  theStack: {fileID: 4669898637190278652, guid: d50c74234fc3af74a87ec490928074a9,
-    type: 3}
-  _speed: 0
-  spaceKeyPressed: 0
-  hasStacked: 0
-  canPressAgain: 1
-  LastBlockXSize: 0
-  hangoverSize: 0
-  directionOnX: 0
-  _verticalMovement: 0
 --- !u!61 &6862386528208734455
 BoxCollider2D:
   m_ObjectHideFlags: 0

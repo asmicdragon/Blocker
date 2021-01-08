@@ -10,8 +10,8 @@ public class StartingBlock : MonoBehaviour
     
     public static StartingBlock CurrentBlock {   get; set;  }
     public static StartingBlock LastBlock {   get; set;  }
-
-    public static StartingBlock Obstacle {  get; set;  }
+    [SerializeField]
+    public static StartingBlock Obstacle {get; set;}
     //this is to use the rigidbody Component
     public static Rigidbody rigidBlock;
     
@@ -45,15 +45,16 @@ public class StartingBlock : MonoBehaviour
             transform.localScale = new Vector3(LastBlock.transform.localScale.x, transform.localScale.y, LastBlock.transform.localScale.z);
         
         //Creating the obstacle inside the starting block so that we can make them interact with the StartingBlock
-        /*if(Obstacle == null){
+        if(Obstacle == null){
 
             Obstacle = GameObject.Find("Obstacle").GetComponent<StartingBlock>();
+        
+        }
 
-        }*/
         
         
     }
-  
+
 
     //the below comments are done to add a tag to the method Stop()
 

@@ -254,6 +254,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraMoveSpeed: 1.7
+  topOfCameraY: 5
   canMove: 0
 --- !u!20 &519420031
 Camera:
@@ -343,7 +344,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockPreFab: {fileID: -2569021726419632231, guid: 379b3c67ac8055a478efd3281da174b6,
     type: 3}
+  obstaclePreFab: {fileID: 0}
   cloneIncrement: 0
+  topOfCameraY: 0
 --- !u!4 &629908204
 Transform:
   m_ObjectHideFlags: 0
@@ -811,20 +814,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -802960563255435015, guid: 9668e7f4501fd014c9048c669a72ff34,
-        type: 3}
-      propertyPath: theStack
-      value: 
-      objectReference: {fileID: 1370870541}
     - target: {fileID: 5722331473087592969, guid: 9668e7f4501fd014c9048c669a72ff34,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.6
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5722331473087592969, guid: 9668e7f4501fd014c9048c669a72ff34,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.75
+      value: 5.25
       objectReference: {fileID: 0}
     - target: {fileID: 5722331473087592969, guid: 9668e7f4501fd014c9048c669a72ff34,
         type: 3}
@@ -879,9 +877,11 @@ PrefabInstance:
     - target: {fileID: 7762548612553381087, guid: 9668e7f4501fd014c9048c669a72ff34,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3425991258619067687, guid: 9668e7f4501fd014c9048c669a72ff34, type: 3}
+    - {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 9668e7f4501fd014c9048c669a72ff34, type: 3}
 --- !u!1001 &7464565602678247651
 PrefabInstance:
@@ -908,7 +908,7 @@ PrefabInstance:
     - target: {fileID: 8542466141609774938, guid: 379b3c67ac8055a478efd3281da174b6,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.54
+      value: 4.53
       objectReference: {fileID: 0}
     - target: {fileID: 8542466141609774938, guid: 379b3c67ac8055a478efd3281da174b6,
         type: 3}

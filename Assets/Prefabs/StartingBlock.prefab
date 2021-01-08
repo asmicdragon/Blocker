@@ -56,6 +56,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4f7128ad17f264b8021c57085ce0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Obstacle: {fileID: 7762548612553381087, guid: 9668e7f4501fd014c9048c669a72ff34,
+    type: 3}
   _speed: 3.5
   spaceKeyPressed: 0
   hasStacked: 0

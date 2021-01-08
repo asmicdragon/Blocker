@@ -46,14 +46,19 @@ public class GameManager : MonoBehaviour
             //everytime the block is spawned, the score increments by 1 
             score++;
             Debug.Log("score: " + score);
-        } 
+        }
+        if(score >= 3 && StartingBlock.Obstacle == null) {
+            
+            FindObjectOfType<BlockSpawner>().SpawnObstacle();
+
+        }
         
     }
     //This will make the moveCamera bool turn to false after 0.5 seconds
     IEnumerator moveCameraRoutine() {
         //checks if moveCamera is true, while its true it will wait 0.5 seconds to turn the bool to false
         while(moveCamera == true){
-            yield return new WaitForSeconds(Mathf.Abs(0.51f));
+            yield return new WaitForSeconds(Mathf.Abs(0.505f));
             moveCamera = false;
         }
     }
