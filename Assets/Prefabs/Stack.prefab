@@ -54,7 +54,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec4f7128ad17f264b8021c57085ce0b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  theStack: {fileID: 4669898637190278652}
   _speed: 0
+  spaceKeyPressed: 0
+  hasStacked: 0
+  canPressAgain: 1
+  LastBlockXSize: 0
+  hangoverSize: 0
+  directionOnX: 0
   _verticalMovement: 0
 --- !u!23 &9027678863441505683
 MeshRenderer:

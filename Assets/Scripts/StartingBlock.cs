@@ -10,6 +10,8 @@ public class StartingBlock : MonoBehaviour
     
     public static StartingBlock CurrentBlock {   get; set;  }
     public static StartingBlock LastBlock {   get; set;  }
+
+    public static StartingBlock Obstacle {  get; set;  }
     //this is to use the rigidbody Component
     public static Rigidbody rigidBlock;
     
@@ -25,6 +27,7 @@ public class StartingBlock : MonoBehaviour
     public bool canPressAgain = true;
 
     public float LastBlockXSize;
+
     [SerializeField]
     public float _verticalMovement = -1.5f;
 
@@ -40,10 +43,17 @@ public class StartingBlock : MonoBehaviour
 
             //OnEnable starts the local scale of the current cube to these set of parameters
             transform.localScale = new Vector3(LastBlock.transform.localScale.x, transform.localScale.y, LastBlock.transform.localScale.z);
+        
+        //Creating the obstacle inside the starting block so that we can make them interact with the StartingBlock
+        /*if(Obstacle == null){
 
+            Obstacle = GameObject.Find("Obstacle").GetComponent<StartingBlock>();
+
+        }*/
         
         
     }
+  
 
     //the below comments are done to add a tag to the method Stop()
 
@@ -55,6 +65,7 @@ public class StartingBlock : MonoBehaviour
     internal void Stop()
     {
             //turns the speed to zero when the method is called
+            
             _speed = 0;
             //hangover is the part that hangsout and gets trimmed
             float hangover = transform.position.x - LastBlock.transform.position.x;
@@ -63,7 +74,7 @@ public class StartingBlock : MonoBehaviour
 
                 LastBlock = null;
                 CurrentBlock = null;
-                SceneManager.LoadScene("MainMenu");
+                SceneManager.LoadScene(0);
                 
                 
             }
@@ -72,8 +83,8 @@ public class StartingBlock : MonoBehaviour
             //calculates the trimming on the currentblock only along with the direction it is at
             
             CurrentBlock.SplitBlockOnX(hangover, direction);
-
     }
+
     private void SplitBlockOnX(float hangover, float direction)
     {
         
@@ -123,12 +134,16 @@ public class StartingBlock : MonoBehaviour
         Vector3 goingDown = new Vector3(0,_verticalMovement, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
-        transform.position = new Vector3(Mathf.Clamp(transform.position.x,-4f, 4f),transform.position.y, transform.position.z);
+
+        //Clamp is only needed to place borders, we can use a collider to stop it from going beyond
         
+        //transform.position = new Vector3(Mathf.Clamp(transform.position.x,-4f, 4f),transform.position.y, transform.position.z);
+        
+
         
     }
     void Start() {
-    
+        
     }
     // Update is called once per frame
     void Update()
@@ -149,34 +164,39 @@ public class StartingBlock : MonoBehaviour
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
+
     private void OnTriggerEnter2D(Collider2D other) {
         //calls upon the currentBlock and calls the stop method onto it
+        if(other.gameObject.tag == "Wall"){
 
-        if(spaceKeyPressed == false){
-
-            CurrentBlock.Stop();
-            _verticalMovement = 0;
-
-            //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
- 
-            LastBlock = CurrentBlock;
+            return; //Do nothing
             
-            //sets the hasStacked boolean to true
-            hasStacked = true;
+        } else {
 
-        } else  {
+            if(spaceKeyPressed == false){
 
-            _verticalMovement = 0;
-            
-            LastBlock = CurrentBlock;
-            
-            hasStacked = true;
-            canPressAgain = true;
+                CurrentBlock.Stop();
+                _verticalMovement = 0;
+
+                //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
     
+                LastBlock = CurrentBlock;
+                
+                //sets the hasStacked boolean to true
+                hasStacked = true;
+            Debug.Log("new size: "+LastBlockXSize);
+            } else  {
 
+                _verticalMovement = 0;
+                
+                LastBlock = CurrentBlock;
+                
+                hasStacked = true;
+                canPressAgain = true;
+            Debug.Log("new size: "+LastBlockXSize);
+
+            }
         }
-        
-
     }
 }
 
