@@ -48,38 +48,9 @@ public class StartingBlock : MonoBehaviour
     internal void TrimOnObstacle()
     {
 
-            //hangover is the part that hangsout and gets trimmed
-            float hangoverOnObstacle = transform.position.x - Obstacle.obstacle.transform.position.x;
-            
-            float directionOnObstacle = hangoverOnObstacle > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
-            
-            //calculates the trimming on the currentblock only along with the direction it is at on the X axis
-            
-            CurrentBlock.SplitBlockOnXObstacle(hangoverOnObstacle, directionOnObstacle);
+
     }
     
-    //Splitting block method when colliding on the obstacls
-        private void SplitBlockOnXObstacle(float hangoverOnObstacle, float directionOnObstacle)
-    {
-        
-        //with this method we can get the size of the block so that we can make it look like it is being trimmed
-        //calculating the size of the falling block with the new block
-        //calculating the position to position it perfectly on the stack.
-        //by dividing the hangover by 2, this gives half the hangover but turns that into a transform position which switches the block to half the hangover position
-
-        float newXSize = Obstacle.obstacle.transform.localScale.x - Mathf.Abs(hangoverOnObstacle);
-        float newXPosition = Obstacle.obstacle.transform.position.x + (hangoverOnObstacle / 2f);
-        float fallingBlockSize = transform.localScale.x - newXSize;
-        //inputting the new variables in the game newXSize and newXPosition
-        transform.localScale = new Vector3(newXSize, transform.localScale.y, transform.localScale.z);
-        transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
-
-
-        float blockEdge = transform.position.x + (newXSize /2f * directionOnObstacle); //multiplying by the direction calculates if its on the left or the right side
-        float fallingBlockXPosition = blockEdge + fallingBlockSize / 2f * directionOnObstacle;
-        
-        SpawnDropBlock(fallingBlockXPosition, fallingBlockSize);
-    }
 
     //the below comments are done to add a tag to the method Stop()
 
@@ -179,12 +150,7 @@ public class StartingBlock : MonoBehaviour
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
-    private void OnCollisionEnter2D(Collision2D other) {
-        
-        if(other.collider == Obstacle.obstacle){
-            CurrentBlock.TrimOnObstacle();
-        }
-    }
+
     private void OnTriggerEnter2D(Collider2D other) {
         
         //calls upon the currentBlock and calls the stop method onto it
@@ -195,7 +161,7 @@ public class StartingBlock : MonoBehaviour
         }
         if(other.gameObject.tag == "Obstacle"){
 
-            return;
+            return; //Do nothing
 
         } else {
 

@@ -17,13 +17,24 @@ public class Obstacle : MonoBehaviour
         }
     }
     private void Start() {
-    
 
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         
+        if(transform.localScale.x <3) {
+        
+        transform.localScale +=  new Vector3(1f,0,0)* (Time.deltaTime * 2);
+        transform.position +=  new Vector3(0.5f,0,0)* (Time.deltaTime * 2);
+        }  else if(transform.localScale.x >= 3){
+            
+            transform.position +=  new Vector3(1f,0,0) * (Time.deltaTime * 2);
+            
+        }
     }
+    
+    
 }
