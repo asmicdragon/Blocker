@@ -26,8 +26,4 @@ public class Obstacle : MonoBehaviour
     {
         
     }
-    private void OnTriggerEnter2D(Collider2D other) {
-
-        StartingBlock.CurrentBlock.GetComponent<StartingBlock>().TrimOnObstacle();
-    }
 }

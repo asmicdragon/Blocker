@@ -26,17 +26,6 @@ public class GameManager : MonoBehaviour
         //Starts the coroutine of the moving camera
         StartCoroutine(moveCameraRoutine());
 
-        if (Input.GetButtonDown("Jump") && StartingBlock.CurrentBlock.canPressAgain == true)
-        {
-            if(StartingBlock.CurrentBlock != null) {
-
-            StartingBlock.CurrentBlock.Stop(); 
-            Debug.Log(StartingBlock.CurrentBlock);  
-            //This sets the verticalmovement to fall faster when pressing spacebar
-            StartingBlock.CurrentBlock._verticalMovement = -3f;
-
-            }
-        }
 
         if(StartingBlock.CurrentBlock._verticalMovement >= 0){
             //This will turn the current block into the last block and spawn a new one
@@ -51,7 +40,7 @@ public class GameManager : MonoBehaviour
             score++;
             Debug.Log("score: " + score);
         }
-        if(score >= 3 && obstacleCount < 3 && Obstacle.obstacle == null) {
+        if(score >= 0 && obstacleCount < 3 && Obstacle.obstacle == null) {
             
             FindObjectOfType<BlockSpawner>().SpawnObstacle();
             obstacleCount++;
@@ -63,7 +52,7 @@ public class GameManager : MonoBehaviour
     IEnumerator moveCameraRoutine() {
         //checks if moveCamera is true, while its true it will wait 0.5 seconds to turn the bool to false
         while(moveCamera == true){
-            yield return new WaitForSeconds(Mathf.Abs(0.505f));
+            yield return new WaitForSeconds(Mathf.Abs(0.5135f));
             moveCamera = false;
         }
     }

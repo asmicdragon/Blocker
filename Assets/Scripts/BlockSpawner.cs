@@ -28,6 +28,6 @@ public class BlockSpawner : MonoBehaviour
         topOfCameraY = CameraController.FindObjectOfType<CameraController>().topOfCameraY;
         var obstacle = Instantiate(obstaclePreFab);
         obstacle.gameObject.SetActive(true);
-        obstacle.transform.position = new Vector3(Random.Range(Wall.wall1.transform.position.x + 2, Wall.wall2.transform.position.x - 2), topOfCameraY, transform.position.z);
+        obstacle.transform.position = new Vector3(Random.Range(Wall.wall1.transform.position.x - 2, Wall.wall2.transform.position.x + 2), topOfCameraY + 0.25f, transform.position.z);
     }
 }

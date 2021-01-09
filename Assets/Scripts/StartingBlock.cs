@@ -20,11 +20,10 @@ public class StartingBlock : MonoBehaviour
 
     [SerializeField]
     public float _speed = 3.5f;
-    public bool spaceKeyPressed;
+
     public bool hasStacked = false;
 
     //we will use the canPressAgain to make a switch toggle when we can press spacebar again
-    public bool canPressAgain = true;
 
     public float LastBlockXSize;
 
@@ -50,13 +49,36 @@ public class StartingBlock : MonoBehaviour
     {
 
             //hangover is the part that hangsout and gets trimmed
-            float hangover = transform.position.x - ObstacleBlock.transform.position.x;
+            float hangoverOnObstacle = transform.position.x - Obstacle.obstacle.transform.position.x;
             
-            float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
+            float directionOnObstacle = hangoverOnObstacle > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             
             //calculates the trimming on the currentblock only along with the direction it is at on the X axis
             
-            CurrentBlock.SplitBlockOnX(hangover, direction);
+            CurrentBlock.SplitBlockOnXObstacle(hangoverOnObstacle, directionOnObstacle);
+    }
+    
+    //Splitting block method when colliding on the obstacls
+        private void SplitBlockOnXObstacle(float hangoverOnObstacle, float directionOnObstacle)
+    {
+        
+        //with this method we can get the size of the block so that we can make it look like it is being trimmed
+        //calculating the size of the falling block with the new block
+        //calculating the position to position it perfectly on the stack.
+        //by dividing the hangover by 2, this gives half the hangover but turns that into a transform position which switches the block to half the hangover position
+
+        float newXSize = Obstacle.obstacle.transform.localScale.x - Mathf.Abs(hangoverOnObstacle);
+        float newXPosition = Obstacle.obstacle.transform.position.x + (hangoverOnObstacle / 2f);
+        float fallingBlockSize = transform.localScale.x - newXSize;
+        //inputting the new variables in the game newXSize and newXPosition
+        transform.localScale = new Vector3(newXSize, transform.localScale.y, transform.localScale.z);
+        transform.position = new Vector3(newXPosition, transform.position.y, transform.position.z);
+
+
+        float blockEdge = transform.position.x + (newXSize /2f * directionOnObstacle); //multiplying by the direction calculates if its on the left or the right side
+        float fallingBlockXPosition = blockEdge + fallingBlockSize / 2f * directionOnObstacle;
+        
+        SpawnDropBlock(fallingBlockXPosition, fallingBlockSize);
     }
 
     //the below comments are done to add a tag to the method Stop()
@@ -74,16 +96,14 @@ public class StartingBlock : MonoBehaviour
             //hangover is the part that hangsout and gets trimmed
             float hangover = transform.position.x - LastBlock.transform.position.x;
             
-            if(ObstacleBlock != null && CurrentBlock.transform.position.y < ObstacleBlock.transform.position.y){
-                
-                if(Mathf.Abs(hangover) > LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
+
+                if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
 
                     LastBlock = null;
                     CurrentBlock = null;
                     SceneManager.LoadScene(0);
                 }
                 
-            }
             
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
@@ -155,22 +175,16 @@ public class StartingBlock : MonoBehaviour
     void Update()
     {
 
-        //if canPressAgain is set to true, we can press spacebar, else nothing happens
-        if(canPressAgain == true){
-
-            if(Input.GetButtonDown("Jump")){
-                
-                spaceKeyPressed = true;
-                canPressAgain = false;
-            }
-        } 
- 
-
         CalculateMovement();
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
-
+    private void OnCollisionEnter2D(Collision2D other) {
+        
+        if(other.collider == Obstacle.obstacle){
+            CurrentBlock.TrimOnObstacle();
+        }
+    }
     private void OnTriggerEnter2D(Collider2D other) {
         
         //calls upon the currentBlock and calls the stop method onto it
@@ -178,31 +192,23 @@ public class StartingBlock : MonoBehaviour
 
             return; //Do nothing
             
+        }
+        if(other.gameObject.tag == "Obstacle"){
+
+            return;
+
         } else {
 
-            if(spaceKeyPressed == false){
+            CurrentBlock.Stop();
+            _verticalMovement = 0;
 
-                CurrentBlock.Stop();
-                _verticalMovement = 0;
-
-                //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
-    
-                LastBlock = CurrentBlock;
-                
-                //sets the hasStacked boolean to true
-                hasStacked = true;
-            Debug.Log("new size: "+LastBlockXSize);
-            } else  {
-
-                _verticalMovement = 0;
-                
-                LastBlock = CurrentBlock;
-                
-                hasStacked = true;
-                canPressAgain = true;
-            Debug.Log("new size: "+LastBlockXSize);
-
-            }
+            //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
+        
+            LastBlock = CurrentBlock;
+                    
+            //sets the hasStacked boolean to true
+            hasStacked = true;
+            
         }
     }
 }

@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
         if(canMove == true){ //if canMove is true, the camera can move upwards to the movement speed * deltaTime which is per second
 
             transform.Translate(Vector3.up * Time.deltaTime * cameraMoveSpeed);
-            topOfCameraY = MainCamera.transform.position.y + 5;
+            topOfCameraY = MainCamera.transform.position.y + 5.5f;
 
         } 
     }
