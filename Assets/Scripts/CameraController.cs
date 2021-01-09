@@ -26,7 +26,6 @@ public class CameraController : MonoBehaviour
 
             transform.Translate(Vector3.up * Time.deltaTime * cameraMoveSpeed);
             topOfCameraY = MainCamera.transform.position.y + 5;
-            Debug.Log("The Y axis of the top side of the camera is: "+topOfCameraY);
 
         } 
     }

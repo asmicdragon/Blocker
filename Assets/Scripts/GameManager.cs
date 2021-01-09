@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public int score;
     public bool moveCamera;
+
+    int obstacleCount;
     
     private void Start() {
         
@@ -16,10 +18,12 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
+        //pressing escape takes you to the menu
         if(Input.GetKeyDown(KeyCode.Escape)){
             SceneManager.LoadScene(0);
         }
-        
+
+        //Starts the coroutine of the moving camera
         StartCoroutine(moveCameraRoutine());
 
         if (Input.GetButtonDown("Jump") && StartingBlock.CurrentBlock.canPressAgain == true)
@@ -47,12 +51,13 @@ public class GameManager : MonoBehaviour
             score++;
             Debug.Log("score: " + score);
         }
-        if(score >= 3 && StartingBlock.Obstacle == null) {
+        if(score >= 3 && obstacleCount < 3 && Obstacle.obstacle == null) {
             
             FindObjectOfType<BlockSpawner>().SpawnObstacle();
+            obstacleCount++;
 
         }
-        
+
     }
     //This will make the moveCamera bool turn to false after 0.5 seconds
     IEnumerator moveCameraRoutine() {

@@ -10,8 +10,8 @@ public class StartingBlock : MonoBehaviour
     
     public static StartingBlock CurrentBlock {   get; set;  }
     public static StartingBlock LastBlock {   get; set;  }
-    [SerializeField]
-    public static StartingBlock Obstacle {get; set;}
+    public static StartingBlock ObstacleBlock { get; set; }
+
     //this is to use the rigidbody Component
     public static Rigidbody rigidBlock;
     
@@ -43,18 +43,21 @@ public class StartingBlock : MonoBehaviour
 
             //OnEnable starts the local scale of the current cube to these set of parameters
             transform.localScale = new Vector3(LastBlock.transform.localScale.x, transform.localScale.y, LastBlock.transform.localScale.z);
-        
-        //Creating the obstacle inside the starting block so that we can make them interact with the StartingBlock
-        if(Obstacle == null){
-
-            Obstacle = GameObject.Find("Obstacle").GetComponent<StartingBlock>();
-        
-        }
-
-        
+            
         
     }
+    internal void TrimOnObstacle()
+    {
 
+            //hangover is the part that hangsout and gets trimmed
+            float hangover = transform.position.x - ObstacleBlock.transform.position.x;
+            
+            float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
+            
+            //calculates the trimming on the currentblock only along with the direction it is at on the X axis
+            
+            CurrentBlock.SplitBlockOnX(hangover, direction);
+    }
 
     //the below comments are done to add a tag to the method Stop()
 
@@ -71,12 +74,14 @@ public class StartingBlock : MonoBehaviour
             //hangover is the part that hangsout and gets trimmed
             float hangover = transform.position.x - LastBlock.transform.position.x;
             
-            if(Mathf.Abs(hangover) > LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
-
-                LastBlock = null;
-                CurrentBlock = null;
-                SceneManager.LoadScene(0);
+            if(ObstacleBlock != null && CurrentBlock.transform.position.y < ObstacleBlock.transform.position.y){
                 
+                if(Mathf.Abs(hangover) > LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
+
+                    LastBlock = null;
+                    CurrentBlock = null;
+                    SceneManager.LoadScene(0);
+                }
                 
             }
             
@@ -167,6 +172,7 @@ public class StartingBlock : MonoBehaviour
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
 
     private void OnTriggerEnter2D(Collider2D other) {
+        
         //calls upon the currentBlock and calls the stop method onto it
         if(other.gameObject.tag == "Wall"){
 

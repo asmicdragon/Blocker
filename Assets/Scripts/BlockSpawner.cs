@@ -8,7 +8,7 @@ public class BlockSpawner : MonoBehaviour
     private StartingBlock blockPreFab;
 
     [SerializeField]
-    private StartingBlock obstaclePreFab;
+    private Obstacle obstaclePreFab;
     
     public int cloneIncrement;
     public float topOfCameraY;
@@ -27,6 +27,7 @@ public class BlockSpawner : MonoBehaviour
     public void SpawnObstacle(){
         topOfCameraY = CameraController.FindObjectOfType<CameraController>().topOfCameraY;
         var obstacle = Instantiate(obstaclePreFab);
+        obstacle.gameObject.SetActive(true);
         obstacle.transform.position = new Vector3(Random.Range(Wall.wall1.transform.position.x + 2, Wall.wall2.transform.position.x - 2), topOfCameraY, transform.position.z);
     }
 }
