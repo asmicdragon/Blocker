@@ -25,15 +25,27 @@ public class Obstacle : MonoBehaviour
     void Update()
     {
         
-        if(transform.localScale.x <3) {
+        if(transform.localScale.x <3 && transform.position.x != Wall.wall1.transform.position.x - transform.localScale.x + Wall.wall1.transform.localScale.x ) {
         
         transform.localScale +=  new Vector3(1f,0,0)* (Time.deltaTime * 2);
         transform.position +=  new Vector3(0.5f,0,0)* (Time.deltaTime * 2);
-        }  else if(transform.localScale.x >= 3){
+        }  else if(transform.localScale.x >= 3 && transform.position.x != Wall.wall1.transform.position.x - transform.localScale.x + Wall.wall1.transform.localScale.x){
             
             transform.position +=  new Vector3(1f,0,0) * (Time.deltaTime * 2);
             
         }
+        if(transform.position.x > Wall.wall1.transform.position.x - transform.localScale.x + Wall.wall1.transform.localScale.x ){
+            transform.localScale -=  new Vector3(1f,0,0)* (Time.deltaTime * 2);
+            transform.position -=  new Vector3(0.5f,0,0)* (Time.deltaTime * 2);
+        
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.gameObject == Wall.wall1.gameObject){
+            Destroy(this.gameObject);
+            
+        }
+
     }
     
     

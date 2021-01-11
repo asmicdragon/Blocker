@@ -14,14 +14,14 @@ GameObject:
   - component: {fileID: 8356624229645442464}
   - component: {fileID: 8983577355147381386}
   - component: {fileID: 7013967303100222770}
-  - component: {fileID: -5982143905118603752}
+  - component: {fileID: -430089748982041658}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5269290922379079681
 Transform:
   m_ObjectHideFlags: 0
@@ -142,7 +142,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!61 &-5982143905118603752
+--- !u!61 &-430089748982041658
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -72,7 +72,7 @@ public class StartingBlock : MonoBehaviour
 
                     LastBlock = null;
                     CurrentBlock = null;
-                    SceneManager.LoadScene(0);
+                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
                 
             
@@ -131,6 +131,7 @@ public class StartingBlock : MonoBehaviour
         Vector3 goingDown = new Vector3(0,_verticalMovement, 0);
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
+
 
         //Clamp is only needed to place borders, we can use a collider to stop it from going beyond
         

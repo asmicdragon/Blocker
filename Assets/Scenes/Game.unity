@@ -535,6 +535,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2509092833572958885, guid: 44d21bd947004b944a3ccabe00212e41,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2509092833572958885, guid: 44d21bd947004b944a3ccabe00212e41,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2509092833572958886, guid: 44d21bd947004b944a3ccabe00212e41,
         type: 3}
       propertyPath: m_Name
@@ -819,10 +829,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Obstacle
       objectReference: {fileID: 0}
+    - target: {fileID: 3345923779365695010, guid: 9668e7f4501fd014c9048c669a72ff34,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5269290922379079681, guid: 9668e7f4501fd014c9048c669a72ff34,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 5.46
       objectReference: {fileID: 0}
     - target: {fileID: 5269290922379079681, guid: 9668e7f4501fd014c9048c669a72ff34,
         type: 3}

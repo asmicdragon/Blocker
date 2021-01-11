@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
     private void Start() {
         
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
-        
+        StartCoroutine(CreateObstacleRoutine());
     }
     
     private void Update()
@@ -40,13 +40,14 @@ public class GameManager : MonoBehaviour
             score++;
             Debug.Log("score: " + score);
         } 
-        StartCoroutine(CreateObstacleRoutine());
+        
 
     }
     IEnumerator CreateObstacleRoutine() {
-        while(score >= 0){
+        while(true){
+            FindObjectOfType<BlockSpawner>().SpawnObstacle();
             yield return new WaitForSeconds(5);
-        FindObjectOfType<BlockSpawner>().SpawnObstacle();
+        
         }
             
     }
