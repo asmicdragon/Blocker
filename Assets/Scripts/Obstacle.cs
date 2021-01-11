@@ -5,6 +5,7 @@ using UnityEngine;
 public class Obstacle : MonoBehaviour
 {
     public static Obstacle obstacle {   get; set;   }
+
     // Start is called before the first frame update
     private void Awake() {
         

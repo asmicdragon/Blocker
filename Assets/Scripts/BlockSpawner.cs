@@ -9,7 +9,7 @@ public class BlockSpawner : MonoBehaviour
 
     [SerializeField]
     private Obstacle obstaclePreFab;
-    
+
     public int cloneIncrement;
     public float topOfCameraY;
     private float placeIncrementation;
@@ -25,9 +25,22 @@ public class BlockSpawner : MonoBehaviour
         
     }
     public void SpawnObstacle(){
+        int spawnDirection = 0;
+        spawnDirection += Random.Range(0,99);
+
         topOfCameraY = CameraController.FindObjectOfType<CameraController>().topOfCameraY;
         var obstacle = Instantiate(obstaclePreFab);
         obstacle.gameObject.SetActive(true);
-        obstacle.transform.position = new Vector3(Wall.wall2.transform.position.x + 0.6f, Camera.main.transform.position.y + 0.6f, transform.position.z);
+        
+        if(spawnDirection <= 49){
+            obstacle.transform.position = new Vector3(Wall.wall2.transform.position.x + 0.6f, Camera.main.transform.position.y + 0.6f, transform.position.z);
+        } else {
+
+        if(spawnDirection >= 50){
+            obstacle.transform.position = new Vector3(Wall.wall1.transform.position.x - 0.6f, Camera.main.transform.position.y + 0.6f, transform.position.z);
+
+        }
     }
+}
+
 }
