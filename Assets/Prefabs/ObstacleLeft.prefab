@@ -138,6 +138,8 @@ MonoBehaviour:
   obstacleRight: {fileID: 3974412188297669623, guid: d466aa115493feb40bd892168f4e0870,
     type: 3}
   SpawnDirection: 0
+  obstacleEdge: 0
+  hangoverOnObstacle: 0
 --- !u!50 &7442251920891677664
 Rigidbody2D:
   serializedVersion: 4

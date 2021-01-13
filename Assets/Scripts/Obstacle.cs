@@ -8,23 +8,42 @@ public class Obstacle : MonoBehaviour
     public GameObject obstacleLeft;
     public GameObject obstacleRight;
     public float SpawnDirection;
+    public float obstacleEdge;
+    public float hangoverOnObstacle;
 
     // Start is called before the first frame update
     private void Awake() {
         obstacleLeft.SetActive(true);
         obstacleRight.SetActive(true);
         obstacle = this;
+
     }
-    private void Start() {
+    private void Update() {
+
+        if(StartingBlock.CurrentBlock.transform.position.x > obstacle.transform.position.x){
+            
+            obstacleEdge = Obstacle.obstacle.transform.position.x + (Obstacle.obstacle.transform.localScale.x / 2);
+        } else {
+            obstacleEdge = Obstacle.obstacle.transform.position.x - (Obstacle.obstacle.transform.localScale.x / 2);
+        }
 
         
     }
+    // internal void TrimOnObstacle() {
 
-    // Update is called once per frame
-    void Update()
-    {
+    //     float hangover = transform.position.x - StartingBlock.CurrentBlock.transform.position.x;
+
+    //     float direction = hangover > 0 ? 1 : -1;
+
         
-    }
+    //     SplitXOnObstacle(hangover, direction);
+    // }
+    // private void SplitXOnObstacle(float hangover, float direction){
+    //     float newXSize = StartingBlock.CurrentBlock.transform.localScale.x - Mathf.Abs(hangover);
+    //     float newXPosition;
+    //     float fallingBlockSize;
 
+    //     transform.localScale = new Vector3(newXSize, transform.localScale.y, transform.localScale.z);
+    // }
 }   
     

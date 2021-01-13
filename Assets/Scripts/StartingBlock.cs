@@ -19,9 +19,12 @@ public class StartingBlock : MonoBehaviour
     public static Rigidbody2D rigidBlock2D;
 
     [SerializeField]
-    public float _speed = 3.5f;
+    private float _speed = 3.5f;
+    public float slowDown = 1;
+    public float hangoverOnObstacle;
 
     public bool hasStacked = false;
+    bool canTrim = true;
 
     //we will use the canPressAgain to make a switch toggle when we can press spacebar again
 
@@ -45,12 +48,10 @@ public class StartingBlock : MonoBehaviour
             
         
     }
-    internal void TrimOnObstacle()
-    {
+    void TrimOnObstacle(){
 
-
+        
     }
-    
 
     //the below comments are done to add a tag to the method Stop()
 
@@ -70,8 +71,6 @@ public class StartingBlock : MonoBehaviour
 
                 if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
 
-                    LastBlock = null;
-                    CurrentBlock = null;
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
                 
@@ -132,6 +131,20 @@ public class StartingBlock : MonoBehaviour
         transform.Translate(direction * _speed * Time.deltaTime);
         transform.Translate(goingDown * Time.deltaTime);
 
+        //checks for W pressed the verticalmovement is still going down and that you have enough stamina, which has to be max value to use
+        
+        if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+            StaminaBar.instance.UseStamina(1);
+            _speed = 1.5f;
+            StaminaBar.instance.usingStamina = true;
+            transform.Translate(Vector3.up * slowDown * Time.deltaTime);
+        } else if(_verticalMovement < 0){
+            _speed = 3.5f;
+            StartCoroutine(RechargingStamina());
+        }
+
+
+
 
         //Clamp is only needed to place borders, we can use a collider to stop it from going beyond
         
@@ -140,6 +153,11 @@ public class StartingBlock : MonoBehaviour
 
         
     }
+            IEnumerator RechargingStamina(){
+
+            yield return new WaitForSeconds(3);
+            StaminaBar.instance.usingStamina = false;
+        }
     void Start() {
         
     }
@@ -161,8 +179,8 @@ public class StartingBlock : MonoBehaviour
             
         }
         if(other.gameObject.tag == "Obstacle"){
-
-            return; //Do nothing
+            
+            return;
 
         } else {
 
@@ -179,5 +197,3 @@ public class StartingBlock : MonoBehaviour
         }
     }
 }
-
-
