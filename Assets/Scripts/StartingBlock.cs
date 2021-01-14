@@ -33,7 +33,9 @@ public class StartingBlock : MonoBehaviour
     [SerializeField]
     public float _verticalMovement = -1.5f;
 
+
     //Enabling the game to set the variable currentBlock to this gameobject
+
     private void OnEnable() 
     {
         if (LastBlock == null)
@@ -73,7 +75,7 @@ public class StartingBlock : MonoBehaviour
 
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
-                
+            
             
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at

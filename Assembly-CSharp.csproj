@@ -45,6 +45,7 @@
      <Compile Include="Assets\Scripts\ObstacleRightMove.cs" />
      <Compile Include="Assets\Scripts\ScoreText.cs" />
      <Compile Include="Assets\Scripts\StartingBlock.cs" />
+     <Compile Include="Assets\Scripts\StartingBlockFlip.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
      <Compile Include="Assets\StaminaBar.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
