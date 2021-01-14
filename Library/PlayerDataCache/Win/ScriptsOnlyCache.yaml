@@ -9,6 +9,7 @@ ScriptsOnlyBuild:
     - ObstacleLeftMove
     - ObstacleRightMove
     - ScoreText
+    - StaminaBar
     - StartingBlock
     - Wall
     Unity.2D.Animation.Editor.dll:
@@ -71,31 +72,37 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11296}
+      Script: {instanceID: 11294}
     - Class: 114
-      Script: {instanceID: 11572}
+      Script: {instanceID: 11570}
     - Class: 114
-      Script: {instanceID: 11586}
+      Script: {instanceID: 11584}
     - Class: 114
-      Script: {instanceID: 11848}
+      Script: {instanceID: 11638}
     - Class: 114
-      Script: {instanceID: 12096}
+      Script: {instanceID: 11846}
     - Class: 114
-      Script: {instanceID: 12310}
+      Script: {instanceID: 12094}
     - Class: 114
-      Script: {instanceID: 12406}
+      Script: {instanceID: 12308}
     - Class: 114
-      Script: {instanceID: 12904}
+      Script: {instanceID: 12404}
     - Class: 114
-      Script: {instanceID: 13218}
+      Script: {instanceID: 12902}
     - Class: 114
-      Script: {instanceID: 13626}
+      Script: {instanceID: 13216}
     - Class: 114
-      Script: {instanceID: 13784}
+      Script: {instanceID: 13624}
     - Class: 114
-      Script: {instanceID: 13920}
+      Script: {instanceID: 13782}
     - Class: 114
-      Script: {instanceID: 14398}
+      Script: {instanceID: 13918}
+    - Class: 114
+      Script: {instanceID: 14396}
+    - Class: 114
+      Script: {instanceID: 14438}
+    - Class: 114
+      Script: {instanceID: 14472}
     - Class: 114
       Script: {instanceID: 14494}
     - Class: 115
@@ -105,6 +112,8 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 213
       Script: {instanceID: 0}
     - Class: 222
       Script: {instanceID: 0}
@@ -130,23 +139,23 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11296}
+      Script: {instanceID: 11294}
     - Class: 114
-      Script: {instanceID: 11640}
+      Script: {instanceID: 11638}
     - Class: 114
-      Script: {instanceID: 12310}
+      Script: {instanceID: 12308}
     - Class: 114
-      Script: {instanceID: 13016}
+      Script: {instanceID: 13014}
     - Class: 114
-      Script: {instanceID: 13280}
+      Script: {instanceID: 13278}
     - Class: 114
-      Script: {instanceID: 13366}
+      Script: {instanceID: 13364}
     - Class: 114
-      Script: {instanceID: 13682}
+      Script: {instanceID: 13680}
     - Class: 114
-      Script: {instanceID: 13784}
+      Script: {instanceID: 13782}
     - Class: 114
-      Script: {instanceID: 14398}
+      Script: {instanceID: 14396}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -183,31 +192,31 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11296}
+      Script: {instanceID: 11294}
     - Class: 114
-      Script: {instanceID: 11640}
+      Script: {instanceID: 11638}
     - Class: 114
-      Script: {instanceID: 12310}
+      Script: {instanceID: 12308}
     - Class: 114
-      Script: {instanceID: 12362}
+      Script: {instanceID: 12360}
     - Class: 114
-      Script: {instanceID: 13016}
+      Script: {instanceID: 13014}
     - Class: 114
-      Script: {instanceID: 13280}
+      Script: {instanceID: 13278}
     - Class: 114
-      Script: {instanceID: 13366}
+      Script: {instanceID: 13364}
     - Class: 114
-      Script: {instanceID: 13384}
+      Script: {instanceID: 13382}
     - Class: 114
-      Script: {instanceID: 13682}
+      Script: {instanceID: 13680}
     - Class: 114
-      Script: {instanceID: 13784}
+      Script: {instanceID: 13782}
     - Class: 114
-      Script: {instanceID: 14064}
+      Script: {instanceID: 14062}
     - Class: 114
-      Script: {instanceID: 14398}
+      Script: {instanceID: 14396}
     - Class: 114
-      Script: {instanceID: 14440}
+      Script: {instanceID: 14438}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -515,7 +524,7 @@ ScriptsOnlyBuild:
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
-      Hash: c8f7d9838fcbb6c1589543aa79512ac1
+      Hash: 4eca29e9e3e8e83b015e45124857cab3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StartingBlock
@@ -545,7 +554,7 @@ ScriptsOnlyBuild:
     className: VerticalLayoutGroup
   - hash:
       serializedVersion: 2
-      Hash: b902dbec0b5c92feb7ee9720b643e8d8
+      Hash: 2348e2698306c54eabdfb30702463216
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: Obstacle
@@ -755,6 +764,12 @@ ScriptsOnlyBuild:
     className: ToggleGroup
   - hash:
       serializedVersion: 2
+      Hash: 2491395a14493a3ac8516f6bad8fc8be
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: StaminaBar
+  - hash:
+      serializedVersion: 2
       Hash: ef748a83757d354d858e56048de3fd5e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
@@ -770,4 +785,4 @@ ScriptsOnlyBuild:
   - Assets/Scenes/MainMenu.unity
   - Assets/Scenes/Game.unity
   - Assets/Scenes/GameOver.unity
-  playerPath: C:/Users/Kieran/Documents/GitHub/Blocker/BlockerV2.exe
+  playerPath: C:/Users/Kieran/Desktop/Build Blocker/BlockerV2.exe

@@ -20,7 +20,7 @@ public class StartingBlock : MonoBehaviour
 
     [SerializeField]
     private float _speed = 3.5f;
-    public float slowDown = 1;
+    public float slowDown = 2;
     public float hangoverOnObstacle;
 
     public bool hasStacked = false;
@@ -134,12 +134,17 @@ public class StartingBlock : MonoBehaviour
         //checks for W pressed the verticalmovement is still going down and that you have enough stamina, which has to be max value to use
         
         if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
-            StaminaBar.instance.UseStamina(1);
+            
+            //When the stamina bar is above 30 u can use the W slowing down
+            StaminaBar.instance.UseStamina(0.4f);
             _speed = 1.5f;
             StaminaBar.instance.usingStamina = true;
             transform.Translate(Vector3.up * slowDown * Time.deltaTime);
+
         } else if(_verticalMovement < 0){
-            _speed = 3.5f;
+
+            //when running out of stamina it will stop the slowing down
+            _speed = 5f;
             StartCoroutine(RechargingStamina());
         }
 

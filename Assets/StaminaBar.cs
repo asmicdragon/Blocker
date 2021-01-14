@@ -26,9 +26,9 @@ public class StaminaBar : MonoBehaviour
         staminaBar.maxValue = maxStamina;
         staminaBar.value = maxStamina;
     
-    }    public void UseStamina(int amount){
+    }    public void UseStamina(float amount){
 
-        if(currentStamina >= 0){
+        if(currentStamina - amount >= 0){
             currentStamina -= amount;
             staminaBar.value = currentStamina;
 
@@ -52,6 +52,6 @@ public class StaminaBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        RechargeStamina(20);
+        RechargeStamina(10);
     }
 }
