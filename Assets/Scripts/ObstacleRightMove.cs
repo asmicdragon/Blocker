@@ -15,14 +15,14 @@ public class ObstacleRightMove : MonoBehaviour
     void Update()
     {
         if(obstacleRight != null){
-            if(transform.localScale.x < 3){
+            if(transform.localScale.x <StartingBlock.CurrentBlock.transform.localScale.x){
                 
-                transform.localScale += new Vector3(1f,0,0) * (Time.deltaTime * 2);
-                transform.position -= new Vector3(0.5f,0,0) * (Time.deltaTime * 2);
+                transform.localScale += new Vector3(1.5f,0,0) * (Time.deltaTime * 2);
+                transform.position -= new Vector3(0.75f,0,0) * (Time.deltaTime * 2);
 
-            } else if(transform.localScale.x >= 3){
+            } else if(transform.localScale.x >= StartingBlock.CurrentBlock.transform.localScale.x){
 
-                transform.position -= new Vector3(1f, 0, 0) * (Time.deltaTime * 2);
+                transform.position -= new Vector3(1.5f, 0, 0) * (Time.deltaTime * 2);
             }
         } 
     }

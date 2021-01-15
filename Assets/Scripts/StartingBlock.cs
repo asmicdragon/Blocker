@@ -22,7 +22,7 @@ public class StartingBlock : MonoBehaviour
     private float _speed = 3.5f;
     public float slowDown = 2;
     public float hangoverOnObstacle;
-
+    private int combo = 0;
     public bool hasStacked = false;
     bool canTrim = true;
 
@@ -80,7 +80,15 @@ public class StartingBlock : MonoBehaviour
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
             
-            CurrentBlock.SplitBlockOnX(hangover, direction);
+            if(Mathf.Abs(hangover) > 0.1f){
+                CurrentBlock.SplitBlockOnX(hangover, direction);
+
+            } else {
+                CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
+
+            }
+
+            
     }
 
     private void SplitBlockOnX(float hangover, float direction)
@@ -195,8 +203,9 @@ public class StartingBlock : MonoBehaviour
             _verticalMovement = 0;
 
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
-        
+            gameObject.tag = "Stack";
             LastBlock = CurrentBlock;
+            
                     
             //sets the hasStacked boolean to true
             hasStacked = true;
