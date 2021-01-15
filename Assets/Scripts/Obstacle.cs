@@ -45,5 +45,12 @@ public class Obstacle : MonoBehaviour
 
     //     transform.localScale = new Vector3(newXSize, transform.localScale.y, transform.localScale.z);
     // }
+    void OnTriggerEnter2D(Collider2D other) {
+        
+        if(other.gameObject == Wall.wall1.gameObject || other.gameObject == Wall.wall2.gameObject){
+
+            Destroy(this.gameObject);
+        }
+    }
 }   
     

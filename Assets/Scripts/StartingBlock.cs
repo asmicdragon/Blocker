@@ -50,10 +50,6 @@ public class StartingBlock : MonoBehaviour
             
         
     }
-    void TrimOnObstacle(){
-
-        
-    }
 
     //the below comments are done to add a tag to the method Stop()
 
@@ -195,7 +191,7 @@ public class StartingBlock : MonoBehaviour
         }
         if(other.gameObject.tag == "Obstacle"){
             
-            return;
+            return; // Do nothing
 
         } else {
 
@@ -203,6 +199,7 @@ public class StartingBlock : MonoBehaviour
             _verticalMovement = 0;
 
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
+            //gives the block the tag 'Stack' after it is placed
             gameObject.tag = "Stack";
             LastBlock = CurrentBlock;
             
