@@ -23,6 +23,7 @@ public class StartingBlock : MonoBehaviour
     public float slowDown = 2;
     public float hangoverOnObstacle;
     private int combo = 0;
+    public int lives = 3;
     public bool hasStacked = false;
     bool canTrim = true;
 
@@ -76,10 +77,12 @@ public class StartingBlock : MonoBehaviour
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
             
-            if(Mathf.Abs(hangover) > 0.1f){
-                CurrentBlock.SplitBlockOnX(hangover, direction);
+            if(Mathf.Abs(hangover) > 0.1f){ 
 
+                CurrentBlock.SplitBlockOnX(hangover, direction);
+            
             } else {
+
                 CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
 
             }
@@ -154,15 +157,6 @@ public class StartingBlock : MonoBehaviour
             StartCoroutine(RechargingStamina());
         }
 
-
-
-
-        //Clamp is only needed to place borders, we can use a collider to stop it from going beyond
-        
-        //transform.position = new Vector3(Mathf.Clamp(transform.position.x,-4f, 4f),transform.position.y, transform.position.z);
-        
-
-        
     }
             IEnumerator RechargingStamina(){
 
@@ -191,7 +185,7 @@ public class StartingBlock : MonoBehaviour
         }
         if(other.gameObject.tag == "Obstacle"){
             
-            return; // Do nothing
+            return; //Do nothing
 
         } else {
 
@@ -209,4 +203,22 @@ public class StartingBlock : MonoBehaviour
             
         }
     }
+    private void OnCollisionEnter2D(Collision2D other) {
+
+        if(other.gameObject.tag == "Obstacle"){
+
+            if(lives < 1){
+                Destroy(CurrentBlock.gameObject);
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            } else {
+                lives--;
+                Debug.Log("Lives: "+lives);
+            }
+        }
+    }
+    // IEnumerator LoseALifeRoutine(int seconds){
+    //     CurrentBlock.lives--;
+    //     Debug.Log("Lives: "+lives);
+    //     yield return new WaitForSeconds(seconds);
+    // }
 }

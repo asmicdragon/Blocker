@@ -640,20 +640,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 519420032}
     m_Modifications:
-    - target: {fileID: 2509092833572958885, guid: 44d21bd947004b944a3ccabe00212e41,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2509092833572958886, guid: 44d21bd947004b944a3ccabe00212e41,
         type: 3}
       propertyPath: m_Name
       value: Wall 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2509092833572958889, guid: 44d21bd947004b944a3ccabe00212e41,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2509092833572958890, guid: 44d21bd947004b944a3ccabe00212e41,
         type: 3}
@@ -846,8 +836,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -167, y: -16.199997}
-  m_SizeDelta: {x: 118.05315, y: 25}
+  m_AnchoredPosition: {x: -156.96, y: -16.199997}
+  m_SizeDelta: {x: 151.89351, y: 25}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1232057176
 MonoBehaviour:
@@ -1001,30 +991,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 519420032}
     m_Modifications:
-    - target: {fileID: 2509092833572958885, guid: 44d21bd947004b944a3ccabe00212e41,
-        type: 3}
-      propertyPath: m_Offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2509092833572958885, guid: 44d21bd947004b944a3ccabe00212e41,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2509092833572958885, guid: 44d21bd947004b944a3ccabe00212e41,
-        type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2509092833572958886, guid: 44d21bd947004b944a3ccabe00212e41,
         type: 3}
       propertyPath: m_Name
       value: Wall 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2509092833572958889, guid: 44d21bd947004b944a3ccabe00212e41,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2509092833572958890, guid: 44d21bd947004b944a3ccabe00212e41,
         type: 3}
