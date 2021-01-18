@@ -26,10 +26,10 @@ public class StartingBlock : MonoBehaviour
     public int lives = 3;
     public bool hasStacked = false;
     bool canTrim = true;
-    bool perfectStack;
+    public bool perfectStack = false;
 
     //we will use the canPressAgain to make a switch toggle when we can press spacebar again
-
+    public bool didTrim;
     public float LastBlockXSize;
 
     [SerializeField]
@@ -79,13 +79,13 @@ public class StartingBlock : MonoBehaviour
             //calculates the trimming on the currentblock only along with the direction it is at
             
             if(Mathf.Abs(hangover) > 0.1f){ 
-                perfectStack = false;
-                CurrentBlock.SplitBlockOnX(hangover, direction);
+                
+                SplitBlockOnX(hangover, direction);
 
             } else {
-                perfectStack = true;
-                CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
                 
+                CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
+                didTrim = false;
             }
 
             
@@ -127,6 +127,8 @@ public class StartingBlock : MonoBehaviour
         float fallingBlockXPosition = blockEdge + fallingBlockSize / 2f * direction;
         
         SpawnDropBlock(fallingBlockXPosition, fallingBlockSize);
+        didTrim = true;
+        
     }
 
     //this method is to generate the falling block when trimming to make it look as if it actually cut
@@ -143,7 +145,13 @@ public class StartingBlock : MonoBehaviour
     }
 
     // Start is called before the first frame update
-
+    void PerfectStackCheck(){
+        if(didTrim){
+            perfectStack = true;
+        } else {
+            perfectStack = false;
+        }
+    }
     void CalculateMovement()
     {
 
@@ -172,6 +180,7 @@ public class StartingBlock : MonoBehaviour
             _speed = 5f;
             StartCoroutine(RechargingStamina());
         }
+        
 
     }
             IEnumerator RechargingStamina(){
@@ -185,7 +194,7 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        StackingCombo();
+        PerfectStackCheck();
         CalculateMovement();
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
