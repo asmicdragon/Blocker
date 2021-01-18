@@ -21,11 +21,12 @@ public class StartingBlock : MonoBehaviour
     [SerializeField]
     private float _speed = 3.5f;
     public float slowDown = 2;
-    public float hangoverOnObstacle;
+    private float hangover;
     private int combo = 0;
     public int lives = 3;
     public bool hasStacked = false;
     bool canTrim = true;
+    bool perfectStack;
 
     //we will use the canPressAgain to make a switch toggle when we can press spacebar again
 
@@ -65,11 +66,11 @@ public class StartingBlock : MonoBehaviour
             
             _speed = 0;
             //hangover is the part that hangsout and gets trimmed
-            float hangover = transform.position.x - LastBlock.transform.position.x;
+            hangover = transform.position.x - LastBlock.transform.position.x;
             
 
                 if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
-
+                    //Switches to the next scene in order on build settings, which would be the Gameover scene
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
             
@@ -78,16 +79,31 @@ public class StartingBlock : MonoBehaviour
             //calculates the trimming on the currentblock only along with the direction it is at
             
             if(Mathf.Abs(hangover) > 0.1f){ 
-
+                perfectStack = false;
                 CurrentBlock.SplitBlockOnX(hangover, direction);
-            
+
             } else {
-
+                perfectStack = true;
                 CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
-
+                
             }
 
             
+    }
+    void StackingCombo(){
+
+            // //if(Mathf.Abs(CurrentBlock.hangover) <= 0.1f && CurrentBlock._verticalMovement == 0){
+            // if(perfectStack == true && CurrentBlock._verticalMovement == 0){
+            //     combo++;
+            //     Debug.Log("Combo: "+combo);
+            // }
+            // // if(CurrentBlock._verticalMovement == 0 && Mathf.Abs(CurrentBlock.hangover) > 0.1f){
+            // if(perfectStack == false && CurrentBlock._verticalMovement == 0){
+            //     combo = 0;
+            //     Debug.Log("Combo: "+combo);
+            // }
+
+            //Need to fix this code
     }
 
     private void SplitBlockOnX(float hangover, float direction)
@@ -169,7 +185,7 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        StackingCombo();
         CalculateMovement();
     }
     //This method is calling the Stop() method when the startingblock collides with the stack
@@ -203,19 +219,7 @@ public class StartingBlock : MonoBehaviour
             
         }
     }
-    private void OnCollisionEnter2D(Collision2D other) {
 
-        if(other.gameObject.tag == "Obstacle"){
-
-            if(lives < 1){
-                Destroy(CurrentBlock.gameObject);
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-            } else {
-                lives--;
-                Debug.Log("Lives: "+lives);
-            }
-        }
-    }
     // IEnumerator LoseALifeRoutine(int seconds){
     //     CurrentBlock.lives--;
     //     Debug.Log("Lives: "+lives);

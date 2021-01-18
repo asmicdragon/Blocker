@@ -4,6 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
+    public int width;
+    public int height;
+    public bool setFullScreen;
+    private void Start() {
+        
+    }
     public void PlayGame(){
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -19,5 +25,10 @@ public class MainMenu : MonoBehaviour
     }
     public void Restart(){
         SceneManager.LoadScene(1);
+    }
+    public void SetResolution(){
+        Screen.SetResolution(width, height, setFullScreen);
+        Debug.Log(""+ width + "x" + height + " FullScreen: " + setFullScreen);
+        
     }
 }
