@@ -5,10 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager gameManager {get; set;}
     public int score;
+    public int lives = 3;
     public bool moveCamera;
     int obstacleCount;
+    public bool collidedWithObstacle = false;
 
+    private void Awake() {
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
     private void Start() {
         
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
@@ -17,7 +24,8 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-
+        Debug.Log("Lives updating: "+lives);
+        CheckForObstacleCollision();
             
         //pressing escape takes you to the menu
         if(Input.GetKeyDown(KeyCode.Escape)){
@@ -46,6 +54,28 @@ public class GameManager : MonoBehaviour
         } 
         
 
+    }
+    void CheckForObstacleCollision(){
+        if(collidedWithObstacle){
+
+            collidedWithObstacle = false;
+            StartCoroutine(LoseALifeRoutine());
+            
+            
+        }
+        if(lives == 0){
+            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+        }
+    }
+    IEnumerator LoseALifeRoutine(){
+        lives--;
+        Debug.Log("Lives: "+lives);
+        Destroy(StartingBlock.CurrentBlock.gameObject);
+        
+        yield return new WaitForSeconds(3);
+        BlockSpawner.blockSpawner.SpawnBlock();
+        
     }
     IEnumerator CreateObstacleRoutine(int seconds) { 
 

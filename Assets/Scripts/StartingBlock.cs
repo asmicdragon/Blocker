@@ -10,7 +10,9 @@ public class StartingBlock : MonoBehaviour
     
     public static StartingBlock CurrentBlock {   get; set;  }
     public static StartingBlock LastBlock {   get; set;  }
-    public static StartingBlock ObstacleBlock { get; set; }
+
+    //Made this static to reference the whole script
+    public static StartingBlock startingBlock { get; set; }
 
     //this is to use the rigidbody Component
     public static Rigidbody rigidBlock;
@@ -22,8 +24,7 @@ public class StartingBlock : MonoBehaviour
     private float _speed = 3.5f;
     public float slowDown = 2;
     private float hangover;
-    private int combo = 0;
-    public int lives = 3;
+
     public bool hasStacked = false;
     bool canTrim = true;
     public bool perfectStack = false;
@@ -52,6 +53,10 @@ public class StartingBlock : MonoBehaviour
             
         
     }
+    private void Awake() {
+        
+        startingBlock = this;
+    }
 
     //the below comments are done to add a tag to the method Stop()
 
@@ -69,7 +74,7 @@ public class StartingBlock : MonoBehaviour
             hangover = transform.position.x - LastBlock.transform.position.x;
             
 
-                if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
+                if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f) || GameManager.gameManager.lives == 0){
                     //Switches to the next scene in order on build settings, which would be the Gameover scene
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
@@ -197,6 +202,7 @@ public class StartingBlock : MonoBehaviour
         PerfectStackCheck();
         CalculateMovement();
     }
+
     //This method is calling the Stop() method when the startingblock collides with the stack
     //onTrigger the Stop() method will be called and the block will be trimmed, aswell as the verticalmovement will be set to 0
 
@@ -229,9 +235,5 @@ public class StartingBlock : MonoBehaviour
         }
     }
 
-    // IEnumerator LoseALifeRoutine(int seconds){
-    //     CurrentBlock.lives--;
-    //     Debug.Log("Lives: "+lives);
-    //     yield return new WaitForSeconds(seconds);
-    // }
+
 }

@@ -16,18 +16,27 @@ public class Obstacle : MonoBehaviour
         obstacleLeft.SetActive(true);
         obstacleRight.SetActive(true);
         obstacle = this;
-
+        
     }
     private void Update() {
 
-        if(StartingBlock.CurrentBlock.transform.position.x > obstacle.transform.position.x){
-            
-            obstacleEdge = Obstacle.obstacle.transform.position.x + (Obstacle.obstacle.transform.localScale.x / 2);
-        } else {
-            obstacleEdge = Obstacle.obstacle.transform.position.x - (Obstacle.obstacle.transform.localScale.x / 2);
+        if(StartingBlock.CurrentBlock != null){
+            if(StartingBlock.CurrentBlock.transform.position.x > obstacle.transform.position.x){
+                
+                obstacleEdge = Obstacle.obstacle.transform.position.x + (Obstacle.obstacle.transform.localScale.x / 2);
+            } else {
+                obstacleEdge = Obstacle.obstacle.transform.position.x - (Obstacle.obstacle.transform.localScale.x / 2);
+            }
         }
-
         
+    }
+    private void OnCollisionEnter2D(Collision2D other) {
+        if(other.collider.tag == "StartingBlock"){
+            
+            GameManager.gameManager.collidedWithObstacle = true;
+            
+            
+        }
     }
     // internal void TrimOnObstacle() {
 

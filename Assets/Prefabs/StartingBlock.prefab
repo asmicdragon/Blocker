@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -8890484953018830105}
   m_Layer: 0
   m_Name: StartingBlock
-  m_TagString: Untagged
+  m_TagString: StartingBlock
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -50,8 +50,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 5
   slowDown: 1
-  hangoverOnObstacle: 0
+  lives: 3
   hasStacked: 0
+  perfectStack: 0
+  didTrim: 0
   LastBlockXSize: 0
   _verticalMovement: -3
 --- !u!61 &5500046234969957115
