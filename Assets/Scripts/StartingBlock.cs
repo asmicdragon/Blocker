@@ -23,14 +23,12 @@ public class StartingBlock : MonoBehaviour
     [SerializeField]
     private float _speed = 3.5f;
     public float slowDown = 2;
-    private float hangover;
+    public float hangover;
 
     public bool hasStacked = false;
     bool canTrim = true;
     public bool perfectStack = false;
 
-    //we will use the canPressAgain to make a switch toggle when we can press spacebar again
-    public bool didTrim;
     public float LastBlockXSize;
 
     [SerializeField]
@@ -74,7 +72,7 @@ public class StartingBlock : MonoBehaviour
             hangover = transform.position.x - LastBlock.transform.position.x;
             
 
-                if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f) || GameManager.gameManager.lives == 0){
+                if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
                     //Switches to the next scene in order on build settings, which would be the Gameover scene
                     SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
                 }
@@ -86,30 +84,18 @@ public class StartingBlock : MonoBehaviour
             if(Mathf.Abs(hangover) > 0.1f){ 
                 
                 SplitBlockOnX(hangover, direction);
-
+                GameManager.gameManager.combo = 0;
+                Debug.Log("Combo: "+GameManager.gameManager.combo++);
             } else {
                 
                 CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
-                didTrim = false;
+                GameManager.gameManager.combo++;
+                Debug.Log("Combo: "+GameManager.gameManager.combo++);
             }
 
             
     }
-    void StackingCombo(){
 
-            // //if(Mathf.Abs(CurrentBlock.hangover) <= 0.1f && CurrentBlock._verticalMovement == 0){
-            // if(perfectStack == true && CurrentBlock._verticalMovement == 0){
-            //     combo++;
-            //     Debug.Log("Combo: "+combo);
-            // }
-            // // if(CurrentBlock._verticalMovement == 0 && Mathf.Abs(CurrentBlock.hangover) > 0.1f){
-            // if(perfectStack == false && CurrentBlock._verticalMovement == 0){
-            //     combo = 0;
-            //     Debug.Log("Combo: "+combo);
-            // }
-
-            //Need to fix this code
-    }
 
     private void SplitBlockOnX(float hangover, float direction)
     {
@@ -132,7 +118,7 @@ public class StartingBlock : MonoBehaviour
         float fallingBlockXPosition = blockEdge + fallingBlockSize / 2f * direction;
         
         SpawnDropBlock(fallingBlockXPosition, fallingBlockSize);
-        didTrim = true;
+        
         
     }
 
@@ -147,16 +133,11 @@ public class StartingBlock : MonoBehaviour
 
         block.AddComponent<Rigidbody>(); // we add the rigid component to the falling block
         Destroy(block.gameObject, 1f); //the float number gives it a running time of a second
+        
     }
 
     // Start is called before the first frame update
-    void PerfectStackCheck(){
-        if(didTrim){
-            perfectStack = true;
-        } else {
-            perfectStack = false;
-        }
-    }
+
     void CalculateMovement()
     {
 
@@ -199,7 +180,7 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PerfectStackCheck();
+        
         CalculateMovement();
     }
 

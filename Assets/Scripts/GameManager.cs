@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager {get; set;}
     public int score;
     public int lives = 3;
+    public int combo = 0;
+    public bool didTrim;
     public bool moveCamera;
     int obstacleCount;
     public bool collidedWithObstacle = false;
@@ -24,7 +26,7 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        Debug.Log("Lives updating: "+lives);
+        // ComboSystem();
         CheckForObstacleCollision();
             
         //pressing escape takes you to the menu
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(0);
         }
 
-        
+    
  
 
         //Starts the coroutine of the moving camera
@@ -54,6 +56,25 @@ public class GameManager : MonoBehaviour
         } 
         
 
+    // }
+    // void ComboSystem(){ // Revise combo system
+    //     if(StartingBlock.CurrentBlock.hangover > 0.1f){
+    //         didTrim = true;
+    //     } else {
+    //         didTrim = false;
+    //     }
+
+    //     if(!didTrim && StartingBlock.CurrentBlock._verticalMovement == 0){
+    //         combo++;
+    //         Debug.Log("Combo: "+combo);
+            
+    //     } 
+    //     if(didTrim && StartingBlock.CurrentBlock._verticalMovement == 0){
+    //         combo = 0;
+    //         Debug.Log("Combo: "+combo);
+            
+
+    //     }
     }
     void CheckForObstacleCollision(){
         if(collidedWithObstacle){
@@ -73,7 +94,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Lives: "+lives);
         Destroy(StartingBlock.CurrentBlock.gameObject);
         
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         BlockSpawner.blockSpawner.SpawnBlock();
         
     }
@@ -95,7 +116,7 @@ public class GameManager : MonoBehaviour
     IEnumerator moveCameraRoutine() {
         //checks if moveCamera is true, while its true it will wait 0.5 seconds to turn the bool to false
         while(moveCamera == true){
-            yield return new WaitForSeconds(Mathf.Abs(0.5135f));
+            yield return new WaitForSeconds(Mathf.Abs(0.525f));
             moveCamera = false;
             }
         }

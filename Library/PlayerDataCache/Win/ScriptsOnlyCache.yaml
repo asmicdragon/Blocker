@@ -2,6 +2,7 @@ ScriptsOnlyBuild:
   usedScripts:
     Assembly-CSharp.dll:
     - BlockSpawner
+    - BrightnessSlider
     - CameraController
     - GameManager
     - MainMenu
@@ -13,12 +14,11 @@ ScriptsOnlyBuild:
     - StartingBlock
     - StartingBlockFlip
     - Wall
+    - Wilberforce.Colorblind
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
-    - UnityEditor.Tilemaps.GridPaletteBrushes
-    - UnityEditor.Tilemaps.GridPalettes
     - UnityEditor.Tilemaps.SceneViewGridManager
     - UnityEditor.Tilemaps.TileDragAndDropManager
     Unity.Rider.Editor.dll:
@@ -43,7 +43,7 @@ ScriptsOnlyBuild:
     - UnityEngine.UI.Slider
     - UnityEngine.UI.Text
   sceneClasses:
-    Assets/Scenes/Game.unity:
+    Assets/Materials/Scenes/Game.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -73,7 +73,7 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11290}
+      Script: {instanceID: 11292}
     - Class: 114
       Script: {instanceID: 11568}
     - Class: 114
@@ -83,31 +83,33 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11844}
     - Class: 114
-      Script: {instanceID: 12092}
+      Script: {instanceID: 12094}
     - Class: 114
-      Script: {instanceID: 12306}
+      Script: {instanceID: 12308}
     - Class: 114
-      Script: {instanceID: 12402}
+      Script: {instanceID: 12404}
     - Class: 114
-      Script: {instanceID: 12500}
+      Script: {instanceID: 12502}
     - Class: 114
-      Script: {instanceID: 12902}
+      Script: {instanceID: 12904}
     - Class: 114
-      Script: {instanceID: 13216}
+      Script: {instanceID: 13218}
     - Class: 114
-      Script: {instanceID: 13624}
+      Script: {instanceID: 13626}
     - Class: 114
-      Script: {instanceID: 13782}
+      Script: {instanceID: 13784}
     - Class: 114
-      Script: {instanceID: 13918}
+      Script: {instanceID: 13920}
     - Class: 114
-      Script: {instanceID: 14396}
+      Script: {instanceID: 14398}
     - Class: 114
       Script: {instanceID: 14438}
     - Class: 114
-      Script: {instanceID: 14472}
+      Script: {instanceID: 14442}
     - Class: 114
-      Script: {instanceID: 14494}
+      Script: {instanceID: 14476}
+    - Class: 114
+      Script: {instanceID: 14498}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -126,7 +128,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    Assets/Scenes/GameOver.unity:
+    Assets/Materials/Scenes/GameOver.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -144,23 +146,25 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11290}
+      Script: {instanceID: 11292}
     - Class: 114
       Script: {instanceID: 11636}
     - Class: 114
-      Script: {instanceID: 12306}
+      Script: {instanceID: 12308}
     - Class: 114
-      Script: {instanceID: 13014}
+      Script: {instanceID: 13016}
     - Class: 114
-      Script: {instanceID: 13278}
+      Script: {instanceID: 13280}
     - Class: 114
-      Script: {instanceID: 13364}
+      Script: {instanceID: 13366}
     - Class: 114
-      Script: {instanceID: 13680}
+      Script: {instanceID: 13682}
     - Class: 114
-      Script: {instanceID: 13782}
+      Script: {instanceID: 13784}
     - Class: 114
-      Script: {instanceID: 14396}
+      Script: {instanceID: 14398}
+    - Class: 114
+      Script: {instanceID: 14438}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -177,7 +181,7 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 224
       Script: {instanceID: 0}
-    Assets/Scenes/MainMenu.unity:
+    Assets/Materials/Scenes/MainMenu.unity:
     - Class: 1
       Script: {instanceID: 0}
     - Class: 4
@@ -197,31 +201,35 @@ ScriptsOnlyBuild:
     - Class: 104
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11290}
+      Script: {instanceID: 11292}
     - Class: 114
       Script: {instanceID: 11636}
     - Class: 114
-      Script: {instanceID: 12306}
+      Script: {instanceID: 11936}
     - Class: 114
-      Script: {instanceID: 12358}
+      Script: {instanceID: 12308}
     - Class: 114
-      Script: {instanceID: 13014}
+      Script: {instanceID: 12360}
     - Class: 114
-      Script: {instanceID: 13278}
+      Script: {instanceID: 13016}
     - Class: 114
-      Script: {instanceID: 13364}
+      Script: {instanceID: 13280}
     - Class: 114
-      Script: {instanceID: 13382}
+      Script: {instanceID: 13366}
     - Class: 114
-      Script: {instanceID: 13680}
+      Script: {instanceID: 13384}
     - Class: 114
-      Script: {instanceID: 13782}
+      Script: {instanceID: 13682}
     - Class: 114
-      Script: {instanceID: 14062}
+      Script: {instanceID: 13784}
     - Class: 114
-      Script: {instanceID: 14396}
+      Script: {instanceID: 14064}
+    - Class: 114
+      Script: {instanceID: 14398}
     - Class: 114
       Script: {instanceID: 14438}
+    - Class: 114
+      Script: {instanceID: 14442}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -397,6 +405,12 @@ ScriptsOnlyBuild:
     className: AspectRatioFitter
   - hash:
       serializedVersion: 2
+      Hash: 56a050e4284bebf430d48a97797e4e4c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: BrightnessSlider
+  - hash:
+      serializedVersion: 2
       Hash: 87cef3c82381dc586f6772c3e27561b6
     assemblyName: Unity.2D.Animation.Runtime.dll
     namespaceName: UnityEngine.Experimental.U2D.Animation
@@ -535,7 +549,7 @@ ScriptsOnlyBuild:
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
-      Hash: 6f11735d2b1eecc114306b1d9deb21f8
+      Hash: bf61a0d621a5d77b89705eb096f4d3b4
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StartingBlock
@@ -763,6 +777,12 @@ ScriptsOnlyBuild:
     className: SignalEmitter
   - hash:
       serializedVersion: 2
+      Hash: 1001919edf5dfca4b2d3bd32974eac22
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: Wilberforce
+    className: Colorblind
+  - hash:
+      serializedVersion: 2
       Hash: 7072231382eb3c4871b3dd75ad0227e1
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -781,7 +801,7 @@ ScriptsOnlyBuild:
     className: StaminaBar
   - hash:
       serializedVersion: 2
-      Hash: ef748a83757d354d858e56048de3fd5e
+      Hash: 0c67191e605c3b1818ba3078c4f8fa13
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -793,7 +813,7 @@ ScriptsOnlyBuild:
     className: PlayableTrack
   platform: 5
   scenePathNames:
-  - Assets/Scenes/MainMenu.unity
-  - Assets/Scenes/Game.unity
-  - Assets/Scenes/GameOver.unity
+  - Assets/Materials/Scenes/MainMenu.unity
+  - Assets/Materials/Scenes/Game.unity
+  - Assets/Materials/Scenes/GameOver.unity
   playerPath: C:/Users/Kieran/Desktop/Build Blocker/BlockerV2.exe
