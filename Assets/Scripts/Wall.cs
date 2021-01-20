@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Wall : MonoBehaviour
 {
-    public static Wall wall1 {get; set;}
-    public static Wall wall2 {get; set;}
+    public static Wall wallLeft {get; set;}
+    public static Wall wallRight {get; set;}
 
     // Start is called before the first frame update
     bool moveCamera;
@@ -13,14 +13,14 @@ public class Wall : MonoBehaviour
     float sizeIncrementation;
     void Start()
     {
-        wall1 = GameObject.Find("Wall 1").GetComponent<Wall>();
-        wall2 = GameObject.Find("Wall 2").GetComponent<Wall>();
+        wallLeft = GameObject.Find("WallLeft").GetComponent<Wall>();
+        wallRight = GameObject.Find("WallRight").GetComponent<Wall>();
         moveCamera = FindObjectOfType<GameManager>().moveCamera;
         sizeIncrementation = FindObjectOfType<CameraController>().cameraMoveSpeed;
 
     }
 
-    // Update is called once per frame
+ 
     void Update()
     {
         // if(StartingBlock.CurrentBlock._verticalMovement == 0 && transform.localScale.y < 30){

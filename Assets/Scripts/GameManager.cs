@@ -76,6 +76,11 @@ public class GameManager : MonoBehaviour
 
     //     }
     }
+    public void SpawnWallsRoutine(){
+        if(Wall.wallLeft.transform.position.y < Camera.main.transform.position.y - 5){
+            BlockSpawner.blockSpawner.SpawnWalls();
+        }
+    }
     void CheckForObstacleCollision(){
         if(collidedWithObstacle){
 

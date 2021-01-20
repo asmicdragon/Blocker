@@ -203,7 +203,7 @@ public class StartingBlock : MonoBehaviour
 
             CurrentBlock.Stop();
             _verticalMovement = 0;
-
+            GameManager.gameManager.SpawnWallsRoutine();
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
             //gives the block the tag 'Stack' after it is placed
             gameObject.tag = "Stack";

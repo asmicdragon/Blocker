@@ -16,8 +16,14 @@ public class BlockSpawner : MonoBehaviour
     public int cloneIncrement;
     public float topOfCameraY;
     private float placeIncrementation;
+    [SerializeField]
+    private Wall wallRightPreFab;
+    [SerializeField]
+    private Wall wallLeftPreFab;
+
     private void Start() {
         blockSpawner = this;
+        SpawnWalls();
     }
     public void SpawnBlock()
     {
@@ -39,18 +45,25 @@ public class BlockSpawner : MonoBehaviour
         if(spawnDirection <= 49){
             var obstacleLeft = Instantiate(obstacleLeftPreFab);
             obstacleLeft.gameObject.SetActive(true);
-            obstacleLeft.transform.position = new Vector3(Wall.wall2.transform.position.x + 0.6f, Camera.main.transform.position.y + 0.6f, transform.position.z);
+            obstacleLeft.transform.position = new Vector3(Wall.wallLeft.transform.position.x + 0.6f, Camera.main.transform.position.y + 0.6f, transform.position.z);
             
         } else {
 
-        if(spawnDirection >= 50){
-            var obstacleRight = Instantiate(obstacleRightPreFab);
-            obstacleRight.gameObject.SetActive(true);
-            obstacleRight.transform.position = new Vector3(Wall.wall1.transform.position.x - 0.6f, Camera.main.transform.position.y + 0.6f, transform.position.z);
+            if(spawnDirection >= 50){
+                var obstacleRight = Instantiate(obstacleRightPreFab);
+                obstacleRight.gameObject.SetActive(true);
+                obstacleRight.transform.position = new Vector3(Wall.wallRight.transform.position.x - 0.6f, Camera.main.transform.position.y + 0.6f, transform.position.z);
 
-            
+                
+            }
         }
+    
     }
-}
+    public void SpawnWalls(){
+        var wallLeft = Instantiate(wallLeftPreFab);
+        var wallRight = Instantiate(wallRightPreFab);
+        wallLeft.transform.position = new Vector3(Wall.wallLeft.transform.position.x, Wall.wallLeft.transform.position.y + 10, transform.position.z);
+        wallRight.transform.position = new Vector3(Wall.wallRight.transform.position.x, Wall.wallRight.transform.position.y + 10, transform.position.z);
 
+    }
 }

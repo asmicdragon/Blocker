@@ -56,7 +56,7 @@ public class Obstacle : MonoBehaviour
     // }
     void OnTriggerEnter2D(Collider2D other) {
         
-        if(other.gameObject == Wall.wall1.gameObject || other.gameObject == Wall.wall2.gameObject){
+        if(other.gameObject == Wall.wallLeft.gameObject || other.gameObject == Wall.wallRight.gameObject){
 
             Destroy(this.gameObject);
         }
