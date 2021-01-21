@@ -38,22 +38,7 @@ public class Obstacle : MonoBehaviour
             
         }
     }
-    // internal void TrimOnObstacle() {
 
-    //     float hangover = transform.position.x - StartingBlock.CurrentBlock.transform.position.x;
-
-    //     float direction = hangover > 0 ? 1 : -1;
-
-        
-    //     SplitXOnObstacle(hangover, direction);
-    // }
-    // private void SplitXOnObstacle(float hangover, float direction){
-    //     float newXSize = StartingBlock.CurrentBlock.transform.localScale.x - Mathf.Abs(hangover);
-    //     float newXPosition;
-    //     float fallingBlockSize;
-
-    //     transform.localScale = new Vector3(newXSize, transform.localScale.y, transform.localScale.z);
-    // }
     void OnTriggerEnter2D(Collider2D other) {
         
         if(other.gameObject == Wall.wallLeft.gameObject || other.gameObject == Wall.wallRight.gameObject){

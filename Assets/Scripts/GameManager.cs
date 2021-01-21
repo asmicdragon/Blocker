@@ -56,25 +56,15 @@ public class GameManager : MonoBehaviour
         } 
         
 
-    // }
-    // void ComboSystem(){ // Revise combo system
-    //     if(StartingBlock.CurrentBlock.hangover > 0.1f){
-    //         didTrim = true;
-    //     } else {
-    //         didTrim = false;
-    //     }
+    }
 
-    //     if(!didTrim && StartingBlock.CurrentBlock._verticalMovement == 0){
-    //         combo++;
-    //         Debug.Log("Combo: "+combo);
-            
-    //     } 
-    //     if(didTrim && StartingBlock.CurrentBlock._verticalMovement == 0){
-    //         combo = 0;
-    //         Debug.Log("Combo: "+combo);
-            
+    public void ComboIncrementation(){
+        combo++;
 
-    //     }
+    }
+    public void ComboDecrementation(){
+        combo = 0;
+        
     }
     public void SpawnWallsRoutine(){
         if(Wall.wallLeft.transform.position.y < Camera.main.transform.position.y - 5){

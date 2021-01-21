@@ -13,6 +13,7 @@ namespace Wilberforce
     [AddComponentMenu("Image Effects/Color Adjustments/Colorblind")]
     public class Colorblind : MonoBehaviour
     {
+        public static Colorblind colorBlind {get; set;}
         // public Parameters  
 		public int Type = 0;
 
@@ -26,10 +27,13 @@ namespace Wilberforce
         {
             if (Debug.isDebugBuild) Debug.Log("Colorblind Effect Error: " + error);
         }
-
+        private void Awake() {
+            colorBlind = this;
+        }
 		// initialization method
         void Start()
         {
+            
 			// if shader is not set, try to find it first
             if (colorblindShader == null) colorblindShader = Shader.Find("Hidden/Wilberforce/Colorblind");
 

@@ -18,7 +18,7 @@ public class BrightnessSlider : MonoBehaviour
     
     void OnGUI () {
         
-        GammaCorrection = GUI.HorizontalSlider(SliderLocation, GammaCorrection, 0, 1.0f);
+        GammaCorrection = GUI.HorizontalSlider(SliderLocation, GammaCorrection, 0, 5.0f);
 
     }
 

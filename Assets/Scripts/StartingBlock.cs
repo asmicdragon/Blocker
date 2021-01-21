@@ -11,6 +11,8 @@ public class StartingBlock : MonoBehaviour
     public static StartingBlock CurrentBlock {   get; set;  }
     public static StartingBlock LastBlock {   get; set;  }
 
+    private GameManager gameManager;
+
     //Made this static to reference the whole script
     public static StartingBlock startingBlock { get; set; }
 
@@ -52,7 +54,7 @@ public class StartingBlock : MonoBehaviour
         
     }
     private void Awake() {
-        
+        gameManager = GameObject.FindObjectOfType<GameManager>();
         startingBlock = this;
     }
 
@@ -81,16 +83,22 @@ public class StartingBlock : MonoBehaviour
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
             
-            if(Mathf.Abs(hangover) > 0.1f){ 
-                
-                SplitBlockOnX(hangover, direction);
-                GameManager.gameManager.combo = 0;
-                Debug.Log("Combo: "+GameManager.gameManager.combo++);
-            } else {
-                
+            if(Mathf.Abs(hangover) < 0.1f){ 
+
                 CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
-                GameManager.gameManager.combo++;
-                Debug.Log("Combo: "+GameManager.gameManager.combo++);
+
+                if(gameManager != null){
+                    gameManager.ComboIncrementation();
+                }
+                Debug.Log("Combo: "+GameManager.gameManager.combo);
+                
+            } else {
+                SplitBlockOnX(hangover, direction);
+                if(gameManager != null){
+                    gameManager.ComboDecrementation();
+                }
+                
+                
             }
 
             
@@ -203,7 +211,7 @@ public class StartingBlock : MonoBehaviour
 
             CurrentBlock.Stop();
             _verticalMovement = 0;
-            GameManager.gameManager.SpawnWallsRoutine();
+            
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
             //gives the block the tag 'Stack' after it is placed
             gameObject.tag = "Stack";
