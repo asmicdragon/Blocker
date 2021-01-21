@@ -15,12 +15,12 @@ public class ObstacleLeftMove : MonoBehaviour
     void Update()
     {
         if(obstacleLeft != null){
-            if(transform.localScale.x < StartingBlock.LastBlock.transform.localScale.x){
+            if(transform.localScale.x < Obstacle.obstacle.lastBlockSize){
                 
                 transform.localScale += new Vector3(1.5f,0,0) * (Time.deltaTime * 2);
                 transform.position += new Vector3(0.75f,0,0) * (Time.deltaTime * 2);
 
-            } else if(transform.localScale.x >= StartingBlock.LastBlock.transform.localScale.x){
+            } else if(transform.localScale.x >= Obstacle.obstacle.lastBlockSize){
 
                 transform.position += new Vector3(1.5f, 0, 0) * (Time.deltaTime * 2);
             }

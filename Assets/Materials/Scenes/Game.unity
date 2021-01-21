@@ -663,6 +663,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: WallLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 2509092833572958886, guid: 44d21bd947004b944a3ccabe00212e41,
+        type: 3}
+      propertyPath: m_TagString
+      value: WallLeft
+      objectReference: {fileID: 0}
     - target: {fileID: 2509092833572958890, guid: 44d21bd947004b944a3ccabe00212e41,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1588,6 +1593,11 @@ PrefabInstance:
     - target: {fileID: 6308535391790939482, guid: cdf6ffc68cbe2bc4fba329adc083d459,
         type: 3}
       propertyPath: m_Name
+      value: WallRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 6308535391790939482, guid: cdf6ffc68cbe2bc4fba329adc083d459,
+        type: 3}
+      propertyPath: m_TagString
       value: WallRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []

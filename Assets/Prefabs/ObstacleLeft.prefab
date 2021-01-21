@@ -92,6 +92,7 @@ MonoBehaviour:
   SpawnDirection: 0
   obstacleEdge: 0
   hangoverOnObstacle: 0
+  lastBlockSize: 0
 --- !u!50 &7442251920891677664
 Rigidbody2D:
   serializedVersion: 4

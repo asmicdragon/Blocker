@@ -10,7 +10,12 @@ public class Obstacle : MonoBehaviour
     public float SpawnDirection;
     public float obstacleEdge;
     public float hangoverOnObstacle;
+    public float lastBlockSize;
 
+    
+    private void Start() {
+        lastBlockSize = StartingBlock.LastBlock.transform.localScale.x;
+    }
     // Start is called before the first frame update
     private void Awake() {
         obstacleLeft.SetActive(true);
@@ -18,8 +23,13 @@ public class Obstacle : MonoBehaviour
         obstacle = this;
         
     }
+    public void CheckLastBlockSize(){
+        if(lastBlockSize <= 1.5f){
+            lastBlockSize = 1.5f;
+        }
+    }
     private void Update() {
-
+        CheckLastBlockSize();
         if(StartingBlock.CurrentBlock != null){
             if(StartingBlock.CurrentBlock.transform.position.x > obstacle.transform.position.x){
                 
@@ -41,7 +51,7 @@ public class Obstacle : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
         
-        if(other.gameObject == Wall.wallLeft.gameObject || other.gameObject == Wall.wallRight.gameObject){
+        if(other.gameObject.tag == "WallLeft" || other.gameObject.tag == "WallRight"){
 
             Destroy(this.gameObject);
         }

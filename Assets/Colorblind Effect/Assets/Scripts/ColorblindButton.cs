@@ -1,9 +1,9 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//This class is made to access the colorblind script through the use of buttons.
 public class ColorblindButton : MonoBehaviour
-{
+{ 
     // Start is called before the first frame update
     void Start()
     {
