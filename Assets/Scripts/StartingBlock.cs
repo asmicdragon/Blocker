@@ -31,6 +31,10 @@ public class StartingBlock : MonoBehaviour
     bool canTrim = true;
     public bool perfectStack = false;
 
+
+
+    public int colliding = 0;
+
     public float LastBlockXSize;
 
     [SerializeField]
@@ -82,21 +86,25 @@ public class StartingBlock : MonoBehaviour
             
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
-            
-            if(Mathf.Abs(hangover) < 0.1f){ 
+
+            //the colliding check if it is 0 means it is double filtering the method from being read twice, without this, it reads twice for some reason
+            if(Mathf.Abs(hangover) < 0.1f && colliding == 0){ 
 
                 CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
 
-                if(gameManager != null){
+                
                     gameManager.ComboIncrementation();
-                }
+                
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
                 
-            } else {
+            }
+            if(Mathf.Abs(hangover) > 0.1f && colliding == 0) {
+                
                 SplitBlockOnX(hangover, direction);
-                if(gameManager != null){
+                
                     gameManager.ComboDecrementation();
-                }
+
+                Debug.Log("Combo: "+GameManager.gameManager.combo);
                 
                 
             }
@@ -163,7 +171,7 @@ public class StartingBlock : MonoBehaviour
         if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
             
             //When the stamina bar is above 30 u can use the W slowing down
-            StaminaBar.instance.UseStamina(0.4f);
+            StaminaBar.instance.UseStamina(0.8f);
             _speed = 1.5f;
             StaminaBar.instance.usingStamina = true;
             transform.Translate(Vector3.up * slowDown * Time.deltaTime);
@@ -183,7 +191,7 @@ public class StartingBlock : MonoBehaviour
             StaminaBar.instance.usingStamina = false;
         }
     void Start() {
-        
+        GameManager.gameManager.comboMaxGrowth += transform.localScale.x;
     }
     // Update is called once per frame
     void Update()
@@ -198,7 +206,7 @@ public class StartingBlock : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other) {
         
         //calls upon the currentBlock and calls the stop method onto it
-        if(other.gameObject.tag == "Wall"){
+        if(other.gameObject.tag == "WallRight" || other.gameObject.tag == "WallLeft"){
 
             return; //Do nothing
             
@@ -208,6 +216,9 @@ public class StartingBlock : MonoBehaviour
             return; //Do nothing
 
         } else {
+            //this is done so that it checks for a single collision, and doesnt let more happen
+            if(colliding == 0) {
+            
 
             CurrentBlock.Stop();
             _verticalMovement = 0;
@@ -216,13 +227,21 @@ public class StartingBlock : MonoBehaviour
             //gives the block the tag 'Stack' after it is placed
             gameObject.tag = "Stack";
             LastBlock = CurrentBlock;
-            
+            gameManager.ComboLifeSystem();
                     
             //sets the hasStacked boolean to true
             hasStacked = true;
-            
+            colliding++;
+            StartCoroutine(Reset());
+            //calls the coroutine to reset the colliding integer to zero
+            }
         }
     }
-
-
+    //Resets the colliding integer to zero everytime it is done from the code, this is done so that every time there is a collision-
+    //-it waits for the end of frame.
+    IEnumerator Reset() {
+    
+    yield return new WaitForEndOfFrame();
+    colliding = 0;
+    }
 }

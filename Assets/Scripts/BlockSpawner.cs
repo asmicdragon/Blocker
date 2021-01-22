@@ -23,7 +23,7 @@ public class BlockSpawner : MonoBehaviour
 
     private void Start() {
         blockSpawner = this;
-        SpawnWalls();
+       
     }
     public void SpawnBlock()
     {
@@ -59,6 +59,7 @@ public class BlockSpawner : MonoBehaviour
         }
     
     }
+    //Wall spawning so that it looks like as if the stack is going upwards.
     public void SpawnWalls(){
         var wallLeft = Instantiate(wallLeftPreFab);
         var wallRight = Instantiate(wallRightPreFab);

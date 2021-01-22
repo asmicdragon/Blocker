@@ -6,17 +6,20 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameManager gameManager {get; set;}
+    public static StartingBlock stackBlock {get; set;}
     public int score;
     public int lives = 3;
     public int combo = 0;
+    public const float comboGrowth = 0.1f;
+    public float comboMaxGrowth;
     public bool didTrim;
     public bool moveCamera;
-    int obstacleCount;
     public bool collidedWithObstacle = false;
 
     private void Awake() {
-
+        
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        stackBlock = GameObject.FindWithTag("Stack").GetComponent<StartingBlock>();
     }
     private void Start() {
         
@@ -26,7 +29,7 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        // ComboSystem();
+        
         CheckForObstacleCollision();
             
         //pressing escape takes you to the menu
@@ -52,10 +55,17 @@ public class GameManager : MonoBehaviour
 
             //everytime the block is spawned, the score increments by 1 
             score++;
-            Debug.Log("score: " + score);
+
         } 
         
 
+    }
+    public void ComboLifeSystem(){
+        //Gain a life every 8 perfect stacks in a row
+        if(combo == 8 && StartingBlock.CurrentBlock.colliding == 0 && lives < 3)  {
+            lives++;
+            Debug.Log("Lives are now: "+lives);
+        }
     }
 
     public void ComboIncrementation(){
@@ -111,7 +121,7 @@ public class GameManager : MonoBehaviour
     IEnumerator moveCameraRoutine() {
         //checks if moveCamera is true, while its true it will wait 0.5 seconds to turn the bool to false
         while(moveCamera == true){
-            yield return new WaitForSeconds(Mathf.Abs(0.525f));
+            yield return new WaitForSeconds(Mathf.Abs(0.5156f));
             moveCamera = false;
             }
         }
