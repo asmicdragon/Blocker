@@ -6,6 +6,7 @@ ScriptsOnlyBuild:
     - CameraController
     - ColorblindButton
     - GameManager
+    - Lives
     - MainMenu
     - Obstacle
     - ObstacleLeftMove
@@ -18,7 +19,6 @@ ScriptsOnlyBuild:
     - Wilberforce.Colorblind
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
-    - UnityEditor.U2D.Animation.SkinningCachePersistentState
     Unity.2D.Tilemap.Editor.dll:
     - UnityEditor.Tilemaps.GridPaintingState
     - UnityEditor.Tilemaps.GridPaletteBrushes
@@ -114,6 +114,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14478}
     - Class: 114
       Script: {instanceID: 14500}
+    - Class: 114
+      Script: {instanceID: 16764}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -827,6 +829,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 74cf78c23cc4cb99c54beda6adcb025a
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: Lives
   platform: 5
   scenePathNames:
   - Assets/Materials/Scenes/MainMenu.unity
