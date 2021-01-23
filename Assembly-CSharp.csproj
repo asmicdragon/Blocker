@@ -39,6 +39,7 @@
      <Compile Include="Assets\BrightnessSlider.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\Colorblind.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\ColorblindButton.cs" />
+     <Compile Include="Assets\Gameover.cs" />
      <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\Scripts\BlockSpawner.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />

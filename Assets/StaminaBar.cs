@@ -52,6 +52,9 @@ public class StaminaBar : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(GameManager.gameManager.gameOver){
+            this.gameObject.SetActive(false);
+        }
         RechargeStamina(10);
     }
 }

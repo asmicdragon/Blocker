@@ -80,7 +80,7 @@ public class StartingBlock : MonoBehaviour
 
                 if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
                     //Switches to the next scene in order on build settings, which would be the Gameover scene
-                    SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                    GameManager.gameManager.gameOver = true;
                 }
             
             
@@ -142,13 +142,22 @@ public class StartingBlock : MonoBehaviour
     private void SpawnDropBlock(float fallingBlockXPosition, float fallingBlockSize){
 
         //creates the block variable and give it a gameobject, which is set to createprimitive type cube
+        if(Mathf.Abs(hangover) < LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x > Mathf.Abs(0.1f)){
+
         var block = GameObject.CreatePrimitive(PrimitiveType.Cube);
 
         block.transform.localScale = new Vector3(fallingBlockSize, transform.localScale.y, transform.localScale.z);
         block.transform.position = new Vector3(fallingBlockXPosition, transform.position.y, transform.localPosition.z);
 
         block.AddComponent<Rigidbody>(); // we add the rigid component to the falling block
-        Destroy(block.gameObject, 1f); //the float number gives it a running time of a second
+        
+        Destroy(block.gameObject, 1f); 
+        } else if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
+
+            return;
+        }
+        
+        //the float number gives it a running time of a second
         
     }
 
@@ -196,7 +205,9 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(GameManager.gameManager.gameOver){
+            CurrentBlock.gameObject.SetActive(false);
+        }
         CalculateMovement();
     }
 

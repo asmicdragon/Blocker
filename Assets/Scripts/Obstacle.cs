@@ -29,6 +29,9 @@ public class Obstacle : MonoBehaviour
         }
     }
     private void Update() {
+        if(GameManager.gameManager.gameOver){
+            this.gameObject.SetActive(false);
+        }
         CheckLastBlockSize();
         if(StartingBlock.CurrentBlock != null){
             if(StartingBlock.CurrentBlock.transform.position.x > obstacle.transform.position.x){
