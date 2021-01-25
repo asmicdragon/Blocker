@@ -9,6 +9,7 @@ TagManager:
   - StartingBlock
   - WallLeft
   - WallRight
+  - FallingBlock
   layers:
   - Default
   - TransparentFX

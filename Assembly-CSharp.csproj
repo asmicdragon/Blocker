@@ -41,9 +41,11 @@
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\ColorblindButton.cs" />
      <Compile Include="Assets\Gameover.cs" />
      <Compile Include="Assets\MainMenu.cs" />
+     <Compile Include="Assets\ScoreMovement.cs" />
      <Compile Include="Assets\Scripts\BlockSpawner.cs" />
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
+     <Compile Include="Assets\Scripts\GameoverText.cs" />
      <Compile Include="Assets\Scripts\Lives.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\ObstacleLeftMove.cs" />

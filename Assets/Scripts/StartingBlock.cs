@@ -30,7 +30,7 @@ public class StartingBlock : MonoBehaviour
     public bool hasStacked = false;
     bool canTrim = true;
     public bool perfectStack = false;
-
+    bool dropCube = false;
 
 
     public int colliding = 0;
@@ -140,29 +140,18 @@ public class StartingBlock : MonoBehaviour
 
     //this method is to generate the falling block when trimming to make it look as if it actually cut
     private void SpawnDropBlock(float fallingBlockXPosition, float fallingBlockSize){
-
+        var block = GameObject.CreatePrimitive(PrimitiveType.Cube);
         //creates the block variable and give it a gameobject, which is set to createprimitive type cube
         if(Mathf.Abs(hangover) < LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x > Mathf.Abs(0.1f)){
 
-        var block = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
-        block.transform.localScale = new Vector3(fallingBlockSize, transform.localScale.y, transform.localScale.z);
-        block.transform.position = new Vector3(fallingBlockXPosition, transform.position.y, transform.localPosition.z);
-
-        block.AddComponent<Rigidbody>(); // we add the rigid component to the falling block
-        
-        Destroy(block.gameObject, 1f); 
-        } else if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
-
-            return;
-        }
-        
-        //the float number gives it a running time of a second
-        
+            block.transform.localScale = new Vector3(fallingBlockSize, transform.localScale.y, transform.localScale.z);
+            block.transform.position = new Vector3(fallingBlockXPosition, transform.position.y, transform.localPosition.z);
+            block.tag = "FallingBlock"; //This is done so that we have better access to primitivetype.cube
+            block.AddComponent<Rigidbody>(); // we add the rigid component to the falling block
+            dropCube = true;
+            Destroy(block.gameObject, 1f); //the float number gives it a running time of a second
+        } 
     }
-
-    // Start is called before the first frame update
-
     void CalculateMovement()
     {
 
@@ -205,6 +194,7 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if(GameManager.gameManager.gameOver){
             CurrentBlock.gameObject.SetActive(false);
         }
