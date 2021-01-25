@@ -3,7 +3,12 @@ guid: c265fdd34d868b84c93006d99456225e
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - MenuButton: {fileID: 4892079089470444981, guid: d48e7352ace5b594abda8785f9e215d6,
+      type: 3}
+  - RestartButton: {fileID: 8618327884002166842, guid: a5ec99febca6c1b47838e243907d5058,
+      type: 3}
+  - anim: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
