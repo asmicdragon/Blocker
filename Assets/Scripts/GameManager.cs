@@ -97,10 +97,7 @@ public class GameManager : MonoBehaviour
             
             
         }
-        if(lives == 0){
-            
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        }
+
     }
     IEnumerator LoseALifeRoutine(){
         lives--;

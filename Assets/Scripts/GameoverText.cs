@@ -9,12 +9,13 @@ public class GameoverText : MonoBehaviour
 {
     public GameObject MenuButton;
     public GameObject RestartButton;
+    public GameObject Pause;
     public Animator anim;
     bool animationDone = false;
     
     private void Start() {
         
-
+        Pause = GameObject.Find("PauseButton");
         if(MenuButton != null && RestartButton != null){
             StartCoroutine(SetActiveGameObjects(false));
         }
@@ -25,14 +26,24 @@ public class GameoverText : MonoBehaviour
 
     void FadeIn(){
         if(GameManager.gameManager.gameOver == true){
-            StartCoroutine(WaitForText(1.5f));
+            StartCoroutine(WaitForText(1.2f));
             RestartButton.SetActive(true);
             MenuButton.SetActive(true);
+            Destroy(Pause);
             if(animationDone == true){
                 anim.SetTrigger("Start");
             }
         }
         
+    }
+    public void PauseButton(){
+        if(Time.timeScale == 1){
+            PauseGame();
+        } else {
+            if(Time.timeScale == 0){
+                ResumeGame();
+            }
+        }
     }
     IEnumerator WaitForText(float seconds){
 
@@ -45,11 +56,22 @@ public class GameoverText : MonoBehaviour
         RestartButton.SetActive(isActive);
     }
     public void RestartGame(){
-        Time.timeScale = 1;
+        
         SceneManager.LoadScene("Game");
         
     }
+    public void ResumeGame(){
+        StartCoroutine(WaitForRestart());
+    }
+    public void PauseGame(){
+        Time.timeScale = 0;
+    }
     public void BacktoMenu(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+    IEnumerator WaitForRestart(){
+        yield return new WaitForEndOfFrame();
+        Time.timeScale = 1;
+
     }
 }

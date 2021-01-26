@@ -195,8 +195,8 @@ public class StartingBlock : MonoBehaviour
     void Update()
     {
 
-        if(GameManager.gameManager.gameOver){
-            CurrentBlock.gameObject.SetActive(false);
+        if(GameManager.gameManager.gameOver && CurrentBlock != null){
+            Destroy(CurrentBlock.gameObject);
         }
         CalculateMovement();
     }

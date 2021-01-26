@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4892079089470444980
 RectTransform:
   m_ObjectHideFlags: 0
@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 0.12156863, g: 0.34509805, b: 0.59607846, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -98,9 +98,9 @@ MonoBehaviour:
     m_SelectOnRight: {fileID: 0}
   m_Transition: 1
   m_Colors:
-    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
-    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 0}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 0.18431373}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.7529412}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
@@ -120,7 +120,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4892079089470445002}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -4117628971384501561}
+        m_MethodName: BacktoMenu
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &-4117628971384501561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,6 +147,7 @@ MonoBehaviour:
   MenuButton: {fileID: 4892079089470444981}
   RestartButton: {fileID: 8618327884002166842, guid: a5ec99febca6c1b47838e243907d5058,
     type: 3}
+  Pause: {fileID: 0}
   anim: {fileID: 8305780977448330686}
 --- !u!95 &8305780977448330686
 Animator:
@@ -248,8 +260,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c265fdd34d868b84c93006d99456225e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MenuButton: {fileID: 0}
+  MenuButton: {fileID: 4892079089470444981}
   RestartButton: {fileID: 0}
+  Pause: {fileID: 0}
   anim: {fileID: 4892079089501758968}
 --- !u!95 &4892079089501758968
 Animator:
