@@ -22,6 +22,7 @@ public class Lives : MonoBehaviour
             spriteRenderer.sprite = hearts[1]; 
         }else if(GameManager.gameManager.lives == 0){
             spriteRenderer.sprite = hearts[0]; 
+            GameManager.gameManager.gameOver = true;
         }
         
     }
