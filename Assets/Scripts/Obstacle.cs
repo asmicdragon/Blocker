@@ -43,17 +43,8 @@ public class Obstacle : MonoBehaviour
         }
         
     }
-    private void OnCollisionEnter2D(Collision2D other) {
-        if(other.collider.tag == "StartingBlock"){
-            
-            GameManager.gameManager.collidedWithObstacle = true;
-            
-            
-        }
-    }
 
     void OnTriggerEnter2D(Collider2D other) {
-        
         if(other.gameObject.tag == "WallLeft" || other.gameObject.tag == "WallRight"){
 
             Destroy(this.gameObject);

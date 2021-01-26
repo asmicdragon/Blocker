@@ -12,6 +12,7 @@ TagManager:
   - FallingBlock
   - RestartButton
   - MainMenuButton
+  - Spike
   layers:
   - Default
   - TransparentFX

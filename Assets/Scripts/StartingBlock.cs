@@ -216,7 +216,13 @@ public class StartingBlock : MonoBehaviour
             
             return; //Do nothing
 
-        } else {
+        }
+        if(other.gameObject.tag == "Spike"){
+            
+            GameManager.gameManager.collidedWithObstacle = true;
+
+        }
+        if(other.gameObject.tag == "Stack"){
             //this is done so that it checks for a single collision, and doesnt let more happen
             if(colliding == 0) {
             
