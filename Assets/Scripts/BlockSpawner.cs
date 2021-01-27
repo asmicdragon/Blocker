@@ -34,6 +34,7 @@ public class BlockSpawner : MonoBehaviour
         // placing the position of the new block at this flat position
         block.transform.position = new Vector3(Random.Range(-2f, 2f), Camera.main.transform.position.y + placeIncrementation * 2, transform.position.z);
         cloneIncrement++;
+        ParticleSystemController.controller.particleSystemPlayed = false;
         
     }
     public void SpawnObstacle(){

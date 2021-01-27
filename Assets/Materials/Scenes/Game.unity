@@ -956,6 +956,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ObstacleLeft
       objectReference: {fileID: 0}
+    - target: {fileID: 1298864320536815889, guid: f47feb8c3ba420545abd49124e318409,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2265911466785432825, guid: f47feb8c3ba420545abd49124e318409,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1268,7 +1273,7 @@ ParticleSystem:
   serializedVersion: 6
   lengthInSec: 0.05
   simulationSpeed: 1
-  stopAction: 2
+  stopAction: 0
   cullingMode: 0
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
@@ -1341,7 +1346,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1.06
+      scalar: 3
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -1961,7 +1966,7 @@ ParticleSystem:
     m_UseMeshMaterialIndex: 0
     m_UseMeshColors: 1
     alignToDirection: 0
-    m_Texture: {fileID: 0}
+    m_Texture: {fileID: 2800000, guid: a06d1f348828d934894d990f76e2084a, type: 3}
     m_TextureClipChannel: 3
     m_TextureClipThreshold: 0
     m_TextureUVChannel: 0
@@ -5928,6 +5933,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67ae22e6481dd014e817119f785fe376, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleSystemPlayed: 0
 --- !u!1 &1487834547
 GameObject:
   m_ObjectHideFlags: 0
@@ -6461,6 +6467,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: ObstacleRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 3974412188297669623, guid: d466aa115493feb40bd892168f4e0870,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8918469768026085642, guid: d466aa115493feb40bd892168f4e0870,
         type: 3}

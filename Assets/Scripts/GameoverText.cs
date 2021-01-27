@@ -27,12 +27,14 @@ public class GameoverText : MonoBehaviour
     void FadeIn(){
         if(GameManager.gameManager.gameOver == true){
             StartCoroutine(WaitForText(1.2f));
+
             RestartButton.SetActive(true);
             MenuButton.SetActive(true);
+            
             Destroy(Pause);
-            if(animationDone == true){
-                anim.SetTrigger("Start");
-            }
+                if(animationDone == true){
+                    anim.SetTrigger("Start");
+                }
         }
         
     }
@@ -46,7 +48,7 @@ public class GameoverText : MonoBehaviour
         }
     }
     IEnumerator WaitForText(float seconds){
-
+        //using realtime for unscaled time because the game is paused on gameover
         yield return new WaitForSecondsRealtime(seconds);
         animationDone = true;
     }
