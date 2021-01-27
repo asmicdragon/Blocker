@@ -16,8 +16,8 @@ public class GameoverText : MonoBehaviour
     private void Start() {
         
         Pause = GameObject.Find("PauseButton");
-        if(MenuButton != null && RestartButton != null){
-            StartCoroutine(SetActiveGameObjects(false));
+        if(MenuButton != null || RestartButton != null){
+            StartCoroutine(SetActiveGameObjects(false, 0));
         }
     }
     private void Update() {
@@ -26,15 +26,15 @@ public class GameoverText : MonoBehaviour
 
     void FadeIn(){
         if(GameManager.gameManager.gameOver == true){
-            StartCoroutine(WaitForText(1.2f));
 
-            RestartButton.SetActive(true);
-            MenuButton.SetActive(true);
-            
+            StartCoroutine(WaitForText(1.2f));
             Destroy(Pause);
+
                 if(animationDone == true){
                     anim.SetTrigger("Start");
+                    
                 }
+                StartCoroutine(SetActiveGameObjects(true, 1));
         }
         
     }
@@ -52,8 +52,8 @@ public class GameoverText : MonoBehaviour
         yield return new WaitForSecondsRealtime(seconds);
         animationDone = true;
     }
-    IEnumerator SetActiveGameObjects(bool isActive){
-        yield return new WaitForEndOfFrame();
+    IEnumerator SetActiveGameObjects(bool isActive, float seconds){
+        yield return new WaitForSecondsRealtime(seconds);
         MenuButton.SetActive(isActive);
         RestartButton.SetActive(isActive);
     }

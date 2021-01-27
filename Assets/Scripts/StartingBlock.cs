@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Audio;
 public class StartingBlock : MonoBehaviour
 {
     //currentblock variable to declare the block so that we can have 2 different blocks, the one current and the one placed.
@@ -12,34 +12,18 @@ public class StartingBlock : MonoBehaviour
     public static StartingBlock LastBlock {   get; set;  }
 
     private GameManager gameManager;
-
-    //Made this static to reference the whole script
-    public static StartingBlock startingBlock { get; set; }
-
-    //this is to use the rigidbody Component
-    public static Rigidbody rigidBlock;
-    
-    //this is to use the rigidbody2D Component
-    public static Rigidbody2D rigidBlock2D;
-
+    public int colliding = 0;
     [SerializeField]
     private float _speed = 3.5f;
     public float slowDown = 2;
     public float hangover;
-
+    public float _verticalMovement = -1.5f;
+    public float LastBlockXSize;
     public bool hasStacked = false;
     bool canTrim = true;
     public bool perfectStack = false;
     bool dropCube = false;
-
-
-    public int colliding = 0;
-
-    public float LastBlockXSize;
-
-    [SerializeField]
-    public float _verticalMovement = -1.5f;
-
+    public bool playAudio = false;
 
     //Enabling the game to set the variable currentBlock to this gameobject
 
@@ -59,16 +43,9 @@ public class StartingBlock : MonoBehaviour
     }
     private void Awake() {
         gameManager = GameObject.FindObjectOfType<GameManager>();
-        startingBlock = this;
+
     }
 
-    //the below comments are done to add a tag to the method Stop()
-
-    /// <summary>
-    /// If this method is called, the block is trimmed based on their hangover
-    /// </summary>
-    /// <param name="Stop">Parameter value to pass.</param>
-    /// <returns>Returns the hangover value and trims the block it is called upon</returns>
     internal void Stop()
     {
             //turns the speed to zero when the method is called
@@ -80,6 +57,7 @@ public class StartingBlock : MonoBehaviour
 
                 if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
                     //Switches to the next scene in order on build settings, which would be the Gameover scene
+                    GameManager.gameManager.playDestroySound = true;
                     GameManager.gameManager.gameOver = true;
                 }
             
@@ -218,7 +196,7 @@ public class StartingBlock : MonoBehaviour
 
         }
         if(other.gameObject.tag == "Spike"){
-            
+            GameManager.gameManager.playDestroySound = true;
             GameManager.gameManager.collidedWithObstacle = true;
 
         }
@@ -229,7 +207,7 @@ public class StartingBlock : MonoBehaviour
 
             CurrentBlock.Stop();
             _verticalMovement = 0;
-            
+            playAudio = true;
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
             //gives the block the tag 'Stack' after it is placed
             gameObject.tag = "Stack";

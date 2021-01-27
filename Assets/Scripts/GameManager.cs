@@ -5,8 +5,14 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    /*This class file contains most global variables that need to stick, Sound, Combos, and certain collision-
+    variables are all in this class file*/
     public static GameManager gameManager {get; set;}
     public static StartingBlock stackBlock {get; set;}
+
+    public AudioSource audioSource;
+    public AudioClip audio_Stack;
+    public AudioClip audio_OnDestroy;
     public int score;
     public int lives = 3;
     public int combo = 0;
@@ -16,8 +22,9 @@ public class GameManager : MonoBehaviour
     public bool moveCamera;
     public bool collidedWithObstacle = false;
     public bool gameOver = false;
+    public bool playDestroySound = false;
     private void Awake() {
-        
+        audioSource = GetComponent<AudioSource>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         stackBlock = GameObject.FindWithTag("Stack").GetComponent<StartingBlock>();
     }
@@ -29,7 +36,8 @@ public class GameManager : MonoBehaviour
     
     private void Update()
     {
-        
+        PlayDestroySound();
+        PlayStackSound();
         CheckForObstacleCollision();
             
         //pressing escape takes you to the menu
@@ -57,15 +65,33 @@ public class GameManager : MonoBehaviour
             score++;
 
         } 
-        
+    }
+    //Playing the stacking sound
+    public void PlayStackSound(){
+        if(StartingBlock.CurrentBlock.playAudio){
+            audioSource.pitch = 1.5f;
+            audioSource.clip = audio_Stack;
+            audioSource.Play();
+            StartingBlock.CurrentBlock.playAudio = false;
+        }
+    }
+    //Playing the destroyed sound
+    public void PlayDestroySound(){
 
+        if(playDestroySound) {
+            audioSource.pitch = 1f;
+            audioSource.clip = audio_OnDestroy;
+            audioSource.Play();
+            playDestroySound = false;
+            
+        }
     }
     public void PauseGame(){
-
+        // pauses the game
         Time.timeScale = 0;
     }
     public void ResumeGame(){
-
+        // resumes the game
         Time.timeScale = 1;
     }
     public void ComboLifeSystem(){
