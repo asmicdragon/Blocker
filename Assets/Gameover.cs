@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -14,6 +14,7 @@ private void Start() {
     {
         //if the gameover screen is set to true, finds all cubes with the fallingblock tag and destroys them
         if(GameManager.gameManager.gameOver == true){
+            
             if(GameObject.FindWithTag("FallingBlock") != null){
                 Destroy(GameObject.FindWithTag("FallingBlock"));
             }

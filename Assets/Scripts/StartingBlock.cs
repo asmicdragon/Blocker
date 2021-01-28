@@ -23,7 +23,6 @@ public class StartingBlock : MonoBehaviour
     bool canTrim = true;
     public bool perfectStack = false;
     bool dropCube = false;
-    public bool playAudio = false;
 
     //Enabling the game to set the variable currentBlock to this gameobject
 
@@ -57,7 +56,7 @@ public class StartingBlock : MonoBehaviour
 
                 if(Mathf.Abs(hangover) >= LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x < Mathf.Abs(0.1f)){
                     //Switches to the next scene in order on build settings, which would be the Gameover scene
-                    GameManager.gameManager.playDestroySound = true;
+                    
                     GameManager.gameManager.gameOver = true;
                 }
             
@@ -71,8 +70,9 @@ public class StartingBlock : MonoBehaviour
                 CurrentBlock.transform.position = new Vector3(LastBlock.transform.position.x, transform.position.y, transform.position.z);
 
                 
-                    gameManager.ComboIncrementation();
-                
+                gameManager.ComboIncrementation();
+
+                GameManager.gameManager.playStackSound = true;
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
                 
             }
@@ -80,8 +80,9 @@ public class StartingBlock : MonoBehaviour
                 
                 SplitBlockOnX(hangover, direction);
                 
-                    gameManager.ComboDecrementation();
+                gameManager.ComboDecrementation();
 
+                GameManager.gameManager.playStackSound = true;
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
                 
                 
@@ -174,6 +175,7 @@ public class StartingBlock : MonoBehaviour
     {
 
         if(GameManager.gameManager.gameOver && CurrentBlock != null){
+            GameManager.gameManager.playDestroySound = true;
             Destroy(CurrentBlock.gameObject);
         }
         CalculateMovement();
@@ -207,7 +209,7 @@ public class StartingBlock : MonoBehaviour
 
             CurrentBlock.Stop();
             _verticalMovement = 0;
-            playAudio = true;
+            
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
             //gives the block the tag 'Stack' after it is placed
             gameObject.tag = "Stack";

@@ -13,6 +13,7 @@ ScriptsOnlyBuild:
     - Obstacle
     - ObstacleLeftMove
     - ObstacleRightMove
+    - ParticleSystemController
     - ScoreMovement
     - ScoreText
     - StaminaBar
@@ -81,9 +82,15 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 65
       Script: {instanceID: 0}
+    - Class: 68
+      Script: {instanceID: 0}
     - Class: 74
       Script: {instanceID: 0}
     - Class: 81
+      Script: {instanceID: 0}
+    - Class: 82
+      Script: {instanceID: 0}
+    - Class: 83
       Script: {instanceID: 0}
     - Class: 91
       Script: {instanceID: 0}
@@ -118,27 +125,29 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12516}
     - Class: 114
-      Script: {instanceID: 12918}
+      Script: {instanceID: 12702}
     - Class: 114
-      Script: {instanceID: 13156}
+      Script: {instanceID: 12920}
     - Class: 114
-      Script: {instanceID: 13232}
+      Script: {instanceID: 13158}
     - Class: 114
-      Script: {instanceID: 13640}
+      Script: {instanceID: 13234}
     - Class: 114
-      Script: {instanceID: 13798}
+      Script: {instanceID: 13642}
     - Class: 114
-      Script: {instanceID: 13934}
+      Script: {instanceID: 13800}
     - Class: 114
-      Script: {instanceID: 14412}
+      Script: {instanceID: 13936}
     - Class: 114
-      Script: {instanceID: 14452}
+      Script: {instanceID: 14414}
     - Class: 114
-      Script: {instanceID: 14456}
+      Script: {instanceID: 14454}
     - Class: 114
-      Script: {instanceID: 14490}
+      Script: {instanceID: 14458}
     - Class: 114
-      Script: {instanceID: 14512}
+      Script: {instanceID: 14492}
+    - Class: 114
+      Script: {instanceID: 14514}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -197,23 +206,23 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12374}
     - Class: 114
-      Script: {instanceID: 13294}
+      Script: {instanceID: 13296}
     - Class: 114
-      Script: {instanceID: 13380}
+      Script: {instanceID: 13382}
     - Class: 114
-      Script: {instanceID: 13398}
+      Script: {instanceID: 13400}
     - Class: 114
-      Script: {instanceID: 13696}
+      Script: {instanceID: 13698}
     - Class: 114
-      Script: {instanceID: 13798}
+      Script: {instanceID: 13800}
     - Class: 114
-      Script: {instanceID: 14078}
+      Script: {instanceID: 14080}
     - Class: 114
-      Script: {instanceID: 14412}
+      Script: {instanceID: 14414}
     - Class: 114
-      Script: {instanceID: 14452}
+      Script: {instanceID: 14454}
     - Class: 114
-      Script: {instanceID: 14456}
+      Script: {instanceID: 14458}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -539,6 +548,12 @@ ScriptsOnlyBuild:
     className: ScrollRect
   - hash:
       serializedVersion: 2
+      Hash: 28cc49a204747cba16de144b3c648842
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: ParticleSystemController
+  - hash:
+      serializedVersion: 2
       Hash: c3d3430df9e3ea95e3e3d587961390fb
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
@@ -563,7 +578,7 @@ ScriptsOnlyBuild:
     className: RemoteTestResultSender
   - hash:
       serializedVersion: 2
-      Hash: a0c474dabbc54955901dbc6353a7cf0d
+      Hash: e109f03a468acb032c5c23b489c0f7a7
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: StartingBlock
@@ -815,7 +830,7 @@ ScriptsOnlyBuild:
     className: StaminaBar
   - hash:
       serializedVersion: 2
-      Hash: 4f510e0331373194978d211a7da9a0cd
+      Hash: 0cbf09468312e13a72acc2c679235c41
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager

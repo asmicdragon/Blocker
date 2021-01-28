@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int score;
     public int lives = 3;
     public int combo = 0;
+    public int maxCombo = 8;
     public const float comboGrowth = 0.1f;
     public float comboMaxGrowth;
     public bool didTrim;
@@ -23,6 +24,8 @@ public class GameManager : MonoBehaviour
     public bool collidedWithObstacle = false;
     public bool gameOver = false;
     public bool playDestroySound = false;
+    public bool playStackSound = false;
+
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -65,27 +68,26 @@ public class GameManager : MonoBehaviour
             score++;
 
         } 
-    }
-    //Playing the stacking sound
-    public void PlayStackSound(){
-        if(StartingBlock.CurrentBlock.playAudio){
-            audioSource.pitch = 1.5f;
-            audioSource.clip = audio_Stack;
-            audioSource.Play();
-            StartingBlock.CurrentBlock.playAudio = false;
-        }
-    }
-    //Playing the destroyed sound
+    }    
     public void PlayDestroySound(){
-
         if(playDestroySound) {
             audioSource.pitch = 1f;
             audioSource.clip = audio_OnDestroy;
             audioSource.Play();
             playDestroySound = false;
-            
         }
     }
+    //Playing the stacking sound
+    public void PlayStackSound(){
+        if(playStackSound){
+            audioSource.pitch = 1.5f;
+            audioSource.clip = audio_Stack;
+            audioSource.Play();
+            playStackSound = false;
+        }
+    }
+    //Playing the destroyed sound
+
     public void PauseGame(){
         // pauses the game
         Time.timeScale = 0;
@@ -96,7 +98,11 @@ public class GameManager : MonoBehaviour
     }
     public void ComboLifeSystem(){
         //Gain a life every 8 perfect stacks in a row
-        if(combo == 8 && StartingBlock.CurrentBlock.colliding == 0 && lives < 3)  {
+        if(combo == maxCombo){
+            //resetting combo every 8 combo
+            combo = 0;
+        }
+        if(combo == maxCombo && StartingBlock.CurrentBlock.colliding == 0 && lives < 3)  {
             lives++;
             Debug.Log("Lives are now: "+lives);
         }

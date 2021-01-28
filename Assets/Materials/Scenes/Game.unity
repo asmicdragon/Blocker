@@ -6441,12 +6441,14 @@ MonoBehaviour:
   score: 0
   lives: 3
   combo: 0
+  maxCombo: 8
   comboMaxGrowth: 0
   didTrim: 0
   moveCamera: 0
   collidedWithObstacle: 0
   gameOver: 0
   playDestroySound: 0
+  playStackSound: 0
 --- !u!4 &2045923030
 Transform:
   m_ObjectHideFlags: 0
@@ -6471,7 +6473,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 84a6ffd4fedde1245ac41203d586f9ab, type: 3}
+  m_audioClip: {fileID: 8300000, guid: fd67823daca3a8e4e86de9ad8db15a80, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 0.65
   m_Pitch: 1
