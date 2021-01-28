@@ -45,6 +45,7 @@ public class StartingBlock : MonoBehaviour
 
     }
 
+    
     internal void Stop()
     {
             //turns the speed to zero when the method is called
@@ -162,6 +163,16 @@ public class StartingBlock : MonoBehaviour
         
 
     }
+    void CheckForOutOfBounds(){
+        if(CurrentBlock != null){
+            if(CurrentBlock.transform.position.y < (Camera.main.transform.position.y - 5f)){
+                Destroy(CurrentBlock.gameObject);
+                GameManager.gameManager.playDestroySound = true;
+                GameManager.gameManager.gameOver = true;
+                
+            }
+        }
+    }
             IEnumerator RechargingStamina(){
 
             yield return new WaitForSeconds(3);
@@ -173,12 +184,16 @@ public class StartingBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForOutOfBounds();
 
+        IsGameOver();
+        CalculateMovement();
+    }
+    void IsGameOver(){
         if(GameManager.gameManager.gameOver && CurrentBlock != null){
             GameManager.gameManager.playDestroySound = true;
             Destroy(CurrentBlock.gameObject);
         }
-        CalculateMovement();
     }
 
     //This method is calling the Stop() method when the startingblock collides with the stack
@@ -196,6 +211,9 @@ public class StartingBlock : MonoBehaviour
             
             return; //Do nothing
 
+        }
+        if(other.gameObject.tag == "Floor"){
+            GameManager.gameManager.gameOver = true;
         }
         if(other.gameObject.tag == "Spike"){
             GameManager.gameManager.playDestroySound = true;

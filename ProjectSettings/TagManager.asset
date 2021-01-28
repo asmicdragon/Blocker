@@ -13,6 +13,7 @@ TagManager:
   - RestartButton
   - MainMenuButton
   - Spike
+  - Floor
   layers:
   - Default
   - TransparentFX

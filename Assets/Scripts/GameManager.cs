@@ -13,7 +13,13 @@ public class GameManager : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip audio_Stack;
     public AudioClip audio_OnDestroy;
+
+    //we use these 2 variable for the color modes to move from one scene to another
+    public int colorType;
+    string colorTypeKey = "ColorType";
     public int score;
+    public int highScore = 0;
+    public string highScoreKey = "HighScore";
     public int lives = 3;
     public int combo = 0;
     public int maxCombo = 8;
@@ -32,21 +38,40 @@ public class GameManager : MonoBehaviour
         stackBlock = GameObject.FindWithTag("Stack").GetComponent<StartingBlock>();
     }
     private void Start() {
-        
+        //getting the highscore from the player prefs, if it is not there, it will be zero
+        highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+        colorType = PlayerPrefs.GetInt(colorTypeKey, 0);
+
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
         StartCoroutine(CreateObstacleRoutine(5));
+
+        LoadColorMode();
     }
-    
+    void LoadColorMode(){
+        //Inputting the colorType to the Colorblind script to change the colormode
+        Wilberforce.Colorblind.colorBlind.Type = colorType;
+    }
+    void SaveHighScore() {
+        if(gameOver){
+            if(score > highScore){
+                //if the score is greater than the highscore, we input the score into the highscore.
+                PlayerPrefs.SetInt(highScoreKey, score);
+                PlayerPrefs.Save();
+            }
+        }
+    }
     private void Update()
     {
         PlayDestroySound();
         PlayStackSound();
         CheckForObstacleCollision();
-            
+        //Saving the highscore
+        SaveHighScore();
         //pressing escape takes you to the menu
         if(Input.GetKeyDown(KeyCode.Escape)){
             SceneManager.LoadScene(0);
         }
+        
 
     
  
@@ -131,7 +156,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    IEnumerator LoseALifeRoutine(){
+    public IEnumerator LoseALifeRoutine(){
         lives--;
         Debug.Log("Lives: "+lives);
         Destroy(StartingBlock.CurrentBlock.gameObject);

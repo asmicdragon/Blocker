@@ -47,6 +47,7 @@
      <Compile Include="Assets\Scripts\CameraController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GameoverText.cs" />
+     <Compile Include="Assets\Scripts\HighscoreText.cs" />
      <Compile Include="Assets\Scripts\Lives.cs" />
      <Compile Include="Assets\Scripts\Obstacle.cs" />
      <Compile Include="Assets\Scripts\ObstacleLeftMove.cs" />

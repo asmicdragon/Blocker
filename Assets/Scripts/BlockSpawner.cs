@@ -31,6 +31,7 @@ public class BlockSpawner : MonoBehaviour
         //This class file is done so that the block spawns after being placed
         var block = Instantiate(blockPreFab);
         block.name = "StartingBlock " + cloneIncrement;
+        block.tag = "StartingBlock";
         // placing the position of the new block at this flat position
         block.transform.position = new Vector3(Random.Range(-2f, 2f), Camera.main.transform.position.y + placeIncrementation * 2, transform.position.z);
         cloneIncrement++;
