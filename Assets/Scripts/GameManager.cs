@@ -121,15 +121,22 @@ public class GameManager : MonoBehaviour
         // resumes the game
         Time.timeScale = 1;
     }
+    public void ResetCombo(){
+        combo = 0;
+        Debug.Log("Combo has been reset");
+    }
     public void ComboLifeSystem(){
-        //Gain a life every 8 perfect stacks in a row
-        if(combo == maxCombo){
-            //resetting combo every 8 combo
-            combo = 0;
-        }
+        
         if(combo == maxCombo && StartingBlock.CurrentBlock.colliding == 0 && lives < 3)  {
             lives++;
             Debug.Log("Lives are now: "+lives);
+            
+
+        }
+        //Gain a life every 8 perfect stacks in a row
+        if(combo >= maxCombo){
+            //resetting combo every 8 perfect stacks
+            ResetCombo();
         }
     }
 
@@ -137,10 +144,7 @@ public class GameManager : MonoBehaviour
         combo++;
 
     }
-    public void ComboDecrementation(){
-        combo = 0;
-        
-    }
+
     public void SpawnWallsRoutine(){
         if(Wall.wallLeft.transform.position.y < Camera.main.transform.position.y - 5){
             BlockSpawner.blockSpawner.SpawnWalls();

@@ -81,7 +81,7 @@ public class StartingBlock : MonoBehaviour
                 
                 SplitBlockOnX(hangover, direction);
                 
-                gameManager.ComboDecrementation();
+                gameManager.ResetCombo();
 
                 GameManager.gameManager.playStackSound = true;
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
@@ -218,6 +218,7 @@ public class StartingBlock : MonoBehaviour
         if(other.gameObject.tag == "Spike"){
             GameManager.gameManager.playDestroySound = true;
             GameManager.gameManager.collidedWithObstacle = true;
+            GameManager.gameManager.ResetCombo();
 
         }
         if(other.gameObject.tag == "Stack"){
