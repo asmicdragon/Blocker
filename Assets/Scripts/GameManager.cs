@@ -20,6 +20,9 @@ public class GameManager : MonoBehaviour
     public int score;
     public int highScore = 0;
     public string highScoreKey = "HighScore";
+
+    public float masterVolume = 0.0f;
+    string volumeKey = "Volume";
     public int lives = 3;
     public int combo = 0;
     public int maxCombo = 8;
@@ -41,15 +44,20 @@ public class GameManager : MonoBehaviour
         //getting the highscore from the player prefs, if it is not there, it will be zero
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
         colorType = PlayerPrefs.GetInt(colorTypeKey, 0);
+        masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
 
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
         StartCoroutine(CreateObstacleRoutine(5));
 
         LoadColorMode();
+        LoadVolume();
     }
     void LoadColorMode(){
         //Inputting the colorType to the Colorblind script to change the colormode
         Wilberforce.Colorblind.colorBlind.Type = colorType;
+    }
+    void LoadVolume(){
+        AudioListener.volume = masterVolume;
     }
     void SaveHighScore() {
         if(gameOver){
@@ -60,6 +68,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     private void Update()
     {
         PlayDestroySound();

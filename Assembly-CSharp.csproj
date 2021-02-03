@@ -41,6 +41,7 @@
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\ColorblindButton.cs" />
      <Compile Include="Assets\Gameover.cs" />
      <Compile Include="Assets\MainMenu.cs" />
+     <Compile Include="Assets\MasterVolume.cs" />
      <Compile Include="Assets\ParticleSystemController.cs" />
      <Compile Include="Assets\ScoreMovement.cs" />
      <Compile Include="Assets\Scripts\BlockSpawner.cs" />
