@@ -52,13 +52,16 @@ public class GameManager : MonoBehaviour
         LoadColorMode();
         LoadVolume();
     }
+    //loads the color mode type from the color blind menu
     void LoadColorMode(){
         //Inputting the colorType to the Colorblind script to change the colormode
         Wilberforce.Colorblind.colorBlind.Type = colorType;
     }
+    //this loads the volume from playerprefs
     void LoadVolume(){
         AudioListener.volume = masterVolume;
     }
+    //Saves the highscore
     void SaveHighScore() {
         if(gameOver){
             if(score > highScore){
