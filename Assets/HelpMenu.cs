@@ -10,24 +10,33 @@ public class HelpMenu : MonoBehaviour
     string highScoreKey = "HighScore";
     public Animator anim;
     public GameObject HelpMenuOBJ;
+    public GameObject BacktoMenu;
+    public GameObject Continue;
+
+    public static HelpMenu helpMenu {get; set;}
+    public bool helpMenuDone = false;
     // Start is called before the first frame update
     void Start()
     {
-        
+        helpMenu = this;
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
-
-        HelpMenuOBJ = this.gameObject;
-
-        CheckNewPlayer();
-
-        if(HelpMenuOBJ == null){
-            Debug.LogError("Help Menu object is null");
-        }
         
-        if(anim == null){
-            Debug.LogError("FadeOut Animator is null");
-        }
+            if(helpMenu != null){
+                HelpMenuOBJ = GameObject.Find("NewPlayerMenu");
+                BacktoMenu = GameObject.Find("BacktoMenu");
+                Continue = GameObject.Find("ContinueButton");
+                CheckNewPlayer();
 
+                if(HelpMenuOBJ == null){
+                    Debug.LogError("Help Menu object is null");
+                }
+                
+                if(anim == null){
+                    Debug.LogError("FadeOut Animator is null");
+                }
+
+                CreateHelpMenu();
+            }
         
     }
     void CheckNewPlayer(){
@@ -37,28 +46,39 @@ public class HelpMenu : MonoBehaviour
             
         } else {
             newPlayer = false;
-            
+            helpMenuDone = true;
             Time.timeScale = 1;
         }
     }
     void CreateHelpMenu(){
+        
         if(newPlayer){
             HelpMenuOBJ.SetActive(true);
+            Continue.SetActive(true);
+            BacktoMenu.SetActive(true);
             Time.timeScale = 0;
         } else {
             HelpMenuOBJ.SetActive(false);
+            Continue.SetActive(false);
+            BacktoMenu.SetActive(false);
             Time.timeScale = 1;
         }
     }
     public void ContinueButton(){
-        anim.SetTrigger("Start");
+        anim.SetTrigger("Fade");
         StartCoroutine(WaitForAnimation());
+        helpMenuDone = true;
+        
     }
+
+
     IEnumerator WaitForAnimation(){
         
         yield return new WaitForSecondsRealtime(1.1f);
-        newPlayer = false;
+        Time.timeScale = 1;
         HelpMenuOBJ.SetActive(false);
+        Continue.SetActive(false);
+        BacktoMenu.SetActive(false);
     }
     public void BackToMenu(){
         SceneManager.LoadScene("MainMenu");
@@ -67,9 +87,6 @@ public class HelpMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKey(KeyCode.T)){
-            anim.SetTrigger("Start");
-        }
-        CreateHelpMenu();
+
     }
 }

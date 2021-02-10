@@ -71,6 +71,11 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    void ResetHighScore(){
+        if(Input.GetKey(KeyCode.P)){
+            PlayerPrefs.DeleteAll();
+        }
+    }
 
     private void Update()
     {
@@ -79,6 +84,7 @@ public class GameManager : MonoBehaviour
         CheckForObstacleCollision();
         //Saving the highscore
         SaveHighScore();
+        ResetHighScore();
         //pressing escape takes you to the menu
         if(Input.GetKeyDown(KeyCode.Escape)){
             SceneManager.LoadScene(0);

@@ -7,6 +7,7 @@ ScriptsOnlyBuild:
     - GameManager
     - Gameover
     - GameoverText
+    - HelpMenu
     - HighscoreText
     - Lives
     - MainMenu
@@ -100,53 +101,55 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11270}
     - Class: 114
-      Script: {instanceID: 11300}
+      Script: {instanceID: 11294}
     - Class: 114
-      Script: {instanceID: 11470}
+      Script: {instanceID: 11464}
     - Class: 114
-      Script: {instanceID: 11578}
+      Script: {instanceID: 11572}
     - Class: 114
-      Script: {instanceID: 11592}
+      Script: {instanceID: 11586}
     - Class: 114
-      Script: {instanceID: 11646}
+      Script: {instanceID: 11640}
     - Class: 114
-      Script: {instanceID: 11854}
+      Script: {instanceID: 11732}
     - Class: 114
-      Script: {instanceID: 11884}
+      Script: {instanceID: 11850}
     - Class: 114
-      Script: {instanceID: 12104}
+      Script: {instanceID: 11880}
     - Class: 114
-      Script: {instanceID: 12112}
+      Script: {instanceID: 12100}
     - Class: 114
-      Script: {instanceID: 12328}
+      Script: {instanceID: 12108}
     - Class: 114
-      Script: {instanceID: 12424}
+      Script: {instanceID: 12324}
     - Class: 114
-      Script: {instanceID: 12522}
+      Script: {instanceID: 12420}
     - Class: 114
-      Script: {instanceID: 12710}
+      Script: {instanceID: 12518}
     - Class: 114
-      Script: {instanceID: 12928}
+      Script: {instanceID: 12706}
     - Class: 114
-      Script: {instanceID: 13166}
+      Script: {instanceID: 12924}
     - Class: 114
-      Script: {instanceID: 13242}
+      Script: {instanceID: 13162}
     - Class: 114
-      Script: {instanceID: 13650}
+      Script: {instanceID: 13238}
     - Class: 114
-      Script: {instanceID: 13808}
+      Script: {instanceID: 13646}
     - Class: 114
-      Script: {instanceID: 13944}
+      Script: {instanceID: 13804}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 13940}
     - Class: 114
-      Script: {instanceID: 14462}
+      Script: {instanceID: 14420}
     - Class: 114
-      Script: {instanceID: 14466}
+      Script: {instanceID: 14460}
     - Class: 114
-      Script: {instanceID: 14500}
+      Script: {instanceID: 14464}
     - Class: 114
-      Script: {instanceID: 14522}
+      Script: {instanceID: 14498}
+    - Class: 114
+      Script: {instanceID: 14520}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -193,37 +196,37 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11270}
     - Class: 114
-      Script: {instanceID: 11300}
+      Script: {instanceID: 11294}
     - Class: 114
-      Script: {instanceID: 11646}
+      Script: {instanceID: 11640}
     - Class: 114
-      Script: {instanceID: 12246}
+      Script: {instanceID: 12242}
     - Class: 114
-      Script: {instanceID: 12328}
+      Script: {instanceID: 12324}
     - Class: 114
-      Script: {instanceID: 12380}
+      Script: {instanceID: 12376}
     - Class: 114
-      Script: {instanceID: 12646}
+      Script: {instanceID: 12642}
     - Class: 114
-      Script: {instanceID: 13304}
+      Script: {instanceID: 13300}
     - Class: 114
-      Script: {instanceID: 13390}
+      Script: {instanceID: 13386}
     - Class: 114
-      Script: {instanceID: 13408}
+      Script: {instanceID: 13404}
     - Class: 114
-      Script: {instanceID: 13706}
+      Script: {instanceID: 13702}
     - Class: 114
-      Script: {instanceID: 13808}
+      Script: {instanceID: 13804}
     - Class: 114
-      Script: {instanceID: 14088}
+      Script: {instanceID: 14084}
     - Class: 114
-      Script: {instanceID: 14422}
+      Script: {instanceID: 14208}
     - Class: 114
-      Script: {instanceID: 14462}
+      Script: {instanceID: 14420}
     - Class: 114
-      Script: {instanceID: 14466}
+      Script: {instanceID: 14460}
     - Class: 114
-      Script: {instanceID: 16800}
+      Script: {instanceID: 14464}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -355,6 +358,12 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_InputField
+  - hash:
+      serializedVersion: 2
+      Hash: 8865a0da7cf28ed49518b295dafbce2c
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: HelpMenu
   - hash:
       serializedVersion: 2
       Hash: 7ab0e790220bdca831fdd886b339039d
@@ -735,6 +744,12 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
+      Hash: aa67ec031f4d8d8b7c7b55c80a275736
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: MasterVolume
+  - hash:
+      serializedVersion: 2
       Hash: 8cd1cbba27f3cb1717254f668e9e0d5a
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
@@ -847,12 +862,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
-  - hash:
-      serializedVersion: 2
-      Hash: aa67ec031f4d8d8b7c7b55c80a275736
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: MasterVolume
   platform: 5
   scenePathNames:
   - Assets/Materials/Scenes/MainMenu.unity

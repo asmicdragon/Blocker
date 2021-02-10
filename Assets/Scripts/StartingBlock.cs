@@ -145,22 +145,22 @@ public class StartingBlock : MonoBehaviour
         transform.Translate(goingDown * Time.deltaTime);
 
         //checks for W pressed the verticalmovement is still going down and that you have enough stamina, which has to be max value to use
-        
-        if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
-            
-            //When the stamina bar is above 30 u can use the W slowing down
-            StaminaBar.instance.UseStamina(0.8f);
-            _speed = 1.5f;
-            StaminaBar.instance.usingStamina = true;
-            transform.Translate(Vector3.up * slowDown * Time.deltaTime);
+        if(HelpMenu.helpMenu.helpMenuDone){
+            if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+                
+                //When the stamina bar is above 30 u can use the W slowing down
+                StaminaBar.instance.UseStamina(0.8f);
+                _speed = 1.5f;
+                StaminaBar.instance.usingStamina = true;
+                transform.Translate(Vector3.up * slowDown * Time.deltaTime);
 
-        } else if(_verticalMovement < 0){
+            } else if(_verticalMovement < 0){
 
-            //when running out of stamina it will stop the slowing down
-            _speed = 5f;
-            StartCoroutine(RechargingStamina());
+                //when running out of stamina it will stop the slowing down
+                _speed = 5f;
+                StartCoroutine(RechargingStamina());
+            }
         }
-        
 
     }
     void CheckForOutOfBounds(){

@@ -10,6 +10,7 @@ public class MainMenu : MonoBehaviour
     private void Start() {
         
     }
+
     public void PlayGame(){
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -31,6 +32,7 @@ public class MainMenu : MonoBehaviour
         Debug.Log(""+ width + "x" + height + " FullScreen: " + setFullScreen);
         
     }
+
     public void PauseGame(){
         Time.timeScale = 0;
     }
