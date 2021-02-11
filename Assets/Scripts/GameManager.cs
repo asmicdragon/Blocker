@@ -26,12 +26,18 @@ public class GameManager : MonoBehaviour
     public int lives = 3;
     public int combo = 0;
     public int maxCombo = 8;
+
+    //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
+    public float seconds = 5; //Original spawning speed is set to 5.
+    public float difficultySeconds;
+    public float obstacleMovement = 1.5f;
     public const float comboGrowth = 0.1f;
     public float comboMaxGrowth;
-    public bool didTrim;
     public bool moveCamera;
     public bool collidedWithObstacle = false;
     public bool gameOver = false;
+    public bool canDecrease = true;
+    public bool canIncrease = true;
     public bool playDestroySound = false;
     public bool playStackSound = false;
 
@@ -45,9 +51,11 @@ public class GameManager : MonoBehaviour
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
         colorType = PlayerPrefs.GetInt(colorTypeKey, 0);
         masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
+        difficultySeconds = seconds;
+        
 
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
-        StartCoroutine(CreateObstacleRoutine(5));
+        StartCoroutine(CreateObstacleRoutine());
 
         LoadColorMode();
         LoadVolume();
@@ -71,6 +79,8 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    //This reset is to test out the help menu which works on the highscore being zero
     void ResetHighScore(){
         if(Input.GetKey(KeyCode.P)){
             PlayerPrefs.DeleteAll();
@@ -89,18 +99,12 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Escape)){
             SceneManager.LoadScene(0);
         }
-        
-
-    
- 
 
         //Starts the coroutine of the moving camera
         StartCoroutine(moveCameraRoutine());
 
-
         if(StartingBlock.CurrentBlock._verticalMovement >= 0){
             //This will turn the current block into the last block and spawn a new one
-            //by making it the lastblock, the game has to automatically wait for the hasStacked variable to turn true before spawning
             StartingBlock.CurrentBlock = StartingBlock.LastBlock;
             FindObjectOfType<BlockSpawner>().SpawnBlock();
 
@@ -164,11 +168,14 @@ public class GameManager : MonoBehaviour
     }
 
     public void SpawnWallsRoutine(){
+        //Sadly this part of the code would have been implemented into the game, but since for some odd reason the script doesn't stick into the build
+        //We decided to leave this out
         if(Wall.wallLeft.transform.position.y < Camera.main.transform.position.y - 5){
             BlockSpawner.blockSpawner.SpawnWalls();
         }
     }
     void CheckForObstacleCollision(){
+        //This is to check for the obstacle collision from the obstacle script, and implement the collision into the gamemanager class file so that it sticks even when the obstacle is destroyed.
         if(collidedWithObstacle){
 
             collidedWithObstacle = false;
@@ -187,7 +194,35 @@ public class GameManager : MonoBehaviour
         BlockSpawner.blockSpawner.SpawnBlock();
         
     }
-    IEnumerator CreateObstacleRoutine(int seconds) { 
+    public void DifficultyProgression(){
+        //This method will be used for the games progression
+        
+        if(score >= 15 && canDecrease && difficultySeconds != 3){
+            difficultySeconds--;
+            seconds = difficultySeconds;
+            canDecrease = false;
+
+        }
+        if(StartingBlock.CurrentBlock.transform.localScale.x < 2.5f){
+            canDecrease = true;
+        }
+        //This part will be the obstacle speed increase
+        if(score >= 30 && canIncrease && StartingBlock.CurrentBlock.transform.localScale.x < 1.7f && obstacleMovement < 2){
+            obstacleMovement += 0.25f;
+            canIncrease = false;
+            //finally setting the spawning speed to 2 seconds
+            seconds = 2f;
+        }
+        if(StartingBlock.CurrentBlock.transform.localScale.x < 0.9f){
+            canIncrease = true;
+            if(score >= 50 && canIncrease && obstacleMovement < 2){
+                obstacleMovement += 0.25f;
+                canIncrease = false;
+            }
+        }
+
+    }
+    IEnumerator CreateObstacleRoutine() { 
 
         while(true){
 

@@ -234,7 +234,7 @@ public class StartingBlock : MonoBehaviour
             gameObject.tag = "Stack";
             LastBlock = CurrentBlock;
             gameManager.ComboLifeSystem();
-                    
+            gameManager.DifficultyProgression();
             //sets the hasStacked boolean to true
             hasStacked = true;
             colliding++;

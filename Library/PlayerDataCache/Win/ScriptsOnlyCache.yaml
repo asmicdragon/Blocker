@@ -852,7 +852,7 @@ ScriptsOnlyBuild:
     className: StaminaBar
   - hash:
       serializedVersion: 2
-      Hash: 4f64f77b1a6450845860ac25414a20a1
+      Hash: f736723e66dae2dda613d37b1619aeb8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
