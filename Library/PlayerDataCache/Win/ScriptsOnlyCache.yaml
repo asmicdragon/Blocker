@@ -3,10 +3,12 @@ ScriptsOnlyBuild:
     Assembly-CSharp.dll:
     - BlockSpawner
     - CameraController
+    - CoinsText
     - ColorblindButton
     - GameManager
     - Gameover
     - GameoverText
+    - GlobalCoinsText
     - HelpMenu
     - HighscoreText
     - Lives
@@ -39,12 +41,6 @@ ScriptsOnlyBuild:
     - TMPro.TMP_SpriteAsset
     - TMPro.TMP_StyleSheet
     - TMPro.TextMeshProUGUI
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -150,6 +146,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14502}
     - Class: 114
       Script: {instanceID: 14524}
+    - Class: 114
+      Script: {instanceID: 31086}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -227,6 +225,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 14464}
     - Class: 114
       Script: {instanceID: 14468}
+    - Class: 114
+      Script: {instanceID: 66746}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -852,7 +852,7 @@ ScriptsOnlyBuild:
     className: StaminaBar
   - hash:
       serializedVersion: 2
-      Hash: f736723e66dae2dda613d37b1619aeb8
+      Hash: de9557b61c464e0ad93681c74a4fedb8
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -862,8 +862,20 @@ ScriptsOnlyBuild:
     assemblyName: Unity.Timeline.dll
     namespaceName: UnityEngine.Timeline
     className: PlayableTrack
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CoinsText
+  - hash:
+      serializedVersion: 2
+      Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: GlobalCoinsText
   platform: 5
   scenePathNames:
   - Assets/Materials/Scenes/MainMenu.unity
   - Assets/Materials/Scenes/Game.unity
-  playerPath: C:/Users/Kieran/Desktop/Final Game Build/Blocker.exe
+  playerPath: C:/Users/Kieran/Desktop/Blocker Build/Blocker.exe

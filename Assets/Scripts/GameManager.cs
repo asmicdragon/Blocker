@@ -27,6 +27,10 @@ public class GameManager : MonoBehaviour
     public int combo = 0;
     public int maxCombo = 8;
 
+    public int coins = 0;
+    float coinsF = 0;
+    public int globalCoins = 0;
+
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
     public float seconds = 5; //Original spawning speed is set to 5.
     public float difficultySeconds;
@@ -51,6 +55,7 @@ public class GameManager : MonoBehaviour
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
         colorType = PlayerPrefs.GetInt(colorTypeKey, 0);
         masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
+        globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
         difficultySeconds = seconds;
         
 
@@ -79,21 +84,33 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+        void IncrementGlobalCoins() {
+        if(gameOver){
+                //if the score is greater than the highscore, we input the score into the highscore.
+                PlayerPrefs.SetInt("globalCoins", globalCoins + coins);
+                PlayerPrefs.Save();
+            
+        }
+    }
     //This reset is to test out the help menu which works on the highscore being zero
     void ResetHighScore(){
         if(Input.GetKey(KeyCode.P)){
             PlayerPrefs.DeleteAll();
         }
     }
-
+    public void ReduceCoins() {
+        coinsF *= 0.85f; //-20%
+        coins = Mathf.FloorToInt(coinsF);
+    }
     private void Update()
     {
+        coinsF = coins; //This makes coins into coinsF so that we can convert float into int
         PlayDestroySound();
         PlayStackSound();
         CheckForObstacleCollision();
         //Saving the highscore
         SaveHighScore();
+        IncrementGlobalCoins();
         ResetHighScore();
         //pressing escape takes you to the menu
         if(Input.GetKeyDown(KeyCode.Escape)){
@@ -163,8 +180,9 @@ public class GameManager : MonoBehaviour
     }
 
     public void ComboIncrementation(){
+        coins += 10 + (combo * 10);
         combo++;
-
+        
     }
 
     public void SpawnWallsRoutine(){

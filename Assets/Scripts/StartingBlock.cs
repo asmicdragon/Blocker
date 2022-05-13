@@ -60,7 +60,10 @@ public class StartingBlock : MonoBehaviour
                     
                     GameManager.gameManager.gameOver = true;
                 }
-            
+            if(Mathf.Abs(hangover) > 0.1f && colliding == 0)
+            {
+                GameManager.gameManager.coins++;
+            }
             
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
@@ -72,6 +75,7 @@ public class StartingBlock : MonoBehaviour
 
                 
                 gameManager.ComboIncrementation();
+                
 
                 GameManager.gameManager.playStackSound = true;
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
@@ -219,6 +223,14 @@ public class StartingBlock : MonoBehaviour
             GameManager.gameManager.playDestroySound = true;
             GameManager.gameManager.collidedWithObstacle = true;
             GameManager.gameManager.ResetCombo();
+            if(colliding == 0)
+            {
+                gameManager.ReduceCoins(); // Without the if statement, reads the code twice
+            }
+            colliding++;
+            StartCoroutine(Reset());
+            
+            
 
         }
         if(other.gameObject.tag == "Stack"){
@@ -228,6 +240,7 @@ public class StartingBlock : MonoBehaviour
 
             CurrentBlock.Stop();
             _verticalMovement = 0;
+            
             
             //makes the currentblock into the lastblock after it is placed so that we can switch between the blocks
             //gives the block the tag 'Stack' after it is placed
