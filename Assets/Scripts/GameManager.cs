@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviour
     public int coins = 0;
     float coinsF = 0;
     public int globalCoins = 0;
+    public int currentXP;
 
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
     public float seconds = 5; //Original spawning speed is set to 5.
@@ -44,19 +45,24 @@ public class GameManager : MonoBehaviour
     public bool canIncrease = true;
     public bool playDestroySound = false;
     public bool playStackSound = false;
+    public bool isXPAdded;
 
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         stackBlock = GameObject.FindWithTag("Stack").GetComponent<StartingBlock>();
+        isXPAdded = false;
     }
     private void Start() {
         //getting the highscore from the player prefs, if it is not there, it will be zero
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+        currentXP = PlayerPrefs.GetInt("currentxp", 0);
         colorType = PlayerPrefs.GetInt(colorTypeKey, 0);
         masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
         globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
         difficultySeconds = seconds;
+
+        
         
 
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
@@ -84,6 +90,13 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void SaveCurrentXP()
+    {
+            currentXP += score * 100;
+            PlayerPrefs.SetInt("currentxp", currentXP);
+            PlayerPrefs.Save();
+        
+    }
         void IncrementGlobalCoins() {
         if(gameOver){
                 //if the score is greater than the highscore, we input the score into the highscore.
@@ -110,6 +123,7 @@ public class GameManager : MonoBehaviour
         CheckForObstacleCollision();
         //Saving the highscore
         SaveHighScore();
+        
         IncrementGlobalCoins();
         ResetHighScore();
         //pressing escape takes you to the menu
@@ -130,6 +144,7 @@ public class GameManager : MonoBehaviour
 
             //everytime the block is spawned, the score increments by 1 
             score++;
+            
 
         } 
     }    
