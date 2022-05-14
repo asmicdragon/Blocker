@@ -10,18 +10,23 @@ public class XPManager : MonoBehaviour
     public int currentXP, targetXP;
     private string targetXPKey = "targetxp";
     
-    public static int currentLevel;
+    public int currentLevel;
     int leveled = 0;
 
     public static XPManager xpManager;
     // Start is called before the first frame update
-
+    private void Awake() {
+        targetXP = Mathf.FloorToInt(Mathf.Floor(((currentLevel*(currentLevel - 1))/70) * 100)) + 200;
+        PlayerPrefs.SetInt("targetxp", 200);
+        PlayerPrefs.Save();
+        }
     void Start()
     {
         xpManager = this;
         currentLevelText.text = currentLevel.ToString();
         currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
         currentXP = PlayerPrefs.GetInt("currentxp", 0);
+        
         
     }
     public void SaveCurrentLevel()
@@ -47,8 +52,9 @@ public class XPManager : MonoBehaviour
             }
             PlayerPrefs.SetInt("currentlevel", currentLevel);
             PlayerPrefs.Save();
-            targetXP = Mathf.FloorToInt(Mathf.Floor(((currentLevel*(currentLevel - 1))/70) * 100)) + 3000;
-            currentLevelText.text = currentLevel.ToString();
+            targetXP = Mathf.FloorToInt(Mathf.Floor(((currentLevel*(currentLevel - 1))/70) * 100)) + 200;
+            PlayerPrefs.SetInt("targetxp", 200);
+            PlayerPrefs.Save();
 
         }
     }
@@ -56,7 +62,12 @@ public class XPManager : MonoBehaviour
     void Update()
     {
         LevelUp();
+        UpdateText();
         
+    }
+    void UpdateText()
+    {
+        currentLevelText.text = currentLevel.ToString();
     }
     IEnumerator Reset()
     {

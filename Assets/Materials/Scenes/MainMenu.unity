@@ -8614,8 +8614,7 @@ MonoBehaviour:
   currentLevelText: {fileID: 1041591613}
   currentXP: 0
   targetXP: 0
-  currentLevel: 1
-  xpIncrease: 0
+  currentLevel: 0
 --- !u!1 &1045883641
 GameObject:
   m_ObjectHideFlags: 0
@@ -12420,6 +12419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1547742123}
   - component: {fileID: 1547742124}
+  - component: {fileID: 1547742125}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -12486,7 +12486,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 524794795}
   m_HandleRect: {fileID: 0}
@@ -12494,10 +12494,23 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1547742125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547742122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71c8e654ae42ded4d8b18d334194ca3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xpBarSlider: {fileID: 1547742124}
 --- !u!1 &1550739238
 GameObject:
   m_ObjectHideFlags: 0

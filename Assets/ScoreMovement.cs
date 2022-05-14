@@ -31,11 +31,7 @@ public class ScoreMovement : MonoBehaviour
         if(gameOver == true){
 
             StartCoroutine(WaitForAnimation(1));
-            if(!GameManager.gameManager.isXPAdded)
-            {
-                GameManager.gameManager.SaveCurrentXP();
-                GameManager.gameManager.isXPAdded = true;
-            }
+
             //Update the localPosition towards the newPos
             if(animationDone == true){
                 scoreText.localPosition = Vector3.Lerp(scoreText.localPosition, newPos, Time.unscaledDeltaTime * 2f);

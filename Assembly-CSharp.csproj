@@ -62,6 +62,8 @@
      <Compile Include="Assets\Scripts\Wall.cs" />
      <Compile Include="Assets\Scripts\XPManager.cs" />
      <Compile Include="Assets\StaminaBar.cs" />
+     <Compile Include="Assets\XPBarMovement.cs" />
+     <Compile Include="Assets\XPBarSlider.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

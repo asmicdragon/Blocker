@@ -51,12 +51,13 @@ public class GameManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         stackBlock = GameObject.FindWithTag("Stack").GetComponent<StartingBlock>();
+        currentXP = PlayerPrefs.GetInt("currentxp", 0);
         isXPAdded = false;
     }
     private void Start() {
         //getting the highscore from the player prefs, if it is not there, it will be zero
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
-        currentXP = PlayerPrefs.GetInt("currentxp", 0);
+        
         colorType = PlayerPrefs.GetInt(colorTypeKey, 0);
         masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
         globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
