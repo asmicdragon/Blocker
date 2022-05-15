@@ -35,6 +35,7 @@ public class XPBarMovement : MonoBehaviour
             if(animationDone == true){
                 xpBar.localPosition = Vector3.Lerp(xpBar.localPosition, newPos, Time.unscaledDeltaTime * 3.5f);
                 StartCoroutine(WaitForAnimationForXP(2f));
+                
             }
             
         }
@@ -44,9 +45,12 @@ public class XPBarMovement : MonoBehaviour
         yield return new WaitForSecondsRealtime(animationTime);
             if(!GameManager.gameManager.isXPAdded)
             {
+                GameManager.gameManager.currentXP += GameManager.gameManager.score * 100;
                 GameManager.gameManager.SaveCurrentXP();
                 GameManager.gameManager.isXPAdded = true;
             }
+
+        GameManager.gameManager.LevelUp();
         
     }
         IEnumerator WaitForAnimation(float animationTime){

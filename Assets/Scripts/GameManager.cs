@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public int coins = 0;
     float coinsF = 0;
     public int globalCoins = 0;
-    public int currentXP;
+    public int currentXP, targetXP,currentLevel;
 
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
     public float seconds = 5; //Original spawning speed is set to 5.
@@ -62,8 +62,9 @@ public class GameManager : MonoBehaviour
         masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
         globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
         difficultySeconds = seconds;
-
         
+        currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 200;
         
 
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
@@ -91,12 +92,34 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void LevelUp()
+    {
+        SaveTargetXP();
+
+        if(currentXP >= targetXP)
+        {
+            currentXP -= targetXP;
+            currentLevel++;
+            SaveLevel();
+            SaveCurrentXP();
+            
+        }
+    }
+    public void SaveTargetXP()
+    {
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 200;
+        PlayerPrefs.SetInt("targetxp", targetXP);
+        PlayerPrefs.Save();
+    }
     public void SaveCurrentXP()
     {
-            currentXP += score * 100;
-            PlayerPrefs.SetInt("currentxp", currentXP);
-            PlayerPrefs.Save();
-        
+        PlayerPrefs.SetInt("currentxp", currentXP);
+        PlayerPrefs.Save();
+    }
+    public void SaveLevel()
+    {
+        PlayerPrefs.SetInt("currentlevel", currentLevel);
+        PlayerPrefs.Save();
     }
         void IncrementGlobalCoins() {
         if(gameOver){

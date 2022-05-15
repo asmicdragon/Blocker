@@ -39,6 +39,7 @@
      <Compile Include="Assets\BrightnessSlider.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\Colorblind.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\ColorblindButton.cs" />
+     <Compile Include="Assets\GameLevelText.cs" />
      <Compile Include="Assets\Gameover.cs" />
      <Compile Include="Assets\HelpMenu.cs" />
      <Compile Include="Assets\MainMenu.cs" />
@@ -60,7 +61,6 @@
      <Compile Include="Assets\Scripts\StartingBlock.cs" />
      <Compile Include="Assets\Scripts\StartingBlockFlip.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
-     <Compile Include="Assets\Scripts\XPManager.cs" />
      <Compile Include="Assets\StaminaBar.cs" />
      <Compile Include="Assets\XPBarMovement.cs" />
      <Compile Include="Assets\XPBarSlider.cs" />
