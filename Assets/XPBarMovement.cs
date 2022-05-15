@@ -45,9 +45,10 @@ public class XPBarMovement : MonoBehaviour
         yield return new WaitForSecondsRealtime(animationTime);
             if(!GameManager.gameManager.isXPAdded)
             {
-                GameManager.gameManager.currentXP += GameManager.gameManager.score * 100;
+                GameManager.gameManager.currentXP += GameManager.gameManager.xpThisRound;
                 GameManager.gameManager.SaveCurrentXP();
                 GameManager.gameManager.isXPAdded = true;
+                StartCoroutine(WaitForMaths());
             }
 
         GameManager.gameManager.LevelUp();
@@ -59,6 +60,17 @@ public class XPBarMovement : MonoBehaviour
 
         animationDone = true;
         
+    }
+    IEnumerator WaitForMaths()
+    {
+        yield return new WaitForSecondsRealtime(0.004f);
+        XPBarSlider.instance.progress = GameManager.gameManager.currentXP;
+
+
+        if(XPBarSlider.instance.xpBarSlider.value < XPBarSlider.instance.progress)
+        {
+            XPBarSlider.instance.xpBarSlider.value += XPBarSlider.instance.progress * Time.unscaledDeltaTime;
+        }
     }
 
 }

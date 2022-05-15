@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviour
     public int coins = 0;
     float coinsF = 0;
     public int globalCoins = 0;
-    public int currentXP, targetXP,currentLevel;
+    public int currentXP, targetXP,currentLevel, xpThisRound;
 
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
     public float seconds = 5; //Original spawning speed is set to 5.
@@ -99,11 +99,25 @@ public class GameManager : MonoBehaviour
         if(currentXP >= targetXP)
         {
             currentXP -= targetXP;
+            
             currentLevel++;
+            if(XPBarSlider.instance.xpBarSlider.value < XPBarSlider.instance.xpBarSlider.maxValue) //revise this code
+            {
+                
+                XPBarSlider.instance.xpBarSlider.value += XPBarSlider.instance.xpBarSlider.maxValue * Time.unscaledDeltaTime;
+                
+                if(XPBarSlider.instance.xpBarSlider.value >= XPBarSlider.instance.xpBarSlider.maxValue)
+                {
+                    XPBarSlider.instance.xpBarSlider.value = 0;
+                    return;
+                }
+            }
+            
             SaveLevel();
             SaveCurrentXP();
             
         }
+
     }
     public void SaveTargetXP()
     {
@@ -141,6 +155,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        
         coinsF = coins; //This makes coins into coinsF so that we can convert float into int
         PlayDestroySound();
         PlayStackSound();
@@ -168,7 +183,7 @@ public class GameManager : MonoBehaviour
 
             //everytime the block is spawned, the score increments by 1 
             score++;
-            
+            xpThisRound = score * 100;
 
         } 
     }    
