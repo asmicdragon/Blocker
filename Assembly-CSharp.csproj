@@ -61,6 +61,7 @@
      <Compile Include="Assets\Scripts\StartingBlock.cs" />
      <Compile Include="Assets\Scripts\StartingBlockFlip.cs" />
      <Compile Include="Assets\Scripts\Wall.cs" />
+     <Compile Include="Assets\ShopManager.cs" />
      <Compile Include="Assets\StaminaBar.cs" />
      <Compile Include="Assets\XPBarMovement.cs" />
      <Compile Include="Assets\XPBarSlider.cs" />
