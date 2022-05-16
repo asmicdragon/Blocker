@@ -41,21 +41,24 @@ public class XPBarSlider : MonoBehaviour
 
         currentXP = PlayerPrefs.GetInt("currentxp", 0);
         targetXP = PlayerPrefs.GetInt("targetxp", 0);
-
+    if(GameObject.Find("GameManager") != null)
+    {
         if(!GameManager.gameManager.gameOver)
         {
             xpBarSlider.value = currentXP;
         } else {
             return;
         }
+    }
 
         if(currentXP >= targetXP)
         {
             currentXP -= targetXP; // this is to make a second levelling system in this script to follow the one in gamemanager
         }
-        
+    if(GameObject.Find("GameManager") != null)
+    {
         xpThisRound = GameManager.gameManager.xpThisRound;
-
+    }
         
     }
 

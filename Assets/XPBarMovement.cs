@@ -57,6 +57,8 @@ public class XPBarMovement : MonoBehaviour
                     GameManager.gameManager.SaveLevel();
                     barIsFull = false;
                     barIsReset = true;
+                    //The booleans are used to switch between if statements, if one is running the other cannot at the same time
+                    //This ensures everything runs in order because of spaghetti
                 }
                 if(barIsReset)
                 {

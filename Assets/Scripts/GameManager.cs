@@ -30,7 +30,8 @@ public class GameManager : MonoBehaviour
     public int coins = 0;
     float coinsF = 0;
     public int globalCoins = 0;
-    public int currentXP, targetXP,currentLevel, xpThisRound;
+    public int currentXP, targetXP, xpThisRound;
+    public int currentLevel = 1;
 
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
     public float seconds = 5; //Original spawning speed is set to 5.
@@ -56,6 +57,7 @@ public class GameManager : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         stackBlock = GameObject.FindWithTag("Stack").GetComponent<StartingBlock>();
         currentXP = PlayerPrefs.GetInt("currentxp", 0);
+
         isXPAdded = false;
     }
     private void Start() {
@@ -67,7 +69,7 @@ public class GameManager : MonoBehaviour
         globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
         difficultySeconds = seconds;
         
-        currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
+        currentLevel = PlayerPrefs.GetInt("currentlevel", 1);
         targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 1500;
         
         checkProgressDone = false;
