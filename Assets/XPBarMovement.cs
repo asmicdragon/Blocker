@@ -15,10 +15,15 @@ public class XPBarMovement : MonoBehaviour
     [SerializeField]
     private bool animationDone = false;
 
+    bool barIsFull;
+    bool barIsReset;
+
     void Start()
     {
          //Get the RectTransform component
         xpBar = GetComponent<RectTransform>();
+        barIsFull = false;
+        barIsReset = false;
         
     }
     
@@ -36,6 +41,32 @@ public class XPBarMovement : MonoBehaviour
                 xpBar.localPosition = Vector3.Lerp(xpBar.localPosition, newPos, Time.unscaledDeltaTime * 3.5f);
                 StartCoroutine(WaitForAnimationForXP(2f));
                 
+
+                if(XPBarSlider.instance.xpBarSlider.value < XPBarSlider.instance.progress && XPBarSlider.instance.xpBarSlider.value != XPBarSlider.instance.xpBarSlider.maxValue && !barIsFull)
+                {
+                    XPBarSlider.instance.xpBarSlider.value += XPBarSlider.instance.progress * Time.unscaledDeltaTime;
+                    barIsReset = false;
+                    
+                }
+                if(XPBarSlider.instance.xpBarSlider.value >= XPBarSlider.instance.xpBarSlider.maxValue && !barIsReset)
+                {
+                    barIsFull = true;
+                    XPBarSlider.instance.xpBarSlider.value = 0;
+                    GameManager.gameManager.currentLevel++;
+                    XPBarSlider.instance.progress -= GameManager.gameManager.targetXP;
+                    GameManager.gameManager.SaveLevel();
+                    barIsFull = false;
+                    barIsReset = true;
+                }
+                if(barIsReset)
+                {
+                    if(XPBarSlider.instance.xpBarSlider.value < GameManager.gameManager.currentXP)
+                    {
+                        XPBarSlider.instance.xpBarSlider.value += GameManager.gameManager.currentXP * Time.unscaledDeltaTime;
+                    }
+                }
+
+
             }
             
         }
@@ -48,10 +79,11 @@ public class XPBarMovement : MonoBehaviour
                 GameManager.gameManager.currentXP += GameManager.gameManager.xpThisRound;
                 GameManager.gameManager.SaveCurrentXP();
                 GameManager.gameManager.isXPAdded = true;
-                StartCoroutine(WaitForMaths());
+                
             }
 
         GameManager.gameManager.LevelUp();
+        
         
     }
         IEnumerator WaitForAnimation(float animationTime){
@@ -60,17 +92,6 @@ public class XPBarMovement : MonoBehaviour
 
         animationDone = true;
         
-    }
-    IEnumerator WaitForMaths()
-    {
-        yield return new WaitForSecondsRealtime(0.004f);
-        XPBarSlider.instance.progress = GameManager.gameManager.currentXP;
-
-
-        if(XPBarSlider.instance.xpBarSlider.value < XPBarSlider.instance.progress)
-        {
-            XPBarSlider.instance.xpBarSlider.value += XPBarSlider.instance.progress * Time.unscaledDeltaTime;
-        }
     }
 
 }

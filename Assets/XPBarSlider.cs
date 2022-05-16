@@ -23,24 +23,21 @@ public class XPBarSlider : MonoBehaviour
 
         // xpBarValue = Mathf.FloorToInt(xpBarSlider.value);
         // xpBarSlider.value = xpBarValue;
-            xpBarSlider.maxValue = PlayerPrefs.GetInt("targetxp", 0);
-            xpBarSlider.value = PlayerPrefs.GetInt("currentxp", 0);
             
-            
-    }
-    public void ProgressBar()
-    {
 
-        if(xpBarSlider.value < progress)
-        {
-            xpBarSlider.value += progress * Time.unscaledDeltaTime;
-        }
+            if(this.gameObject != null) {
+                xpBarSlider.maxValue = PlayerPrefs.GetInt("targetxp", 0);
+                xpBarSlider.value = PlayerPrefs.GetInt("currentxp", 0);
+                Debug.Log("current xp is: "+ PlayerPrefs.GetInt("currentxp", 0));
+            }
+            
+            
     }
+
 
     // Update is called once per frame
     void Update()
     {
-        ProgressBar();
 
         currentXP = PlayerPrefs.GetInt("currentxp", 0);
         targetXP = PlayerPrefs.GetInt("targetxp", 0);
@@ -54,11 +51,13 @@ public class XPBarSlider : MonoBehaviour
 
         if(currentXP >= targetXP)
         {
-            currentXP -= targetXP;
+            currentXP -= targetXP; // this is to make a second levelling system in this script to follow the one in gamemanager
         }
+        
         xpThisRound = GameManager.gameManager.xpThisRound;
-    }
 
+        
+    }
 
     
 }

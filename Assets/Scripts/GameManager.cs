@@ -46,6 +46,10 @@ public class GameManager : MonoBehaviour
     public bool playDestroySound = false;
     public bool playStackSound = false;
     public bool isXPAdded;
+    bool levelUp = false;
+    bool checkout = false;
+    bool checkProgressDone;
+    public bool stopProgress;
 
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
@@ -64,8 +68,10 @@ public class GameManager : MonoBehaviour
         difficultySeconds = seconds;
         
         currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 200;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 1500;
         
+        checkProgressDone = false;
+        stopProgress = false;
 
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
         StartCoroutine(CreateObstacleRoutine());
@@ -95,33 +101,33 @@ public class GameManager : MonoBehaviour
     public void LevelUp()
     {
         SaveTargetXP();
+        if(!checkProgressDone)
+        {
+            XPBarSlider.instance.progress = Mathf.FloorToInt(XPBarSlider.instance.xpBarSlider.value) + xpThisRound;
+            checkProgressDone = true;
+            //this is done so the progress is calculated based on the starting bar value and the xp this round.
+            //it only calculates the progress once per round so that it doesn't loop on itself.
+        }
+        
 
         if(currentXP >= targetXP)
         {
             currentXP -= targetXP;
+            XPBarSlider.instance.newProgress = currentXP;
             
-            currentLevel++;
-            if(XPBarSlider.instance.xpBarSlider.value < XPBarSlider.instance.xpBarSlider.maxValue) //revise this code
-            {
-                
-                XPBarSlider.instance.xpBarSlider.value += XPBarSlider.instance.xpBarSlider.maxValue * Time.unscaledDeltaTime;
-                
-                if(XPBarSlider.instance.xpBarSlider.value >= XPBarSlider.instance.xpBarSlider.maxValue)
-                {
-                    XPBarSlider.instance.xpBarSlider.value = 0;
-                    return;
-                }
-            }
+            levelUp = true;
+
             
-            SaveLevel();
             SaveCurrentXP();
             
         }
 
     }
+
     public void SaveTargetXP()
     {
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 200;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 1500;
+        XPBarSlider.instance.xpBarSlider.maxValue = targetXP;
         PlayerPrefs.SetInt("targetxp", targetXP);
         PlayerPrefs.Save();
     }
