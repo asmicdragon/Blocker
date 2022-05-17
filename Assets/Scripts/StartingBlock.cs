@@ -23,6 +23,8 @@ public class StartingBlock : MonoBehaviour
     bool canTrim = true;
     public bool perfectStack = false;
     bool dropCube = false;
+    private bool pressingW;
+    private bool upArrow;
 
 
     //Enabling the game to set the variable currentBlock to this gameobject
@@ -155,21 +157,53 @@ public class StartingBlock : MonoBehaviour
         if(HelpMenu.helpMenu.helpMenuDone){
             if(GameManager.gameManager.slowDescentActivated)
             {
-                if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+                if(Input.GetKey(KeyCode.W)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
                     
                     //When the stamina bar is above 30 u can use the W slowing down
                     StaminaBar.instance.UseStamina(0.8f);
                     _speed = 1.5f;
                     StaminaBar.instance.usingStamina = true;
                     transform.Translate(Vector3.up * slowDown * Time.deltaTime);
+                    pressingW = true;
+                    upArrow = false;
 
-                } else if(_verticalMovement < 0){
+                } else if(_verticalMovement < 0 && !upArrow){
 
                     //when running out of stamina it will stop the slowing down
                     _speed = 5f;
                     StartCoroutine(RechargingStamina());
                 }
-            } 
+                if(Input.GetKey(KeyCode.UpArrow)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+                    
+                    //When the stamina bar is above 30 u can use the W slowing down
+                    StaminaBar.instance.UseStamina(0.8f);
+                    _speed = 1.2f;
+                    StaminaBar.instance.usingStamina = true;
+                    transform.Translate(Vector3.up * slowDown * Time.deltaTime);
+                    upArrow = true;
+                    pressingW = false;
+
+                } else if(_verticalMovement < 0 && !pressingW){
+
+                    //when running out of stamina it will stop the slowing down
+                    _speed = 5f;
+                    StartCoroutine(RechargingStamina());
+                }
+            }
+            // if(GameManager.gameManager.fastDescentActivated)
+            // {
+                if(Input.GetKey(KeyCode.S) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+                    
+                    //When the stamina bar is above 30 u can use the W slowing down
+                    StaminaBar.instance.UseStamina(0.5f);
+                    StaminaBar.instance.usingStamina = true;
+                    transform.Translate(Vector3.down * 2 * Time.deltaTime);
+
+                } else if(_verticalMovement < 0){
+
+                    StartCoroutine(RechargingStamina());
+                }
+            // } 
         }
 
     }
@@ -185,7 +219,7 @@ public class StartingBlock : MonoBehaviour
     }
             IEnumerator RechargingStamina(){
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
             StaminaBar.instance.usingStamina = false;
         }
     void Start() {
