@@ -26,9 +26,8 @@ public class StaminaBar : MonoBehaviour
         staminaBar.maxValue = maxStamina;
         staminaBar.value = maxStamina;
 
-        CheckIfSlowDescentActivated();
-    
-    }    public void UseStamina(float amount){
+    }    
+    public void UseStamina(float amount){
 
         if(currentStamina - amount >= 0){
             currentStamina -= amount;
@@ -50,17 +49,11 @@ public class StaminaBar : MonoBehaviour
             enoughStamina = true;
         }
     }
-    void CheckIfSlowDescentActivated()
-    {
-        if(StartingBlock.CurrentBlock.slowDescentActivated)
-        {
-            this.gameObject.SetActive(true);
 
-        } else this.gameObject.SetActive(false);
-    }
     // Update is called once per frame
     void Update()
     {
+
         if(GameManager.gameManager.gameOver){
             this.gameObject.SetActive(false);
         }

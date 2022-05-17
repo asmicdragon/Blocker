@@ -54,6 +54,8 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        haveSlowDescent = PlayerPrefs.GetInt("slowdescent", 0);
+        haveFastDescent = PlayerPrefs.GetInt("fastdescent", 0);
         CoinsToXP();
         SlowDescent();
         FastDescent();

@@ -41,38 +41,48 @@ public class XPBarMovement : MonoBehaviour
                 xpBar.localPosition = Vector3.Lerp(xpBar.localPosition, newPos, Time.unscaledDeltaTime * 3.5f);
                 StartCoroutine(WaitForAnimationForXP(2f));
                 
-
-                if(XPBarSlider.instance.xpBarSlider.value < XPBarSlider.instance.progress && XPBarSlider.instance.xpBarSlider.value != XPBarSlider.instance.xpBarSlider.maxValue && !barIsFull)
-                {
-                    XPBarSlider.instance.xpBarSlider.value += XPBarSlider.instance.progress * Time.unscaledDeltaTime;
-                    barIsReset = false;
-                    
-                }
-                if(XPBarSlider.instance.xpBarSlider.value >= XPBarSlider.instance.xpBarSlider.maxValue && !barIsReset)
-                {
-                    barIsFull = true;
-                    XPBarSlider.instance.xpBarSlider.value = 0;
-                    GameManager.gameManager.currentLevel++;
-                    XPBarSlider.instance.progress -= GameManager.gameManager.targetXP;
-                    GameManager.gameManager.SaveLevel();
-                    barIsFull = false;
-                    barIsReset = true;
-                    //The booleans are used to switch between if statements, if one is running the other cannot at the same time
-                    //This ensures everything runs in order because of spaghetti
-                }
-                if(barIsReset)
-                {
-                    if(XPBarSlider.instance.xpBarSlider.value < GameManager.gameManager.currentXP)
-                    {
-                        XPBarSlider.instance.xpBarSlider.value += GameManager.gameManager.currentXP * Time.unscaledDeltaTime;
-                    }
-                }
+                ProgressBar();
 
 
             }
             
         }
     }
+public void ProgressBar()
+    {
+        if(XPBarSlider.instance.xpBarSlider.value < XPBarSlider.instance.progress && XPBarSlider.instance.xpBarSlider.value != XPBarSlider.instance.xpBarSlider.maxValue && !barIsFull)
+        {
+            XPBarSlider.instance.xpBarSlider.value += XPBarSlider.instance.progress * Time.unscaledDeltaTime;
+            barIsReset = false;
+            
+        }
+        if(XPBarSlider.instance.xpBarSlider.value >= XPBarSlider.instance.xpBarSlider.maxValue && !barIsReset)
+        {
+            barIsFull = true;
+            XPBarSlider.instance.xpBarSlider.value = 0;
+            GameManager.gameManager.currentLevel++;
+            LevelUpReward.instance.leveledUP = true;
+            GameManager.gameManager.SaveLevelUpReward();
+            GameManager.gameManager.coins += GameManager.gameManager.levelUPCoins;
+            GameManager.gameManager.SaveCoins();
+
+            LevelUpReward.instance.OnLevelUp();
+
+            XPBarSlider.instance.progress -= GameManager.gameManager.targetXP;
+            GameManager.gameManager.SaveLevel();
+            barIsFull = false;
+            barIsReset = true;
+            //The booleans are used to switch between if statements, if one is running the other cannot at the same time
+            //This ensures everything runs in order because of spaghetti
+        }
+        if(barIsReset)
+        {
+        if(XPBarSlider.instance.xpBarSlider.value < GameManager.gameManager.currentXP)
+        {
+            XPBarSlider.instance.xpBarSlider.value += GameManager.gameManager.currentXP * Time.unscaledDeltaTime;
+        }
+    }
+}
     IEnumerator WaitForAnimationForXP(float animationTime){
         //uses unscaled time since its on paused timescale (0)
         yield return new WaitForSecondsRealtime(animationTime);

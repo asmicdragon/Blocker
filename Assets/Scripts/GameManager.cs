@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager gameManager {get; set;}
     public static StartingBlock stackBlock {get; set;}
 
+    public GameObject StaminaBar;
+
     public AudioSource audioSource;
     public AudioClip audio_Stack;
     public AudioClip audio_OnDestroy;
@@ -29,6 +31,8 @@ public class GameManager : MonoBehaviour
 
     public int coins = 0;
     float coinsF = 0;
+
+    public int levelUPCoins;
     public int globalCoins = 0;
     public int currentXP, targetXP, xpThisRound;
     public int currentLevel = 1;
@@ -52,11 +56,15 @@ public class GameManager : MonoBehaviour
     bool checkProgressDone;
     public bool stopProgress;
 
+    public bool slowDescentActivated = false;
+    public bool fastDescentActivated = false;
+
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         stackBlock = GameObject.FindWithTag("Stack").GetComponent<StartingBlock>();
         currentXP = PlayerPrefs.GetInt("currentxp", 0);
+
 
         isXPAdded = false;
     }
@@ -70,7 +78,8 @@ public class GameManager : MonoBehaviour
         difficultySeconds = seconds;
         
         currentLevel = PlayerPrefs.GetInt("currentlevel", 1);
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 1500;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 2000;
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/30) * 100) + 750;
         
         checkProgressDone = false;
         stopProgress = false;
@@ -100,6 +109,28 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    public void CheckForSkills()
+    {
+        if(ShopManager.instance.haveSlowDescent == 1)
+        {
+            slowDescentActivated = true;
+        
+            if(slowDescentActivated && !GameManager.gameManager.gameOver)
+            {
+                StaminaBar.SetActive(true);
+                
+            } else StaminaBar.SetActive(false);
+            
+
+        } else slowDescentActivated = false;
+
+        if(ShopManager.instance.haveFastDescent == 1)
+        {
+            fastDescentActivated = true;
+
+        } else fastDescentActivated = false;
+    }
+    
     public void LevelUp()
     {
         SaveTargetXP();
@@ -125,10 +156,22 @@ public class GameManager : MonoBehaviour
         }
 
     }
+    public void SaveLevelUpReward()
+    {
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/30) * 100) + 750;
+        PlayerPrefs.SetInt("levelupcoins", levelUPCoins);
+        PlayerPrefs.Save();
+        LevelUpReward.instance.rewardCoins = levelUPCoins;
+    }
+    public void SaveCoins()
+    {
+        PlayerPrefs.SetInt("globalCoins", coins);
+        PlayerPrefs.Save();
+    }
 
     public void SaveTargetXP()
     {
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/70) * 100) + 1500;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 2000;
         XPBarSlider.instance.xpBarSlider.maxValue = targetXP;
         PlayerPrefs.SetInt("targetxp", targetXP);
         PlayerPrefs.Save();
@@ -171,6 +214,8 @@ public class GameManager : MonoBehaviour
         //Saving the highscore
         SaveHighScore();
         
+        CheckForSkills();
+
         IncrementGlobalCoins();
         ResetHighScore();
         //pressing escape takes you to the menu
