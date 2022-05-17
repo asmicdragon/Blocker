@@ -23,6 +23,8 @@ public class StartingBlock : MonoBehaviour
     bool canTrim = true;
     public bool perfectStack = false;
     bool dropCube = false;
+    public bool slowDescentActivated;
+    public bool fastDescentActivated;
 
     //Enabling the game to set the variable currentBlock to this gameobject
 
@@ -42,10 +44,24 @@ public class StartingBlock : MonoBehaviour
     }
     private void Awake() {
         gameManager = GameObject.FindObjectOfType<GameManager>();
-
+        
+        CheckForSkills();
     }
 
-    
+    void CheckForSkills()
+    {
+        if(ShopManager.instance.haveSlowDescent == 1)
+        {
+            slowDescentActivated = true;
+
+        } else slowDescentActivated = false;
+
+        if(ShopManager.instance.haveFastDescent == 1)
+        {
+            fastDescentActivated = true;
+
+        } else fastDescentActivated = false;
+    }
     internal void Stop()
     {
             //turns the speed to zero when the method is called
@@ -150,20 +166,23 @@ public class StartingBlock : MonoBehaviour
 
         //checks for W pressed the verticalmovement is still going down and that you have enough stamina, which has to be max value to use
         if(HelpMenu.helpMenu.helpMenuDone){
-            if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
-                
-                //When the stamina bar is above 30 u can use the W slowing down
-                StaminaBar.instance.UseStamina(0.8f);
-                _speed = 1.5f;
-                StaminaBar.instance.usingStamina = true;
-                transform.Translate(Vector3.up * slowDown * Time.deltaTime);
+            if(slowDescentActivated)
+            {
+                if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+                    
+                    //When the stamina bar is above 30 u can use the W slowing down
+                    StaminaBar.instance.UseStamina(0.8f);
+                    _speed = 1.5f;
+                    StaminaBar.instance.usingStamina = true;
+                    transform.Translate(Vector3.up * slowDown * Time.deltaTime);
 
-            } else if(_verticalMovement < 0){
+                } else if(_verticalMovement < 0){
 
-                //when running out of stamina it will stop the slowing down
-                _speed = 5f;
-                StartCoroutine(RechargingStamina());
-            }
+                    //when running out of stamina it will stop the slowing down
+                    _speed = 5f;
+                    StartCoroutine(RechargingStamina());
+                }
+            } 
         }
 
     }

@@ -39,6 +39,8 @@
      <Compile Include="Assets\BrightnessSlider.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\Colorblind.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\ColorblindButton.cs" />
+     <Compile Include="Assets\FadeOutText.cs" />
+     <Compile Include="Assets\FadeOutUI.cs" />
      <Compile Include="Assets\GameLevelText.cs" />
      <Compile Include="Assets\Gameover.cs" />
      <Compile Include="Assets\HelpMenu.cs" />

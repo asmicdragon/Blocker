@@ -5,21 +5,25 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class ShopManager : MonoBehaviour
 {
+    public static ShopManager instance {get; set;}
     public int coins;
     [SerializeField]
     Button button;
 
-    GameObject coinsToXP, slowDescent, fastDescent, emptyObject;
+    public GameObject coinsToXP, slowDescent, fastDescent, emptyObject;
 
-    int haveSlowDescent, haveFastDescent;
+    public int haveSlowDescent, haveFastDescent;
     public bool coinsToXPSelected;
-    bool slowDescentSelected;
-    bool fastDescentSelected;
+    public bool slowDescentSelected;
+    public bool fastDescentSelected;
+    public bool fadeOut;
     // Start is called before the first frame update
     void Start()
     {
+        instance = this;
         coins = PlayerPrefs.GetInt("globalCoins", 0);
         button = GetComponent<Button>();
+
         coinsToXPSelected = false;
         slowDescentSelected = false;
         fastDescentSelected = false;
@@ -28,7 +32,23 @@ public class ShopManager : MonoBehaviour
         fastDescent = GameObject.Find("FastDescentButton");
         haveSlowDescent = PlayerPrefs.GetInt("slowdescent", 0);
         haveFastDescent = PlayerPrefs.GetInt("fastdescent", 0);
+        fadeOut = true;
 
+        CheckIfBought();
+
+    }
+    void CheckIfBought()
+    {
+        if(haveSlowDescent == 1 && slowDescent != null)
+        {
+            slowDescent.SetActive(false);
+
+        }
+        if(haveFastDescent == 1 && fastDescent != null)
+        {
+            fastDescent.SetActive(false);
+
+        }
     }
 
     // Update is called once per frame
@@ -37,6 +57,7 @@ public class ShopManager : MonoBehaviour
         CoinsToXP();
         SlowDescent();
         FastDescent();
+        
     }
     public void CoinsToXP()
     {
@@ -52,6 +73,7 @@ public class ShopManager : MonoBehaviour
         if(EventSystem.current.currentSelectedGameObject == slowDescent)
         {
             EventSystem.current.firstSelectedGameObject = slowDescent;
+            slowDescentSelected = true;
 
         }
 
@@ -61,13 +83,17 @@ public class ShopManager : MonoBehaviour
         if(EventSystem.current.currentSelectedGameObject == fastDescent)
         {
             EventSystem.current.firstSelectedGameObject = fastDescent;
+            fastDescentSelected = true;
 
-        } 
+        }
+
     }
-
     public void Buy()
     {
         button.animator.Play("Pressed");
+
+        int slowDescentCost = 10000;
+        int fastDescentCost = 10000;
 
         if(EventSystem.current.firstSelectedGameObject == coinsToXP && coins >= 10)
         {
@@ -77,29 +103,46 @@ public class ShopManager : MonoBehaviour
             EventSystem.current.firstSelectedGameObject = emptyObject; //Using empty game object to change the variable to checkout of the if statement
             
         }
-        if(EventSystem.current.firstSelectedGameObject == slowDescent && coins >= 30)
+        
+        if(EventSystem.current.firstSelectedGameObject == slowDescent && coins >= slowDescentCost && haveSlowDescent == 0)
         {
-            coins -= 30;
+            coins -= slowDescentCost;
             PlayerPrefs.SetInt("globalCoins", coins);
-            PlayerPrefs.Save();
             EventSystem.current.firstSelectedGameObject = emptyObject;
             haveSlowDescent++;
             PlayerPrefs.SetInt("slowdescent", haveSlowDescent);
-            IEnumerator WaitForAnim(){button.animator.SetTrigger("Fade");yield return new WaitForSecondsRealtime(0.5f);}
-            //continue here tomorrow
-            StartCoroutine(WaitForAnim());
+            PlayerPrefs.Save();
+
+            FadeOutText.instance.SlowFadeText();
+            FadeOutUI.instance.SlowFadeUI();
+
+
             
-            GameObject.Find("SlowDescentButton").SetActive(false);
+            IEnumerator WaitForAnim(float seconds){yield return new WaitForSecondsRealtime(seconds); slowDescent.SetActive(false); }
+            
+            StartCoroutine(WaitForAnim(1f));
+
+
 
         }
-        if(EventSystem.current.firstSelectedGameObject == fastDescent && coins >= 30 && haveFastDescent == 0)
+        if(EventSystem.current.firstSelectedGameObject == fastDescent && coins >= fastDescentCost && haveFastDescent == 0)
         {
-            coins -= 30;
+            coins -= fastDescentCost;
             PlayerPrefs.SetInt("globalCoins", coins);
-            PlayerPrefs.Save();
             EventSystem.current.firstSelectedGameObject = emptyObject;
             haveFastDescent++;
             PlayerPrefs.SetInt("fastdescent", haveFastDescent);
+            PlayerPrefs.Save();
+            FadeOutText.instance.FastFadeText();
+            FadeOutUI.instance.FastFadeUI();
+            
+            
+            IEnumerator WaitForAnim(float seconds){yield return new WaitForSecondsRealtime(seconds); fastDescent.SetActive(false); }
+            
+            StartCoroutine(WaitForAnim(1f));
+            fadeOut = true;
+            fastDescentSelected = false;
+            
         }
     }
 
