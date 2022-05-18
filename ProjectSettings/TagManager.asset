@@ -14,6 +14,7 @@ TagManager:
   - MainMenuButton
   - Spike
   - Floor
+  - Fade
   layers:
   - Default
   - TransparentFX

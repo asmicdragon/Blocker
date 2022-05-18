@@ -69,6 +69,11 @@ public class GameManager : MonoBehaviour
         isXPAdded = false;
     }
     private void Start() {
+        PauseGameOnLoad();
+        IEnumerator WaitForFade(){FadeScreen.instance.playFade = true; yield return new WaitForSecondsRealtime(2f); FadeScreen.instance.playFade = false;}
+        
+        StartCoroutine(WaitForFade());
+        
         //getting the highscore from the player prefs, if it is not there, it will be zero
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
         
@@ -78,8 +83,8 @@ public class GameManager : MonoBehaviour
         difficultySeconds = seconds;
         
         currentLevel = PlayerPrefs.GetInt("currentlevel", 1);
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 2800;
-        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 1000;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel))/50) * 100) + 2800;
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel +2))/50) * 100) + 1000;
         
         checkProgressDone = false;
         stopProgress = false;
@@ -89,6 +94,10 @@ public class GameManager : MonoBehaviour
 
         LoadColorMode();
         LoadVolume();
+    }
+    void PauseGameOnLoad()
+    {
+        Time.timeScale = 0;
     }
     //loads the color mode type from the color blind menu
     void LoadColorMode(){
@@ -137,6 +146,10 @@ public class GameManager : MonoBehaviour
 
         } else fastDescentActivated = false;
     }
+    public void SaveAll()
+    {
+        PlayerPrefs.Save();
+    }
     
     public void LevelUp()
     {
@@ -178,7 +191,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveTargetXP()
     {
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 2800;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel+2))/50) * 100) + 2800;
         XPBarSlider.instance.xpBarSlider.maxValue = targetXP;
         PlayerPrefs.SetInt("targetxp", targetXP);
         PlayerPrefs.Save();
@@ -213,6 +226,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        OnSpacePressed();
         
         coinsF = coins; //This makes coins into coinsF so that we can convert float into int
         PlayDestroySound();
@@ -273,6 +287,29 @@ public class GameManager : MonoBehaviour
     public void ResumeGame(){
         // resumes the game
         Time.timeScale = 1;
+    }
+    public void WaitAndResume()
+    {
+        IEnumerator WaitForFade(){yield return new WaitForSecondsRealtime(1f); Time.timeScale = 1;FadeScreen.instance.playFade = false;}
+        StartCoroutine(WaitForFade());
+    }
+    public void Fade()
+    {
+        FadeScreen.instance.playFade = true;
+        FadeScreen.instance.fadeOut = true;
+    }
+    void OnSpacePressed()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            Fade();
+            if(FadeScreen.instance.fadeOut)
+            {
+                Time.timeScale = 1; 
+            }
+            
+
+        }
     }
     public void ResetCombo(){
         combo = 0;

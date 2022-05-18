@@ -156,7 +156,7 @@ public class StartingBlock : MonoBehaviour
         transform.Translate(goingDown * Time.deltaTime);
 
         //checks for W pressed the verticalmovement is still going down and that you have enough stamina, which has to be max value to use
-        if(HelpMenu.helpMenu.helpMenuDone){
+
             if(GameManager.gameManager.slowDescentActivated)
             {
                 if(Input.GetKey(KeyCode.W)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !upArrow){
@@ -191,7 +191,7 @@ public class StartingBlock : MonoBehaviour
                     _speed = 5f;
                     StartCoroutine(RechargingStamina());
                 }
-            }
+            
             if(GameManager.gameManager.fastDescentActivated)
             {
                 if(Input.GetKey(KeyCode.S) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !pressingW){

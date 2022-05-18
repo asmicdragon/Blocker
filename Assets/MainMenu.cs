@@ -4,10 +4,12 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class MainMenu : MonoBehaviour
 {
+    public static MainMenu instance {get; set;}
     public int width;
     public int height;
     public bool setFullScreen;
     private void Start() {
+        instance = this;
         
     }
 
@@ -32,11 +34,20 @@ public class MainMenu : MonoBehaviour
         Debug.Log(""+ width + "x" + height + " FullScreen: " + setFullScreen);
         
     }
+    public void PlayFadeIn()
+    {
+        FadeScreen.instance.playFade = true;
+    }
+    public void PlayFadeOut()
+    {
+        FadeScreen.instance.playFade = true;
+    }
 
     public void PauseGame(){
         Time.timeScale = 0;
     }
     public void ResumeGame(){
+        
         Time.timeScale = 1;
     }
 }
