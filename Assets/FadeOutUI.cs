@@ -8,7 +8,7 @@ public class FadeOutUI : MonoBehaviour
     public static FadeOutUI instance {get; set;}
     [SerializeField]
     Image slowDescent, fastDescent,slowDescentIcon, fastDescentIcon;
-    float speed = 0.25f;
+    float speed = 0.1f;
     // Start is called before the first frame update
     void Start()
     {

@@ -25,6 +25,8 @@ public class StartingBlock : MonoBehaviour
     bool dropCube = false;
     private bool pressingW;
     private bool upArrow;
+    private bool pressingS;
+    private bool downArrow;
 
 
     //Enabling the game to set the variable currentBlock to this gameobject
@@ -157,7 +159,7 @@ public class StartingBlock : MonoBehaviour
         if(HelpMenu.helpMenu.helpMenuDone){
             if(GameManager.gameManager.slowDescentActivated)
             {
-                if(Input.GetKey(KeyCode.W)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+                if(Input.GetKey(KeyCode.W)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !upArrow){
                     
                     //When the stamina bar is above 30 u can use the W slowing down
                     StaminaBar.instance.UseStamina(0.8f);
@@ -168,12 +170,12 @@ public class StartingBlock : MonoBehaviour
                     upArrow = false;
 
                 } else if(_verticalMovement < 0 && !upArrow){
-
+                    pressingW = false;
                     //when running out of stamina it will stop the slowing down
                     _speed = 5f;
                     StartCoroutine(RechargingStamina());
                 }
-                if(Input.GetKey(KeyCode.UpArrow)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+                if(Input.GetKey(KeyCode.UpArrow)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !downArrow){
                     
                     //When the stamina bar is above 30 u can use the W slowing down
                     StaminaBar.instance.UseStamina(0.8f);
@@ -184,27 +186,43 @@ public class StartingBlock : MonoBehaviour
                     pressingW = false;
 
                 } else if(_verticalMovement < 0 && !pressingW){
-
+                    upArrow = false;
                     //when running out of stamina it will stop the slowing down
                     _speed = 5f;
                     StartCoroutine(RechargingStamina());
                 }
             }
-            // if(GameManager.gameManager.fastDescentActivated)
-            // {
-                if(Input.GetKey(KeyCode.S) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
+            if(GameManager.gameManager.fastDescentActivated)
+            {
+                if(Input.GetKey(KeyCode.S) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !pressingW){
                     
                     //When the stamina bar is above 30 u can use the W slowing down
                     StaminaBar.instance.UseStamina(0.5f);
                     StaminaBar.instance.usingStamina = true;
                     transform.Translate(Vector3.down * 2 * Time.deltaTime);
+                    pressingS = true;
+                    downArrow = false;
 
-                } else if(_verticalMovement < 0){
-
+                } else if(_verticalMovement < 0 && !downArrow){
+                    pressingS = false;
                     StartCoroutine(RechargingStamina());
                 }
-            // } 
+                if(Input.GetKey(KeyCode.DownArrow) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !upArrow){
+                    
+                    //When the stamina bar is above 30 u can use the W slowing down
+                    StaminaBar.instance.UseStamina(0.5f);
+                    StaminaBar.instance.usingStamina = true;
+                    transform.Translate(Vector3.down * 2 * Time.deltaTime);
+                    pressingS = true;
+                    downArrow = false;
+
+                } else if(_verticalMovement < 0 && !pressingS){
+                    downArrow = false;
+                    StartCoroutine(RechargingStamina());
+                }
         }
+            } 
+            
 
     }
     void CheckForOutOfBounds(){

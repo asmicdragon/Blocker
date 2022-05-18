@@ -78,8 +78,8 @@ public class GameManager : MonoBehaviour
         difficultySeconds = seconds;
         
         currentLevel = PlayerPrefs.GetInt("currentlevel", 1);
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 2000;
-        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/30) * 100) + 750;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 2800;
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 1000;
         
         checkProgressDone = false;
         stopProgress = false;
@@ -127,6 +127,13 @@ public class GameManager : MonoBehaviour
         if(ShopManager.instance.haveFastDescent == 1)
         {
             fastDescentActivated = true;
+        
+            if(fastDescentActivated && !GameManager.gameManager.gameOver)
+            {
+                StaminaBar.SetActive(true);
+                
+            } else StaminaBar.SetActive(false);
+            
 
         } else fastDescentActivated = false;
     }
@@ -158,7 +165,7 @@ public class GameManager : MonoBehaviour
     }
     public void SaveLevelUpReward()
     {
-        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/30) * 100) + 750;
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 1000;
         PlayerPrefs.SetInt("levelupcoins", levelUPCoins);
         PlayerPrefs.Save();
         LevelUpReward.instance.rewardCoins = levelUPCoins;
@@ -171,7 +178,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveTargetXP()
     {
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 2000;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 2800;
         XPBarSlider.instance.xpBarSlider.maxValue = targetXP;
         PlayerPrefs.SetInt("targetxp", targetXP);
         PlayerPrefs.Save();
@@ -201,7 +208,7 @@ public class GameManager : MonoBehaviour
         }
     }
     public void ReduceCoins() {
-        coinsF *= 0.85f; //-20%
+        coinsF *= 0.90f; //-10%
         coins = Mathf.FloorToInt(coinsF);
     }
     private void Update()
