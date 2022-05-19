@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using TMPro;
 public class ShopManager : MonoBehaviour
 {
     public static ShopManager instance {get; set;}
     public int coins;
     [SerializeField]
     Button button;
+    public int lifeUpgrade;
 
     public GameObject coinsToXP, slowDescent, fastDescent, emptyObject;
 
@@ -32,6 +34,7 @@ public class ShopManager : MonoBehaviour
         fastDescent = GameObject.Find("FastDescentButton");
         haveSlowDescent = PlayerPrefs.GetInt("slowdescent", 0);
         haveFastDescent = PlayerPrefs.GetInt("fastdescent", 0);
+        lifeUpgrade = PlayerPrefs.GetInt("lifeupgrade", 0);
         fadeOut = true;
 
         CheckIfBought();
@@ -89,6 +92,12 @@ public class ShopManager : MonoBehaviour
 
         }
 
+    }
+    public void LifeUpgradeBuy()
+    {
+        lifeUpgrade++;
+        PlayerPrefs.SetInt("lifeupgrade", lifeUpgrade);
+        PlayerPrefs.Save();
     }
     public void Buy()
     {

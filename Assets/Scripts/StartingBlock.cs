@@ -28,6 +28,8 @@ public class StartingBlock : MonoBehaviour
     private bool pressingS;
     private bool downArrow;
 
+    public float staminaUsage = 1.2f;
+
 
     //Enabling the game to set the variable currentBlock to this gameobject
 
@@ -134,7 +136,7 @@ public class StartingBlock : MonoBehaviour
         var block = GameObject.CreatePrimitive(PrimitiveType.Cube);
         //creates the block variable and give it a gameobject, which is set to createprimitive type cube
         if(Mathf.Abs(hangover) < LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x > Mathf.Abs(0.1f)){
-
+            
             block.transform.localScale = new Vector3(fallingBlockSize, transform.localScale.y, transform.localScale.z);
             block.transform.position = new Vector3(fallingBlockXPosition, transform.position.y, transform.localPosition.z);
             block.tag = "FallingBlock"; //This is done so that we have better access to primitivetype.cube
@@ -142,6 +144,11 @@ public class StartingBlock : MonoBehaviour
             dropCube = true;
             Destroy(block.gameObject, 1f); //the float number gives it a running time of a second
         } 
+    }
+
+    void FixedUpdate()
+    {
+        CalculateMovement();
     }
     void CalculateMovement()
     {
@@ -162,7 +169,7 @@ public class StartingBlock : MonoBehaviour
                 if(Input.GetKey(KeyCode.W)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !upArrow){
                     
                     //When the stamina bar is above 30 u can use the W slowing down
-                    StaminaBar.instance.UseStamina(0.8f);
+                    StaminaBar.instance.UseStamina(staminaUsage);
                     _speed = 1.5f;
                     StaminaBar.instance.usingStamina = true;
                     transform.Translate(Vector3.up * slowDown * Time.deltaTime);
@@ -178,7 +185,7 @@ public class StartingBlock : MonoBehaviour
                 if(Input.GetKey(KeyCode.UpArrow)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !downArrow){
                     
                     //When the stamina bar is above 30 u can use the W slowing down
-                    StaminaBar.instance.UseStamina(0.8f);
+                    StaminaBar.instance.UseStamina(staminaUsage);
                     _speed = 1.2f;
                     StaminaBar.instance.usingStamina = true;
                     transform.Translate(Vector3.up * slowDown * Time.deltaTime);
@@ -197,7 +204,7 @@ public class StartingBlock : MonoBehaviour
                 if(Input.GetKey(KeyCode.S) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !pressingW){
                     
                     //When the stamina bar is above 30 u can use the W slowing down
-                    StaminaBar.instance.UseStamina(0.5f);
+                    StaminaBar.instance.UseStamina(staminaUsage * 0.8f); //stamina usage is decreased by 20% compared to slow descent
                     StaminaBar.instance.usingStamina = true;
                     transform.Translate(Vector3.down * 2 * Time.deltaTime);
                     pressingS = true;
@@ -210,7 +217,7 @@ public class StartingBlock : MonoBehaviour
                 if(Input.GetKey(KeyCode.DownArrow) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !upArrow){
                     
                     //When the stamina bar is above 30 u can use the W slowing down
-                    StaminaBar.instance.UseStamina(0.5f);
+                    StaminaBar.instance.UseStamina(staminaUsage * 0.8f);
                     StaminaBar.instance.usingStamina = true;
                     transform.Translate(Vector3.down * 2 * Time.deltaTime);
                     pressingS = true;
@@ -249,7 +256,6 @@ public class StartingBlock : MonoBehaviour
         CheckForOutOfBounds();
         
         IsGameOver();
-        CalculateMovement();
     }
     void IsGameOver(){
         if(GameManager.gameManager.gameOver && CurrentBlock != null){

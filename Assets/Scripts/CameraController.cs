@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
         
     }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //importing the moveCamera variable from the GameManager and make it equal to canMove
         canMove = GameManager.FindObjectOfType<GameManager>().moveCamera;

@@ -27,7 +27,9 @@ public class GameManager : MonoBehaviour
     string volumeKey = "Volume";
     public int lives = 3;
     public int combo = 0;
-    public int maxCombo = 8;
+    public int lifeCombo = 0;
+    public int lifeComboMax =2;
+    public int lifeUpgrade;
 
     public int coins = 0;
     float coinsF = 0;
@@ -70,21 +72,23 @@ public class GameManager : MonoBehaviour
     }
     private void Start() {
         PauseGameOnLoad();
+
         IEnumerator WaitForFade(){FadeScreen.instance.playFade = true; yield return new WaitForSecondsRealtime(2f); FadeScreen.instance.playFade = false;}
         
         StartCoroutine(WaitForFade());
         
         //getting the highscore from the player prefs, if it is not there, it will be zero
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
-        
+        lifeUpgrade = PlayerPrefs.GetInt("lifeupgrade", 0);
+        Debug.Log("life upgrade is: "+lifeUpgrade.ToString());
         colorType = PlayerPrefs.GetInt(colorTypeKey, 0);
         masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
         globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
         difficultySeconds = seconds;
         
         currentLevel = PlayerPrefs.GetInt("currentlevel", 1);
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel))/50) * 100) + 2800;
-        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel +2))/50) * 100) + 1000;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel))/15) * 100) + 2800;
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel))/30) * 100) + 1000;
         
         checkProgressDone = false;
         stopProgress = false;
@@ -178,7 +182,7 @@ public class GameManager : MonoBehaviour
     }
     public void SaveLevelUpReward()
     {
-        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel - 1))/50) * 100) + 1000;
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel))/30) * 100) + 1000;
         PlayerPrefs.SetInt("levelupcoins", levelUPCoins);
         PlayerPrefs.Save();
         LevelUpReward.instance.rewardCoins = levelUPCoins;
@@ -191,7 +195,7 @@ public class GameManager : MonoBehaviour
 
     public void SaveTargetXP()
     {
-        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel+2))/50) * 100) + 2800;
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel))/15) * 100) + 2800;
         XPBarSlider.instance.xpBarSlider.maxValue = targetXP;
         PlayerPrefs.SetInt("targetxp", targetXP);
         PlayerPrefs.Save();
@@ -244,8 +248,6 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene(0);
         }
 
-        //Starts the coroutine of the moving camera
-        StartCoroutine(moveCameraRoutine());
 
         if(StartingBlock.CurrentBlock._verticalMovement >= 0){
             //This will turn the current block into the last block and spawn a new one
@@ -261,6 +263,13 @@ public class GameManager : MonoBehaviour
 
         } 
     }    
+
+    void FixedUpdate()
+    {
+        //Starts the coroutine of the moving camera
+        StartCoroutine(moveCameraRoutine());
+
+    }
     public void PlayDestroySound(){
         if(playDestroySound) {
             audioSource.pitch = 1f;
@@ -311,23 +320,26 @@ public class GameManager : MonoBehaviour
 
         }
     }
+    public void ResetLifeCombo(){
+        lifeCombo = 0;
+        Debug.Log("Combo has been reset");
+    }
     public void ResetCombo(){
         combo = 0;
         Debug.Log("Combo has been reset");
     }
     public void ComboLifeSystem(){
         
-        if(combo == maxCombo && StartingBlock.CurrentBlock.colliding == 0 && lives < 3)  {
-            lives++;
-            Debug.Log("Lives are now: "+lives);
-            
+        if(lifeUpgrade != 0) {
 
+            if(lifeCombo % lifeComboMax == 0 && StartingBlock.CurrentBlock.colliding == 0 && lives < 3)  {
+                lives++;
+                Debug.Log("Lives are now: "+lives);
+                ResetLifeCombo();
+                
+            }
         }
         //Gain a life every 8 perfect stacks in a row
-        if(combo >= maxCombo){
-            //resetting combo every 8 perfect stacks
-            ResetCombo();
-        }
     }
 
     public void ComboIncrementation(){
@@ -336,13 +348,6 @@ public class GameManager : MonoBehaviour
         
     }
 
-    public void SpawnWallsRoutine(){
-        //Sadly this part of the code would have been implemented into the game, but since for some odd reason the script doesn't stick into the build
-        //We decided to leave this out
-        if(Wall.wallLeft.transform.position.y < Camera.main.transform.position.y - 5){
-            BlockSpawner.blockSpawner.SpawnWalls();
-        }
-    }
     void CheckForObstacleCollision(){
         //This is to check for the obstacle collision from the obstacle script, and implement the collision into the gamemanager class file so that it sticks even when the obstacle is destroyed.
         if(collidedWithObstacle){
