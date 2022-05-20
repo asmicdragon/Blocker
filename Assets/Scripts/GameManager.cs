@@ -28,9 +28,19 @@ public class GameManager : MonoBehaviour
     public int lives = 3;
     public int combo = 0;
     public int lifeCombo = 0;
-    public int lifeComboMax =2;
-    public int lifeUpgrade;
+    public int treasureCombo = 0;
 
+    public float growthPercent;
+    public int growthCombo = 0;
+    public int growthComboMax = 4;
+    public int lifeComboMax = 8;//default value on level 1 life combo
+    public int treasureCallPoint = 3;
+
+    int treasureMax;
+    int treasureMin;
+    public int lifeUpgrade;
+    public int treasureUpgrade;
+    public int growthUpgrade;
     public int coins = 0;
     float coinsF = 0;
 
@@ -71,6 +81,7 @@ public class GameManager : MonoBehaviour
         isXPAdded = false;
     }
     private void Start() {
+
         PauseGameOnLoad();
 
         IEnumerator WaitForFade(){FadeScreen.instance.playFade = true; yield return new WaitForSecondsRealtime(2f); FadeScreen.instance.playFade = false;}
@@ -79,12 +90,22 @@ public class GameManager : MonoBehaviour
         
         //getting the highscore from the player prefs, if it is not there, it will be zero
         highScore = PlayerPrefs.GetInt(highScoreKey, 0);
+
         lifeUpgrade = PlayerPrefs.GetInt("lifeupgrade", 0);
+        growthUpgrade = PlayerPrefs.GetInt("growthupgrade", 0);
+        treasureUpgrade = PlayerPrefs.GetInt("treasureupgrade", 0);
+        treasureMax = PlayerPrefs.GetInt("treasuremax", 0);
+        treasureMin = PlayerPrefs.GetInt("treasuremin", 0);
+        growthPercent = PlayerPrefs.GetFloat("growthpercent", 0);
+        
+
         Debug.Log("life upgrade is: "+lifeUpgrade.ToString());
         colorType = PlayerPrefs.GetInt(colorTypeKey, 0);
         masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
         globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
         difficultySeconds = seconds;
+        ResetLifeCombo();
+        ResetGrowthCombo();
         
         currentLevel = PlayerPrefs.GetInt("currentlevel", 1);
         targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel))/15) * 100) + 2800;
@@ -95,6 +116,8 @@ public class GameManager : MonoBehaviour
 
         FindObjectOfType<BlockSpawner>().SpawnBlock();  
         StartCoroutine(CreateObstacleRoutine());
+
+        CheckForLifeUpgrades();
 
         LoadColorMode();
         LoadVolume();
@@ -119,6 +142,54 @@ public class GameManager : MonoBehaviour
                 //if the score is greater than the highscore, we input the score into the highscore.
                 PlayerPrefs.SetInt(highScoreKey, score);
                 PlayerPrefs.Save();
+            }
+        }
+    }
+    void CheckForLifeUpgrades()
+    {
+        switch (lifeUpgrade)
+        {
+            case 1: lifeComboMax = 8;
+            Debug.Log("Life Combo Max is: "+ lifeComboMax.ToString());
+                break;
+            case 2: lifeComboMax = 6;
+            Debug.Log("Life Combo Max is: "+ lifeComboMax.ToString());
+                break;
+            case 3: lifeComboMax = 5;
+            Debug.Log("Life Combo Max is: "+ lifeComboMax.ToString());
+                break;
+            default: Debug.Log("Life Combo is locked");
+                break;
+        }
+    }
+    public void Growth()
+    {
+        if(growthCombo >= growthComboMax && StartingBlock.LastBlock.transform.localScale.x < 2.3f)
+        {
+            StartingBlock.LastBlock.transform.localScale = new Vector3(StartingBlock.LastBlock.transform.localScale.x * growthPercent,StartingBlock.LastBlock.transform.localScale.y, StartingBlock.LastBlock.transform.localScale.z);
+            Debug.Log("Growth");
+            
+        }
+    }
+    public void FindTreasure()
+    {
+        
+        
+        
+        //Match current combo with the random number
+        if(combo >= treasureCallPoint)//Strike point at which the player enters the chance to find treasure
+        {
+            int comboRange = Random.Range(3,202);// 1/200 odds
+            
+            int randomCoins = Random.Range(treasureMin, treasureMax);
+            
+            if(combo >= comboRange){
+
+                //The higher your combo, the higher the chance 
+                coins += randomCoins;
+                Debug.Log("You won "+randomCoins + " coins!");
+                SaveCoins();
+                ResetCombo();
             }
         }
     }
@@ -267,7 +338,7 @@ public class GameManager : MonoBehaviour
     void FixedUpdate()
     {
         //Starts the coroutine of the moving camera
-        StartCoroutine(moveCameraRoutine());
+        // StartCoroutine(moveCameraRoutine());
 
     }
     public void PlayDestroySound(){
@@ -322,17 +393,21 @@ public class GameManager : MonoBehaviour
     }
     public void ResetLifeCombo(){
         lifeCombo = 0;
-        Debug.Log("Combo has been reset");
+        
+    }
+    public void ResetGrowthCombo(){
+        growthCombo = 0;
+        
     }
     public void ResetCombo(){
         combo = 0;
-        Debug.Log("Combo has been reset");
+        
     }
     public void ComboLifeSystem(){
         
-        if(lifeUpgrade != 0) {
+        if(lifeUpgrade != 0) {//checks if life combo is bought
 
-            if(lifeCombo % lifeComboMax == 0 && StartingBlock.CurrentBlock.colliding == 0 && lives < 3)  {
+            if(lifeCombo == lifeComboMax && StartingBlock.CurrentBlock.colliding == 0 && lives < 3)  {
                 lives++;
                 Debug.Log("Lives are now: "+lives);
                 ResetLifeCombo();
@@ -345,6 +420,8 @@ public class GameManager : MonoBehaviour
     public void ComboIncrementation(){
         coins += 10 + (combo * 10);
         combo++;
+        lifeCombo++;
+        growthCombo++;
         
     }
 
@@ -381,16 +458,16 @@ public class GameManager : MonoBehaviour
             canDecrease = true;
         }
         //This part will be the obstacle speed increase
-        if(score >= 30 && canIncrease && StartingBlock.CurrentBlock.transform.localScale.x < 1.7f && obstacleMovement < 2){
-            obstacleMovement += 0.25f;
+        if(score >= 30 && canIncrease && StartingBlock.CurrentBlock.transform.localScale.x < 2.5f && obstacleMovement < 2){
+            obstacleMovement += 0.25f * Time.deltaTime;
             canIncrease = false;
             //finally setting the spawning speed to 2 seconds
-            seconds = 2f;
+            seconds = 1.8f;
         }
-        if(StartingBlock.CurrentBlock.transform.localScale.x < 0.9f){
+        if(StartingBlock.CurrentBlock.transform.localScale.x < 2.0f){
             canIncrease = true;
             if(score >= 50 && canIncrease && obstacleMovement < 2){
-                obstacleMovement += 0.25f;
+                obstacleMovement += 0.25f * Time.deltaTime;
                 canIncrease = false;
             }
         }
@@ -410,13 +487,6 @@ public class GameManager : MonoBehaviour
         }
             
     }
-    //This will make the moveCamera bool turn to false after 0.5 seconds
-    IEnumerator moveCameraRoutine() {
-        //checks if moveCamera is true, while its true it will wait 0.5 seconds to turn the bool to false
-        while(moveCamera == true){
-            yield return new WaitForSeconds(Mathf.Abs(0.5156f));
-            moveCamera = false;
-            }
-        }
-    }
+
+}
 

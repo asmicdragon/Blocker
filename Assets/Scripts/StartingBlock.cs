@@ -69,10 +69,6 @@ public class StartingBlock : MonoBehaviour
                     
                     GameManager.gameManager.gameOver = true;
                 }
-            if(Mathf.Abs(hangover) > 0.1f && colliding == 0)
-            {
-                GameManager.gameManager.coins++;
-            }
             
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
@@ -84,7 +80,7 @@ public class StartingBlock : MonoBehaviour
 
                 
                 gameManager.ComboIncrementation();
-                
+                gameManager.FindTreasure();
 
                 GameManager.gameManager.playStackSound = true;
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
@@ -93,8 +89,10 @@ public class StartingBlock : MonoBehaviour
             if(Mathf.Abs(hangover) > 0.1f && colliding == 0) {
                 
                 SplitBlockOnX(hangover, direction);
-                
+                gameManager.ResetLifeCombo();
                 gameManager.ResetCombo();
+                gameManager.ResetGrowthCombo();
+                GameManager.gameManager.coins++;
 
                 GameManager.gameManager.playStackSound = true;
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
@@ -287,6 +285,8 @@ public class StartingBlock : MonoBehaviour
             GameManager.gameManager.playDestroySound = true;
             GameManager.gameManager.collidedWithObstacle = true;
             GameManager.gameManager.ResetCombo();
+            GameManager.gameManager.ResetLifeCombo();
+            gameManager.ResetGrowthCombo();
             if(colliding == 0)
             {
                 gameManager.ReduceCoins(); // Without the if statement, reads the code twice
@@ -314,6 +314,7 @@ public class StartingBlock : MonoBehaviour
             gameManager.DifficultyProgression();
             //sets the hasStacked boolean to true
             hasStacked = true;
+            gameManager.Growth();
             colliding++;
             StartCoroutine(Reset());
             //calls the coroutine to reset the colliding integer to zero

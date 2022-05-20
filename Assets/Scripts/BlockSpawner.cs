@@ -61,12 +61,4 @@ public class BlockSpawner : MonoBehaviour
         }
     
     }
-    //Wall spawning so that it looks like as if the stack is going upwards.
-    public void SpawnWalls(){
-        var wallLeft = Instantiate(wallLeftPreFab);
-        var wallRight = Instantiate(wallRightPreFab);
-        wallLeft.transform.position = new Vector3(Wall.wallLeft.transform.position.x, Wall.wallLeft.transform.position.y + 10, transform.position.z);
-        wallRight.transform.position = new Vector3(Wall.wallRight.transform.position.x, Wall.wallRight.transform.position.y + 10, transform.position.z);
-
-    }
 }

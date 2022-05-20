@@ -28,7 +28,6 @@ public class XPBarSlider : MonoBehaviour
             if(this.gameObject != null) {
                 xpBarSlider.maxValue = PlayerPrefs.GetInt("targetxp", 0);
                 xpBarSlider.value = PlayerPrefs.GetInt("currentxp", 0);
-                Debug.Log("current xp is: "+ PlayerPrefs.GetInt("currentxp", 0));
             }
             
             
