@@ -24,8 +24,8 @@ public class Obstacle : MonoBehaviour
         
     }
     public void CheckLastBlockSize(){
-        if(lastBlockSize <= 2f){
-            lastBlockSize = 2f;
+        if(lastBlockSize <= 2.5f){
+            lastBlockSize = 2.5f;
         }
     }
     private void Update() {

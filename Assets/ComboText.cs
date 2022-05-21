@@ -23,16 +23,18 @@ public class ComboText : MonoBehaviour
     {
         SetText();
     }
-    void SetText()
+    public void SetText()
     {
-        if(this.gameObject == lifeComboOBJ ){
-            lifeUpgradeText.text = ""+ShopManager.instance.lifeUpgrade.ToString();
-        }
-        if(this.gameObject == findTreasureComboOBJ){
-            treasureUpgradeText.text = ""+ShopManager.instance.treasureUpgrade.ToString();;
-        }
-        if(this.gameObject == growthComboOBJ){
-            growthUpgradeText.text = ""+ShopManager.instance.growthUpgrade.ToString();;
+        if(this.gameObject != null){
+            if(this.gameObject == lifeComboOBJ ){
+                lifeUpgradeText.text = ""+ShopManager.instance.lifeUpgrade.ToString();
+            }
+            if(this.gameObject == findTreasureComboOBJ){
+                treasureUpgradeText.text = ""+ShopManager.instance.treasureUpgrade.ToString();;
+            }
+            if(this.gameObject == growthComboOBJ){
+                growthUpgradeText.text = ""+ShopManager.instance.growthUpgrade.ToString();;
+            }
         }
     }
 }

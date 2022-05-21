@@ -14,10 +14,10 @@ public class StartingBlock : MonoBehaviour
     private GameManager gameManager;
     public int colliding = 0;
     [SerializeField]
-    private float _speed = 3.5f;
+    float _speed = 3.5f;
     public float slowDown = 2;
     public float hangover;
-    public float _verticalMovement = -1.5f;
+    public float _verticalMovement = -3.5f;
     public float LastBlockXSize;
     public bool hasStacked = false;
     bool canTrim = true;

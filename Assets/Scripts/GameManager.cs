@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     public int levelUPCoins;
     public int globalCoins = 0;
-    public int currentXP, targetXP, xpThisRound;
+    public int currentXP, targetXP, xpThisRound, xpInc;
     public int currentLevel = 1;
 
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
@@ -80,6 +80,7 @@ public class GameManager : MonoBehaviour
 
         isXPAdded = false;
     }
+    
     private void Start() {
 
         PauseGameOnLoad();
@@ -104,6 +105,7 @@ public class GameManager : MonoBehaviour
         masterVolume = PlayerPrefs.GetFloat(volumeKey, 1.0f);
         globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
         difficultySeconds = seconds;
+        xpInc = 100;
         ResetLifeCombo();
         ResetGrowthCombo();
         
@@ -145,6 +147,22 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+    void GameProgression()
+    {
+        if(gameManager != null)
+        {
+            if(score != 0)
+            {
+                if(score % 10 == 0 && StartingBlock.CurrentBlock.colliding == 0)
+                {
+                    xpInc += Random.Range(1,5);
+                    Debug.Log("check how many times this has called");
+
+
+                }
+            }
+        }
+    }
     void CheckForLifeUpgrades()
     {
         switch (lifeUpgrade)
@@ -164,32 +182,38 @@ public class GameManager : MonoBehaviour
     }
     public void Growth()
     {
-        if(growthCombo >= growthComboMax && StartingBlock.LastBlock.transform.localScale.x < 2.3f)
-        {
-            StartingBlock.LastBlock.transform.localScale = new Vector3(StartingBlock.LastBlock.transform.localScale.x * growthPercent,StartingBlock.LastBlock.transform.localScale.y, StartingBlock.LastBlock.transform.localScale.z);
-            Debug.Log("Growth");
-            
+        if(growthUpgrade != 0){
+            if(growthCombo >= growthComboMax && StartingBlock.LastBlock.transform.localScale.x < 2.3f)
+            {
+                StartingBlock.LastBlock.transform.localScale = new Vector3(StartingBlock.LastBlock.transform.localScale.x * growthPercent,StartingBlock.LastBlock.transform.localScale.y, StartingBlock.LastBlock.transform.localScale.z);
+                Debug.Log("Growth");
+                
+            }
         }
     }
     public void FindTreasure()
     {
         
-        
+        if(treasureUpgrade != 0){
         
         //Match current combo with the random number
-        if(combo >= treasureCallPoint)//Strike point at which the player enters the chance to find treasure
-        {
-            int comboRange = Random.Range(3,202);// 1/200 odds
-            
-            int randomCoins = Random.Range(treasureMin, treasureMax);
-            
-            if(combo >= comboRange){
-
-                //The higher your combo, the higher the chance 
-                coins += randomCoins;
-                Debug.Log("You won "+randomCoins + " coins!");
-                SaveCoins();
-                ResetCombo();
+            if(combo >= treasureCallPoint)//Strike point at which the player enters the chance to find treasure
+            {
+                int comboRange = Random.Range(3,203);// 1/200 odds
+                
+                int randomCoins = Random.Range(treasureMin, treasureMax);
+                
+                if(combo >= comboRange){
+                    TreasureReward.treasureReward.enabled = true;
+                    //The higher your combo, the higher the chance 
+                    coins += randomCoins;
+                    FindObjectOfType<TreasureReward>().triggerAnimation = true;
+                    FindObjectOfType<TreasureReward>().rewardCoins = randomCoins;
+                    FindObjectOfType<TreasureReward>().RewardAnimation();
+                    Debug.Log("You won "+randomCoins + " coins!");
+                    SaveCoins();
+                    ResetCombo();
+                }
             }
         }
     }
@@ -330,7 +354,7 @@ public class GameManager : MonoBehaviour
 
             //everytime the block is spawned, the score increments by 1 
             score++;
-            xpThisRound = score * 100;
+            xpThisRound = score * xpInc;
 
         } 
     }    
@@ -447,30 +471,42 @@ public class GameManager : MonoBehaviour
     }
     public void DifficultyProgression(){
         //This method will be used for the games progression
-        
-        if(score >= 15 && canDecrease && difficultySeconds != 3){
-            difficultySeconds--;
-            seconds = difficultySeconds;
-            canDecrease = false;
+        GameProgression();
+
+        if(score % 10 == 0 && StartingBlock.CurrentBlock.colliding == 0) {
+
+            if(seconds != 2){
+                seconds -= 0.25f;
+
+            }
+            if(obstacleMovement < 2){
+                obstacleMovement += 0.1f;
+            }
 
         }
-        if(StartingBlock.CurrentBlock.transform.localScale.x < 2.5f){
-            canDecrease = true;
-        }
-        //This part will be the obstacle speed increase
-        if(score >= 30 && canIncrease && StartingBlock.CurrentBlock.transform.localScale.x < 2.5f && obstacleMovement < 2){
-            obstacleMovement += 0.25f * Time.deltaTime;
-            canIncrease = false;
-            //finally setting the spawning speed to 2 seconds
-            seconds = 1.8f;
-        }
-        if(StartingBlock.CurrentBlock.transform.localScale.x < 2.0f){
-            canIncrease = true;
-            if(score >= 50 && canIncrease && obstacleMovement < 2){
-                obstacleMovement += 0.25f * Time.deltaTime;
-                canIncrease = false;
-            }
-        }
+        // if(score >= 15 && canDecrease && difficultySeconds != 3){
+        //     difficultySeconds--;
+        //     seconds = difficultySeconds;
+        //     canDecrease = false;
+
+        // }
+        // if(StartingBlock.CurrentBlock.transform.localScale.x < 2.5f){
+        //     canDecrease = true;
+        // }
+        // //This part will be the obstacle speed increase
+        // if(score >= 30 && canIncrease && StartingBlock.CurrentBlock.transform.localScale.x < 2.5f && obstacleMovement < 2){
+        //     obstacleMovement += 0.25f * Time.deltaTime;
+        //     canIncrease = false;
+        //     //finally setting the spawning speed to 2 seconds
+        //     seconds = 1.8f;
+        // }
+        // if(StartingBlock.CurrentBlock.transform.localScale.x < 2.0f){
+        //     canIncrease = true;
+        //     if(score >= 50 && canIncrease && obstacleMovement < 2){
+        //         obstacleMovement += 0.25f * Time.deltaTime;
+        //         canIncrease = false;
+        //     }
+        // }
 
     }
     IEnumerator CreateObstacleRoutine() { 

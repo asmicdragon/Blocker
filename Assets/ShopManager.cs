@@ -80,6 +80,7 @@ public class ShopManager : MonoBehaviour
                     coins -= 50000;
                     growthPercent = 1.01f;
                     SaveCoins();
+                    FindObjectOfType<ComboText>().SetText();
                     SaveGrowthUpgrades();
 
                 } else Debug.Log("Not enough coins or required level");
@@ -146,6 +147,7 @@ public class ShopManager : MonoBehaviour
                     treasureMin = 100;
                     treasureMax = 2000;
                     SaveCoins();
+                    FindObjectOfType<ComboText>().SetText();
                     SaveTreasureUpgrades();
 
                 } else Debug.Log("Not enough coins or required level");
@@ -282,6 +284,7 @@ public class ShopManager : MonoBehaviour
                         lifeUpgrade++;
                         coins -= 10000;
                         SaveCoins();
+                        FindObjectOfType<ComboText>().SetText();
                         SaveLifeUpgrades();
 
                     } else Debug.Log("Not enough coins or required level");
