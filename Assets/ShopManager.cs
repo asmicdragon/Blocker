@@ -12,7 +12,7 @@ public class ShopManager : MonoBehaviour
     Button button;
     public int lifeUpgrade, treasureUpgrade, growthUpgrade;
 
-    public GameObject coinsToXP, slowDescent, fastDescent, emptyObject;
+    public GameObject coinsToXP, slowDescent, fastDescent, emptyObject, ctxpFade, canvas;
 
     public int haveSlowDescent, haveFastDescent;
     public bool coinsToXPSelected;
@@ -24,17 +24,28 @@ public class ShopManager : MonoBehaviour
     private int lifeMaxLevel = 3;
     private int treasureMaxLevel = 6;
     private int growthMaxLevel = 4;
+
+    public int currentXP;
+    public int targetXP;
     [SerializeField]
-    private int currentLevel;
+    public int currentLevel;
     public float growthPercent;
+    public bool ctxpBuy;
+    public int levelUPCoins;
+    private bool checkProgressDone;
+    public bool addXP;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        // ctxpBuy = true;
+        canvas = GameObject.Find("MainMenuCanvas");
         instance = this;
         coins = PlayerPrefs.GetInt("globalCoins", 0);
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel))/30) * 100) + 1000;
         button = GetComponent<Button>();
-
+        
         coinsToXPSelected = false;
         slowDescentSelected = false;
         fastDescentSelected = false;
@@ -48,6 +59,7 @@ public class ShopManager : MonoBehaviour
         growthUpgrade = PlayerPrefs.GetInt("growthupgrade", 0);
         currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
         fadeOut = true;
+        
 
         CheckIfBought();
 
@@ -237,21 +249,19 @@ public class ShopManager : MonoBehaviour
     {
         haveSlowDescent = PlayerPrefs.GetInt("slowdescent", 0);
         haveFastDescent = PlayerPrefs.GetInt("fastdescent", 0);
-        CoinsToXP();
         SlowDescent();
         FastDescent();
-        
-    }
-    public void CoinsToXP()
-    {
-        if(EventSystem.current.currentSelectedGameObject == coinsToXP)
-        {
-            EventSystem.current.firstSelectedGameObject = coinsToXP;
+        currentXP = PlayerPrefs.GetInt("currentxp", 0);
+        SaveTargetXP();
 
+        if(GameObject.Find("CTXPFade") == null) {
+            ctxpBuy = true;
+            addXP = true;
+            checkProgressDone = false;
         }
-
         
     }
+
     public void SlowDescent(){
         if(EventSystem.current.currentSelectedGameObject == slowDescent)
         {
@@ -270,6 +280,10 @@ public class ShopManager : MonoBehaviour
 
         }
 
+    }
+    public void MaxButton()
+    {
+        FindObjectOfType<CoinsToXPInput>().ReadStringInput(coins.ToString());
     }
     public void LifeUpgradeBuy()
     {
@@ -325,7 +339,7 @@ public class ShopManager : MonoBehaviour
         }
     }
     
-    void SaveCoins()
+    public void SaveCoins()
     {
         PlayerPrefs.SetInt("globalCoins", coins);
         PlayerPrefs.Save();
@@ -348,6 +362,46 @@ public class ShopManager : MonoBehaviour
         PlayerPrefs.SetInt("growthupgrade", growthUpgrade);
         PlayerPrefs.Save();
     }
+    public void SaveLevelUpReward()
+    {
+        levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel))/30) * 100) + 1000;
+        PlayerPrefs.SetInt("levelupcoins", levelUPCoins);
+        PlayerPrefs.Save();
+        LevelUpReward.instance.rewardCoins = levelUPCoins;
+    }
+    public void SaveTargetXP()
+    {
+        targetXP =  Mathf.FloorToInt(((currentLevel*(currentLevel))/15) * 100) + 2800;
+        XPBarSlider.instance.xpBarSlider.maxValue = targetXP;
+        PlayerPrefs.SetInt("targetxp", targetXP);
+        PlayerPrefs.Save();
+    }
+    public void SaveCurrentXP()
+    {
+        PlayerPrefs.SetInt("currentxp", currentXP);
+        PlayerPrefs.Save();
+    }
+    public void SaveLevel()
+    {
+        PlayerPrefs.SetInt("currentlevel", currentLevel);
+        PlayerPrefs.Save();
+    }
+    public void LevelUp()
+    {
+        SaveTargetXP();
+
+        
+
+        if(currentXP >= targetXP)
+        {
+            currentXP -= targetXP;
+            SaveCurrentXP();
+            
+        }
+
+    }
+
+
 
     public void Buy()
     {
@@ -356,14 +410,6 @@ public class ShopManager : MonoBehaviour
         int slowDescentCost = 5000;
         int fastDescentCost = 5000;
 
-        // if(EventSystem.current.firstSelectedGameObject == coinsToXP && coins >= 10)
-        // {
-        //     coins -= 10;
-        //     PlayerPrefs.SetInt("globalCoins", coins);
-        //     PlayerPrefs.Save();
-        //     EventSystem.current.firstSelectedGameObject = emptyObject; //Using empty game object to change the variable to checkout of the if statement
-            
-        // }
         
         if(EventSystem.current.firstSelectedGameObject == slowDescent && coins >= slowDescentCost && haveSlowDescent == 0)
         {
@@ -406,5 +452,31 @@ public class ShopManager : MonoBehaviour
             
         }
     }
+    public void LoadCurrentXP()
+    {
+        XPBarSlider.instance.xpBarSlider.value = currentXP;
+    }
+    public void DestroyOnCall(bool booleans)
+    {
+        FindObjectOfType<DestroyGameObject>().destroy = booleans;
+    }
+    public void BuyCTXP()
+    {
+        if(ctxpBuy && coins > 0){
+            var fade = Instantiate(ctxpFade) as GameObject;
+            fade.GetComponent<Image>().CrossFadeAlpha(0,0,true);
+            fade.name = "CTXPFade";
+            fade.transform.SetParent(canvas.transform, false);
+            fade.GetComponent<Image>().CrossFadeAlpha(1f, 0.2f, true);
+            
+            
+            coins -= FindObjectOfType<CoinsToXPInput>().coinsFromInput;
+            SaveCoins();
+
+            ctxpBuy = false;
+        }
+        
+    }
+
 
 }

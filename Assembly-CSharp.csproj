@@ -37,9 +37,13 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\BrightnessSlider.cs" />
+     <Compile Include="Assets\CTXPSlider.cs" />
+     <Compile Include="Assets\CoinsToXP.cs" />
+     <Compile Include="Assets\CoinsToXPInput.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\Colorblind.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\ColorblindButton.cs" />
      <Compile Include="Assets\ComboText.cs" />
+     <Compile Include="Assets\DestroyGameObject.cs" />
      <Compile Include="Assets\FadeOutStart.cs" />
      <Compile Include="Assets\FadeOutText.cs" />
      <Compile Include="Assets\FadeOutUI.cs" />
@@ -47,6 +51,7 @@
      <Compile Include="Assets\GameLevelText.cs" />
      <Compile Include="Assets\Gameover.cs" />
      <Compile Include="Assets\HelpMenu.cs" />
+     <Compile Include="Assets\LerpMovement.cs" />
      <Compile Include="Assets\LevelUpReward.cs" />
      <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\MasterVolume.cs" />
