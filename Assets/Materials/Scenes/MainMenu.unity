@@ -275,9 +275,13 @@ MonoBehaviour:
   fadeOut: 0
   treasureMax: 0
   treasureMin: 0
+  currentXP: 0
+  targetXP: 0
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  levelUPCoins: 0
+  addXP: 0
 --- !u!95 &3636373
 Animator:
   serializedVersion: 3
@@ -4745,7 +4749,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &403550222
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4979,9 +4983,13 @@ MonoBehaviour:
   fadeOut: 0
   treasureMax: 0
   treasureMin: 0
+  currentXP: 0
+  targetXP: 0
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  levelUPCoins: 0
+  addXP: 0
 --- !u!114 &417916779
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10067,9 +10075,13 @@ MonoBehaviour:
   fadeOut: 0
   treasureMax: 0
   treasureMin: 0
+  currentXP: 0
+  targetXP: 0
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  levelUPCoins: 0
+  addXP: 0
 --- !u!114 &896266687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10314,9 +10326,13 @@ MonoBehaviour:
   fadeOut: 0
   treasureMax: 0
   treasureMin: 0
+  currentXP: 0
+  targetXP: 0
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  levelUPCoins: 0
+  addXP: 0
 --- !u!114 &905070684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14462,7 +14478,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1253628459
 RectTransform:
   m_ObjectHideFlags: 0
@@ -20285,9 +20301,13 @@ MonoBehaviour:
   fadeOut: 0
   treasureMax: 0
   treasureMin: 0
+  currentXP: 0
+  targetXP: 0
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  levelUPCoins: 0
+  addXP: 0
 --- !u!1 &1788782918
 GameObject:
   m_ObjectHideFlags: 0

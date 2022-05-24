@@ -196,8 +196,8 @@ public class StartingBlock : MonoBehaviour
                     _speed = 5f;
                     StartCoroutine(RechargingStamina());
                 }
-            
-            if(GameManager.gameManager.fastDescentActivated)
+            } 
+                        if(GameManager.gameManager.fastDescentActivated)
             {
                 if(Input.GetKey(KeyCode.S) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !pressingW){
                     
@@ -226,7 +226,6 @@ public class StartingBlock : MonoBehaviour
                     StartCoroutine(RechargingStamina());
                 }
         }
-            } 
             
 
     }

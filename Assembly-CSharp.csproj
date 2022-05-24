@@ -36,6 +36,7 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\BonusXPText.cs" />
      <Compile Include="Assets\BrightnessSlider.cs" />
      <Compile Include="Assets\CTXPSlider.cs" />
      <Compile Include="Assets\CoinsToXP.cs" />

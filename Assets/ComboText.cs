@@ -6,16 +6,20 @@ public class ComboText : MonoBehaviour
 {
     GameObject  lifeComboOBJ, findTreasureComboOBJ, growthComboOBJ;
     TMP_Text lifeUpgradeText, treasureUpgradeText, growthUpgradeText;
+
+    int lifeUpgrade, growthUpgrade, treasureUpgrade;
     // Start is called before the first frame update
     void Start()
     {
         lifeComboOBJ = GameObject.Find("LifeComboText1");
         findTreasureComboOBJ = GameObject.Find("CoinComboText1");
         growthComboOBJ = GameObject.Find("GrowthComboText1");
-        lifeUpgradeText = GetComponent<TMP_Text>();
-        treasureUpgradeText = GetComponent<TMP_Text>();
-        growthUpgradeText = GetComponent<TMP_Text>();
-        
+        lifeUpgradeText = lifeComboOBJ.GetComponent<TMP_Text>();
+        treasureUpgradeText = findTreasureComboOBJ.GetComponent<TMP_Text>();
+        growthUpgradeText = growthComboOBJ.GetComponent<TMP_Text>();
+        lifeUpgrade = PlayerPrefs.GetInt("lifeupgrade", 0);
+        growthUpgrade = PlayerPrefs.GetInt("growthupgrade", 0);
+        treasureUpgrade = PlayerPrefs.GetInt("treasureupgrade", 0);
     }
 
     // Update is called once per frame
@@ -25,16 +29,15 @@ public class ComboText : MonoBehaviour
     }
     public void SetText()
     {
-        if(this.gameObject != null){
-            if(this.gameObject == lifeComboOBJ ){
-                lifeUpgradeText.text = ""+ShopManager.instance.lifeUpgrade.ToString();
-            }
-            if(this.gameObject == findTreasureComboOBJ){
-                treasureUpgradeText.text = ""+ShopManager.instance.treasureUpgrade.ToString();;
-            }
-            if(this.gameObject == growthComboOBJ){
-                growthUpgradeText.text = ""+ShopManager.instance.growthUpgrade.ToString();;
-            }
-        }
+            lifeUpgrade = PlayerPrefs.GetInt("lifeupgrade", 0);
+            growthUpgrade = PlayerPrefs.GetInt("growthupgrade", 0);
+            treasureUpgrade = PlayerPrefs.GetInt("treasureupgrade", 0);
+
+            lifeUpgradeText.text = ""+lifeUpgrade.ToString();
+   
+            treasureUpgradeText.text = ""+treasureUpgrade.ToString();;
+
+            growthUpgradeText.text = ""+growthUpgrade.ToString();;
+            
     }
 }

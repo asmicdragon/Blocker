@@ -153,10 +153,23 @@ public class GameManager : MonoBehaviour
         {
             if(score != 0)
             {
+                if(score % 100 == 0 && StartingBlock.CurrentBlock.colliding == 0)
+                {
+                    xpInc += Random.Range(15,30);
+                    
+
+
+                } else
+                if(score % 50 == 0 && StartingBlock.CurrentBlock.colliding == 0)
+                {
+                    xpInc += Random.Range(5,15);
+                    
+
+
+                } else
                 if(score % 10 == 0 && StartingBlock.CurrentBlock.colliding == 0)
                 {
                     xpInc += Random.Range(1,5);
-                    Debug.Log("check how many times this has called");
 
 
                 }
@@ -183,9 +196,10 @@ public class GameManager : MonoBehaviour
     public void Growth()
     {
         if(growthUpgrade != 0){
-            if(growthCombo >= growthComboMax && StartingBlock.LastBlock.transform.localScale.x < 2.3f)
+            if(growthCombo >= growthComboMax && StartingBlock.LastBlock.transform.localScale.x < 2.5f)
             {
-                StartingBlock.LastBlock.transform.localScale = new Vector3(StartingBlock.LastBlock.transform.localScale.x * growthPercent,StartingBlock.LastBlock.transform.localScale.y, StartingBlock.LastBlock.transform.localScale.z);
+                StartingBlock.LastBlock.transform.localScale = new Vector3(StartingBlock.LastBlock.transform.localScale.x +(3 /*Starting block X size is 3*/ * growthPercent),StartingBlock.LastBlock.transform.localScale.y, StartingBlock.LastBlock.transform.localScale.z);
+                ResetGrowthCombo();
                 Debug.Log("Growth");
                 
             }
@@ -339,8 +353,11 @@ public class GameManager : MonoBehaviour
         IncrementGlobalCoins();
         ResetHighScore();
         //pressing escape takes you to the menu
-        if(Input.GetKeyDown(KeyCode.Escape)){
-            SceneManager.LoadScene(0);
+        if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1){
+            PauseGame();
+        } else
+        if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0){
+            ResumeGame();
         }
 
 

@@ -35,6 +35,7 @@ public class GameoverText : MonoBehaviour
                     
                 }
                 StartCoroutine(SetActiveGameObjects(true, 1));
+                FindObjectOfType<BonusXPText>().BonusXP();
         }
         
     }

@@ -90,9 +90,8 @@ public class ShopManager : MonoBehaviour
                 {
                     growthUpgrade++;
                     coins -= 50000;
-                    growthPercent = 1.01f;
+                    growthPercent = 0.01f;
                     SaveCoins();
-                    FindObjectOfType<ComboText>().SetText();
                     SaveGrowthUpgrades();
 
                 } else Debug.Log("Not enough coins or required level");
@@ -105,7 +104,7 @@ public class ShopManager : MonoBehaviour
                 {
                     growthUpgrade++;
                     coins -= 100000;
-                    growthPercent = 1.02f;
+                    growthPercent = 0.02f;
                     SaveCoins();
                     SaveGrowthUpgrades();
 
@@ -119,7 +118,7 @@ public class ShopManager : MonoBehaviour
                 {
                     growthUpgrade++;
                     coins -= 200000;
-                    growthPercent = 1.03f;
+                    growthPercent = 0.03f;
                     SaveCoins();
                     SaveGrowthUpgrades();
 
@@ -133,7 +132,7 @@ public class ShopManager : MonoBehaviour
                 {
                     growthUpgrade++;
                     coins -= 500000;
-                    growthPercent = 1.04f;
+                    growthPercent = 0.04f;
                     SaveCoins();
                     SaveGrowthUpgrades();
 
@@ -247,13 +246,16 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         haveSlowDescent = PlayerPrefs.GetInt("slowdescent", 0);
         haveFastDescent = PlayerPrefs.GetInt("fastdescent", 0);
         SlowDescent();
         FastDescent();
+        coins = PlayerPrefs.GetInt("globalCoins", 0);
         currentXP = PlayerPrefs.GetInt("currentxp", 0);
+        currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
         SaveTargetXP();
-
+        
         if(GameObject.Find("CTXPFade") == null) {
             ctxpBuy = true;
             addXP = true;
@@ -472,7 +474,7 @@ public class ShopManager : MonoBehaviour
             
             coins -= FindObjectOfType<CoinsToXPInput>().coinsFromInput;
             SaveCoins();
-
+            PlayerPrefs.Save();
             ctxpBuy = false;
         }
         
