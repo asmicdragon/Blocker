@@ -17,6 +17,7 @@ public class XPBarMovement : MonoBehaviour
 
     bool barIsFull;
     bool barIsReset;
+    public bool isEnabled;
 
     void Start()
     {
@@ -24,6 +25,7 @@ public class XPBarMovement : MonoBehaviour
         xpBar = GetComponent<RectTransform>();
         barIsFull = false;
         barIsReset = false;
+        isEnabled = false;
         
     }
     
@@ -80,6 +82,7 @@ public void ProgressBar()
         if(XPBarSlider.instance.xpBarSlider.value < GameManager.gameManager.currentXP)
         {
             XPBarSlider.instance.xpBarSlider.value += GameManager.gameManager.currentXP * Time.unscaledDeltaTime;
+            
         }
     }
 }

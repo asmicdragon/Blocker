@@ -18,10 +18,10 @@ public class RewardManager : MonoBehaviour {
     DailyReward timeR;
 
 	void Start () {
-        timeR = new DailyReward("daily", 6);
+        timeR = new DailyReward("daily", 7);
         timeR.AddCallBack((dia) => {
             DailyRewardG.SetActive(true);
-            buttonsDaily[dia - 1].SetActive(true);
+            buttonsDaily[dia].SetActive(true);
             Debug.Log("Congratz!");
         });
 

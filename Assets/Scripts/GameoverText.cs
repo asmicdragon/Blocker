@@ -7,8 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class GameoverText : MonoBehaviour
 {
-    public GameObject MenuButton;
-    public GameObject RestartButton;
+
     public GameObject Pause;
     public Animator anim;
     bool animationDone = false;
@@ -16,9 +15,6 @@ public class GameoverText : MonoBehaviour
     private void Start() {
         
         Pause = GameObject.Find("PauseButton");
-        if(MenuButton != null || RestartButton != null){
-            StartCoroutine(SetActiveGameObjects(false, 0));
-        }
     }
     private void Update() {
         FadeIn();
@@ -34,7 +30,6 @@ public class GameoverText : MonoBehaviour
                     anim.SetTrigger("Start");
                     
                 }
-                StartCoroutine(SetActiveGameObjects(true, 1));
                 FindObjectOfType<BonusXPText>().BonusXP();
         }
         
@@ -52,11 +47,6 @@ public class GameoverText : MonoBehaviour
         //using realtime for unscaled time because the game is paused on gameover
         yield return new WaitForSecondsRealtime(seconds);
         animationDone = true;
-    }
-    IEnumerator SetActiveGameObjects(bool isActive, float seconds){
-        yield return new WaitForSecondsRealtime(seconds);
-        MenuButton.SetActive(isActive);
-        RestartButton.SetActive(isActive);
     }
     public void RestartGame(){
         

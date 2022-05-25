@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
 
     public bool slowDescentActivated = false;
     public bool fastDescentActivated = false;
+    public bool startDone;
 
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
     }
     
     private void Start() {
-
+        startDone = false;
         PauseGameOnLoad();
 
         IEnumerator WaitForFade(){FadeScreen.instance.playFade = true; yield return new WaitForSecondsRealtime(2f); FadeScreen.instance.playFade = false;}
@@ -353,10 +354,10 @@ public class GameManager : MonoBehaviour
         IncrementGlobalCoins();
         ResetHighScore();
         //pressing escape takes you to the menu
-        if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1){
+        if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1 && startDone){
             PauseGame();
         } else
-        if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0){
+        if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0 && startDone){
             ResumeGame();
         }
 
@@ -424,6 +425,7 @@ public class GameManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Space))
         {
             Fade();
+            startDone = true;
             if(FadeScreen.instance.fadeOut)
             {
                 Time.timeScale = 1; 
@@ -431,6 +433,21 @@ public class GameManager : MonoBehaviour
             
 
         }
+    }
+    public void RestartGame(){
+        
+        SceneManager.LoadScene("Game");
+        
+    }
+    public void ResumeGameOnRestart(){
+        StartCoroutine(WaitForRestart());
+    }
+    public void BacktoMenu(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
+    }
+    public void SavePrefs()
+    {
+        PlayerPrefs.Save();
     }
     public void ResetLifeCombo(){
         lifeCombo = 0;
@@ -540,6 +557,10 @@ public class GameManager : MonoBehaviour
         }
             
     }
+    IEnumerator WaitForRestart(){
+        yield return new WaitForEndOfFrame();
+        Time.timeScale = 1;
 
+    }
 }
 

@@ -44,12 +44,14 @@
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\Colorblind.cs" />
      <Compile Include="Assets\Colorblind Effect\Assets\Scripts\ColorblindButton.cs" />
      <Compile Include="Assets\ComboText.cs" />
+     <Compile Include="Assets\DailyRewards.cs" />
      <Compile Include="Assets\DestroyGameObject.cs" />
      <Compile Include="Assets\FadeOutStart.cs" />
      <Compile Include="Assets\FadeOutText.cs" />
      <Compile Include="Assets\FadeOutUI.cs" />
      <Compile Include="Assets\FadeScreen.cs" />
      <Compile Include="Assets\GameLevelText.cs" />
+     <Compile Include="Assets\GameOverTextFade.cs" />
      <Compile Include="Assets\Gameover.cs" />
      <Compile Include="Assets\HelpMenu.cs" />
      <Compile Include="Assets\LerpMovement.cs" />
