@@ -11,9 +11,10 @@ public class GameoverText : MonoBehaviour
     public GameObject Pause;
     public Animator anim;
     bool animationDone = false;
-    
+    bool gameplayTimeAdded;
+    int timeAdded = 0;
     private void Start() {
-        
+        gameplayTimeAdded = false;
         Pause = GameObject.Find("PauseButton");
     }
     private void Update() {
@@ -25,6 +26,16 @@ public class GameoverText : MonoBehaviour
 
             StartCoroutine(WaitForText(1.2f));
             Destroy(Pause);
+            
+            if(!gameplayTimeAdded && timeAdded == 0)
+            {
+                
+                GameManager.gameManager.SaveTime();
+                gameplayTimeAdded = true;
+                timeAdded++;
+                StartCoroutine(Reset());
+            }
+            
 
                 if(animationDone == true){
                     anim.SetTrigger("Start");
@@ -66,5 +77,10 @@ public class GameoverText : MonoBehaviour
         yield return new WaitForEndOfFrame();
         Time.timeScale = 1;
 
+    }
+    IEnumerator Reset()
+    {
+        yield return new WaitForSecondsRealtime(0.01f);
+        timeAdded = 0;
     }
 }

@@ -1,4 +1,4 @@
-﻿{
+{
     "files.exclude":
     {
         "**/.DS_Store":true,
@@ -53,4 +53,5 @@
         "temp/":true,
         "Temp/":true
     }
+    "C_Cpp.errorSquiggles": "Enabled"
 }

@@ -6,13 +6,15 @@ using UnityEngine.EventSystems;
 using TMPro;
 public class ShopManager : MonoBehaviour
 {
+    
+
     public static ShopManager instance {get; set;}
     public int coins;
     [SerializeField]
     Button button;
     public int lifeUpgrade, treasureUpgrade, growthUpgrade;
 
-    public GameObject coinsToXP, slowDescent, fastDescent, emptyObject, ctxpFade, canvas;
+    public GameObject coinsToXP, slowDescent, fastDescent, emptyObject, ctxpFade, canvas, dailyRewardsOBJ;
 
     public int haveSlowDescent, haveFastDescent;
     public bool coinsToXPSelected;
@@ -39,6 +41,7 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        dailyRewardsOBJ = GameObject.Find("DailyRewards");
         // ctxpBuy = true;
         canvas = GameObject.Find("MainMenuCanvas");
         instance = this;
@@ -246,7 +249,14 @@ public class ShopManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(dailyRewardsOBJ != null){
+            if(DailyRewards.dailyRewards.rewardReady)
+            {
+                dailyRewardsOBJ.GetComponent<Animator>().SetBool("Reward", true);
+            } else {
+                dailyRewardsOBJ.GetComponent<Animator>().SetBool("Reward", false);
+            }
+        }
         haveSlowDescent = PlayerPrefs.GetInt("slowdescent", 0);
         haveFastDescent = PlayerPrefs.GetInt("fastdescent", 0);
         SlowDescent();

@@ -4,31 +4,41 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
+using GameAnalyticsSDK;
 
 public class DailyRewards : MonoBehaviour
 {
-
+    public static DailyRewards dailyRewards {get; set;}
         public TMP_Text Time;
-        public float msToWait = 864000;
+        [HideInInspector]
+        public float msToWait;
         public Button ClickButton;
         public Button[] DayArray = new Button[7];
         private ulong lastTimeClicked;
+        public bool rewardReady = false;
         
-        public int currentDay = 1;
-    
+        public int currentDay = 0;
+        /// <summary>
+        /// Awake is called when the script instance is being loaded.
+        /// </summary>
+
         private void Start()
         {
-    	if(PlayerPrefs.HasKey("LastTimeClicked")){
+            GameAnalytics.Initialize();
+            dailyRewards = this;
+            currentDay = PlayerPrefs.GetInt("currentDay", 0);
+            msToWait = PlayerPrefs.GetFloat("mstowait", 0);
+
+            ClickButton = DayArray[currentDay];
+            
+            if(PlayerPrefs.HasKey("LastTimeClicked")){
 			lastTimeClicked = ulong.Parse(PlayerPrefs.GetString("LastTimeClicked"));
             Debug.Log("Player has: "+ lastTimeClicked.ToString());
-		}else{
-			lastTimeClicked = (ulong)DateTime.Now.Ticks;
-			PlayerPrefs.SetString("LastTimeClicked", lastTimeClicked.ToString());
-            Debug.Log("Last time clicked wasn't set, it is now: "+ lastTimeClicked.ToString());
-		}
+            }
  
-		if (!Ready())
+		    if (!Ready())
 			ClickButton.interactable = false;
+            
         }
     
         private void Update()
@@ -38,9 +48,15 @@ public class DailyRewards : MonoBehaviour
             {
                 if (Ready())
                 {
+                    int showDay = currentDay + 1;
                     ClickButton.interactable = true;
-                    Time.text = "Ready!";
+                    Time.text = "Day "+ showDay.ToString() +" Reward Available!";
+                    rewardReady = true;
                     return;
+                }
+                int showRewardDay = PlayerPrefs.GetInt("currentDay", 0) + 1;
+                if(showRewardDay > 7) {
+                    showRewardDay = 1;
                 }
                 ulong diff = ((ulong)DateTime.Now.Ticks - lastTimeClicked);
                 ulong m = diff / TimeSpan.TicksPerMillisecond;
@@ -48,25 +64,47 @@ public class DailyRewards : MonoBehaviour
     
                 string r = "";
                 //HOURS
-                r += ((int)secondsLeft / 3600).ToString() + "h";
+                r += ((int)secondsLeft / 3600).ToString() + "h ";
                 secondsLeft -= ((int)secondsLeft / 3600) * 3600;
                 //MINUTES
                 r += ((int)secondsLeft / 60).ToString("00") + "m ";
                 //SECONDS
                 r += (secondsLeft % 60).ToString("00") + "s";
-                Time.text = r;
+                Time.text = "Day "+showRewardDay.ToString()+" Reward in "+r.ToString();
 
             }
         }
-    
+        public void DailyIconClick()
+        {
+            if(PlayerPrefs.HasKey("LastTimeClicked")){
+			lastTimeClicked = ulong.Parse(PlayerPrefs.GetString("LastTimeClicked"));
+            Debug.Log("Player has: "+ lastTimeClicked.ToString());
+            }else{
+                lastTimeClicked = (ulong)DateTime.Now.Ticks;
+                PlayerPrefs.SetString("LastTimeClicked", lastTimeClicked.ToString());
+                Debug.Log("Last time clicked wasn't set, it is now: "+ lastTimeClicked.ToString());
+                NewPlayerDayOne();
+            }
+        }
     
         public void Click()
         {
+
                 lastTimeClicked = (ulong)DateTime.Now.Ticks;
                 PlayerPrefs.SetString("LastTimeClicked", lastTimeClicked.ToString());
+
+                if(currentDay < 6)
+                {
+                    currentDay++;
+                    SaveDay();
+                } else if(currentDay >= 6){
+                    currentDay = 0;
+                    SaveDay();
+                }
+                rewardReady = false;
                 ClickButton.interactable = false;
-                
-    
+
+                ClickButton = DayArray[currentDay];
     
         }
         private bool Ready()
@@ -79,16 +117,34 @@ public class DailyRewards : MonoBehaviour
             if (secondsLeft < 0)
             {
                 //do stuff here
-                currentDay++;
-                SaveDay();
+                
                 return true;
             }
     
             return false;
         }
+        void NewPlayerDayOne()
+        {
+            msToWait = 0;
+            StartCoroutine(WaitForFrame());
+
+        }
         void SaveDay()
         {
             PlayerPrefs.SetInt("currentDay", currentDay);
+            PlayerPrefs.Save();
+        }
+        public void AddCoins(int coins)
+        {
+            var globalCoins = PlayerPrefs.GetInt("globalCoins", 0) + coins;
+            PlayerPrefs.SetInt("globalCoins", globalCoins);
+            PlayerPrefs.Save();
+        }
+        IEnumerator WaitForFrame()
+        {
+            yield return new WaitForEndOfFrame();
+            msToWait = 86400000;
+            PlayerPrefs.SetFloat("mstowait", msToWait);
             PlayerPrefs.Save();
         }
     }

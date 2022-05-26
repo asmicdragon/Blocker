@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
+using GameAnalyticsSDK;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +11,8 @@ public class GameManager : MonoBehaviour
     variables are all in this class file*/
     public static GameManager gameManager {get; set;}
     public static StartingBlock stackBlock {get; set;}
+
+    public TMP_Text timeText;
 
     public GameObject StaminaBar;
 
@@ -49,6 +53,8 @@ public class GameManager : MonoBehaviour
     public int currentXP, targetXP, xpThisRound, xpInc;
     public int currentLevel = 1;
 
+    public int sec, min, gameplayTime;
+
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
     public float seconds = 5; //Original spawning speed is set to 5.
     public float difficultySeconds;
@@ -83,6 +89,9 @@ public class GameManager : MonoBehaviour
     }
     
     private void Start() {
+        GameAnalytics.Initialize();
+        gameplayTime = PlayerPrefs.GetInt("gameplayTime", 0);
+        StartCoroutine(Timer());
         startDone = false;
         PauseGameOnLoad();
 
@@ -375,12 +384,31 @@ public class GameManager : MonoBehaviour
             xpThisRound = score * xpInc;
 
         } 
-    }    
+    } 
+
+    //Put all GameAnalytics events here
+    public void GAXPThisRound(int xp){
+
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "XP",xp,"XPThisRound", "XPres");
+    }
+    public void GAScoreThisRound(int _score)
+    {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Game", "CurrentLevel", _score);
+    }
+    public void GACoinsThisRound(int _coins)
+    {
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Coins",_coins,"CoinsThisRound", "Coinsres");
+    }
+    
 
     void FixedUpdate()
     {
-        //Starts the coroutine of the moving camera
-        // StartCoroutine(moveCameraRoutine());
+        //Game analytics section after gameover
+        if(gameOver) {
+            GAXPThisRound(xpThisRound);
+            GAScoreThisRound(score);
+            GACoinsThisRound(coins);
+        }
 
     }
     public void PlayDestroySound(){
@@ -494,6 +522,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
+
     public IEnumerator LoseALifeRoutine(){
         lives--;
         Debug.Log("Lives: "+lives);
@@ -501,6 +530,35 @@ public class GameManager : MonoBehaviour
         
         yield return new WaitForSeconds(2);
         BlockSpawner.blockSpawner.SpawnBlock();
+        
+    }
+    IEnumerator Timer()
+    {
+        while(true){
+
+            yield return new WaitForSeconds(1);
+            if(sec < 59){
+
+                sec++;
+            } else {
+                min++;
+                
+                sec = 0;
+            }
+            
+            string time = "";
+            time += min.ToString("0") +":";
+            time += sec.ToString("00");
+
+            timeText.text = time;
+            
+        }
+    }
+    public void SaveTime()
+    {
+        
+        PlayerPrefs.SetInt("gameplayTime", gameplayTime + min);
+        PlayerPrefs.Save();
         
     }
     public void DifficultyProgression(){

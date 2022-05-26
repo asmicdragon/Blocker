@@ -36,8 +36,21 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
-     <Compile Include="Assets\DailyRewards\Editor\DailyRewardsEditor.cs" />
-     <Compile Include="Assets\DailyRewards\Editor\EditorTools.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_AssetPostprocessor.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_AutoRun.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_ContinuationManager.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_EditorUtilities.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_Menu.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_PostprocessBuild.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_SettingsInspector.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_SignUp.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GA_UpdateWindow.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\GameAnalyticsInspector.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\Playmaker\PlayMakerPresenceCheck.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\Playmaker\SendProgressionEventActionEditor.cs" />
+     <Compile Include="Assets\GameAnalytics\Editor\Playmaker\SendResourceEventActionEditor.cs" />
+     <None Include="Assets\ExternalDependencyManager\Editor\external-dependency-manager_version-1.2.169_manifest.txt" />
+     <None Include="Assets\GameAnalytics\Editor\Android\Dependencies.xml" />
     <Reference Include="UnityEngine">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
@@ -241,6 +254,21 @@
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions">
         <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.14f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.PackageManagerResolver">
+        <HintPath>C:/Users/Kieran/Documents/GitHub/Blocker/Assets/ExternalDependencyManager/Editor/1.2.169/Google.PackageManagerResolver.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandlerImpl">
+        <HintPath>C:/Users/Kieran/Documents/GitHub/Blocker/Assets/ExternalDependencyManager/Editor/1.2.169/Google.VersionHandlerImpl.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.VersionHandler">
+        <HintPath>C:/Users/Kieran/Documents/GitHub/Blocker/Assets/ExternalDependencyManager/Editor/Google.VersionHandler.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.JarResolver">
+        <HintPath>C:/Users/Kieran/Documents/GitHub/Blocker/Assets/ExternalDependencyManager/Editor/1.2.169/Google.JarResolver.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.IOSResolver">
+        <HintPath>C:/Users/Kieran/Documents/GitHub/Blocker/Assets/ExternalDependencyManager/Editor/1.2.169/Google.IOSResolver.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
         <HintPath>C:/Users/Kieran/Documents/GitHub/Blocker/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
