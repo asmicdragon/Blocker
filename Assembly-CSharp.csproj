@@ -129,13 +129,7 @@
      <Compile Include="Assets\Simple Tooltip\Assets\Scripts\SimpleTooltipStyle.cs" />
      <Compile Include="Assets\StaminaBar.cs" />
      <Compile Include="Assets\StartTextFade.cs" />
-     <Compile Include="Assets\Time Rewards\Demo\Scripts\Menu.cs" />
-     <Compile Include="Assets\Time Rewards\Demo\Scripts\RewardActive.cs" />
-     <Compile Include="Assets\Time Rewards\Demo\Scripts\RewardManager.cs" />
-     <Compile Include="Assets\Time Rewards\Demo\Scripts\TimeRewardManager.cs" />
-     <Compile Include="Assets\Time Rewards\Engine\ActiveTimeReward.cs" />
-     <Compile Include="Assets\Time Rewards\Engine\DailyReward.cs" />
-     <Compile Include="Assets\Time Rewards\Engine\TimeReward.cs" />
+     <Compile Include="Assets\TimeReward.cs" />
      <Compile Include="Assets\TreasureReward.cs" />
      <Compile Include="Assets\XPBarMovement.cs" />
      <Compile Include="Assets\XPBarSlider.cs" />
@@ -160,7 +154,6 @@
      <None Include="Assets\Simple Tooltip\Assets\Font\OFL.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
      <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
-     <None Include="Assets\Time Rewards\readme.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />

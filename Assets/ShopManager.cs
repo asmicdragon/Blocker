@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using GameAnalyticsSDK;
 public class ShopManager : MonoBehaviour
 {
     
@@ -41,6 +42,7 @@ public class ShopManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameAnalytics.Initialize();
         dailyRewardsOBJ = GameObject.Find("DailyRewards");
         // ctxpBuy = true;
         canvas = GameObject.Find("MainMenuCanvas");
@@ -48,7 +50,9 @@ public class ShopManager : MonoBehaviour
         coins = PlayerPrefs.GetInt("globalCoins", 0);
         levelUPCoins = Mathf.FloorToInt(((currentLevel*(currentLevel))/30) * 100) + 1000;
         button = GetComponent<Button>();
+
         
+
         coinsToXPSelected = false;
         slowDescentSelected = false;
         fastDescentSelected = false;
@@ -63,7 +67,9 @@ public class ShopManager : MonoBehaviour
         currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
         fadeOut = true;
         
-
+        GACurrentCoins(coins);
+        GACurrentLevel(currentLevel);
+        
         CheckIfBought();
 
     }
@@ -464,6 +470,21 @@ public class ShopManager : MonoBehaviour
             
         }
     }
+    //Game Analytics section ---------------
+    public void GACurrentCoins(int _coins)
+    {
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Coins", _coins, "GlobalCoins", "Total Coins");
+    }
+
+    public void GACurrentLevel(int _currentLevel)
+    {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Main Menu", "CurrentLevel", _currentLevel);
+    }
+    public void GACoinsToXP(int _coinsConverted, int _currentLevel)
+    {
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "Coins", _coinsConverted, "CoinsType", "CoinsToXP");
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Shop", "CurrentLevel", _currentLevel);
+    }
     public void LoadCurrentXP()
     {
         XPBarSlider.instance.xpBarSlider.value = currentXP;
@@ -475,12 +496,14 @@ public class ShopManager : MonoBehaviour
     public void BuyCTXP()
     {
         if(ctxpBuy && coins > 0){
+            var ctxpCoins = CoinsToXPInput.FindObjectOfType<CoinsToXPInput>().coinsFromInput;
             var fade = Instantiate(ctxpFade) as GameObject;
             fade.GetComponent<Image>().CrossFadeAlpha(0,0,true);
             fade.name = "CTXPFade";
             fade.transform.SetParent(canvas.transform, false);
             fade.GetComponent<Image>().CrossFadeAlpha(1f, 0.2f, true);
             
+            GACoinsToXP(ctxpCoins, currentLevel);
             
             coins -= FindObjectOfType<CoinsToXPInput>().coinsFromInput;
             SaveCoins();
@@ -489,6 +512,7 @@ public class ShopManager : MonoBehaviour
         }
         
     }
+    
 
 
 }

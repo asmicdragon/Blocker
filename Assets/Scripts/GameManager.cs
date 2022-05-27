@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
     public bool slowDescentActivated = false;
     public bool fastDescentActivated = false;
     public bool startDone;
+    private bool eventAdded;
 
     private void Awake() {
         audioSource = GetComponent<AudioSource>();
@@ -89,6 +90,7 @@ public class GameManager : MonoBehaviour
     }
     
     private void Start() {
+        eventAdded = false;
         GameAnalytics.Initialize();
         gameplayTime = PlayerPrefs.GetInt("gameplayTime", 0);
         StartCoroutine(Timer());
@@ -349,6 +351,14 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        //Game analytics section after gameover
+        if(gameOver && !eventAdded) {
+            
+            GAXPThisRound(xpThisRound);
+            GAScoreThisRound(score, currentLevel);
+            GACoinsThisRound(coins);
+            eventAdded = true;
+        }
         OnSpacePressed();
         
         coinsF = coins; //This makes coins into coinsF so that we can convert float into int
@@ -389,26 +399,23 @@ public class GameManager : MonoBehaviour
     //Put all GameAnalytics events here
     public void GAXPThisRound(int xp){
 
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "XP",xp,"XPThisRound", "XPres");
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "XP",xp,"XPType", "XPGameOver");
     }
-    public void GAScoreThisRound(int _score)
+    public void GAScoreThisRound(int _score, int _currentLevel)
     {
-        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Game", "CurrentLevel", _score);
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Game", "Score", _score);
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Game", "CurrentLevel", _currentLevel);
     }
-    public void GACoinsThisRound(int _coins)
+    public void GACoinsThisRound(float _coins)
     {
-        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Coins",_coins,"CoinsThisRound", "Coinsres");
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Coins",_coins,"CoinsType", "CoinsGameOver");
+        
     }
     
 
     void FixedUpdate()
     {
-        //Game analytics section after gameover
-        if(gameOver) {
-            GAXPThisRound(xpThisRound);
-            GAScoreThisRound(score);
-            GACoinsThisRound(coins);
-        }
+
 
     }
     public void PlayDestroySound(){

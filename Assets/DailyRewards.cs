@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using TMPro;
-using GameAnalyticsSDK;
 
 public class DailyRewards : MonoBehaviour
 {
@@ -24,7 +23,7 @@ public class DailyRewards : MonoBehaviour
 
         private void Start()
         {
-            GameAnalytics.Initialize();
+            
             dailyRewards = this;
             currentDay = PlayerPrefs.GetInt("currentDay", 0);
             msToWait = PlayerPrefs.GetFloat("mstowait", 0);
@@ -74,24 +73,28 @@ public class DailyRewards : MonoBehaviour
 
             }
         }
-        public void DailyIconClick()
-        {
-            if(PlayerPrefs.HasKey("LastTimeClicked")){
-			lastTimeClicked = ulong.Parse(PlayerPrefs.GetString("LastTimeClicked"));
-            Debug.Log("Player has: "+ lastTimeClicked.ToString());
-            }else{
-                lastTimeClicked = (ulong)DateTime.Now.Ticks;
-                PlayerPrefs.SetString("LastTimeClicked", lastTimeClicked.ToString());
-                Debug.Log("Last time clicked wasn't set, it is now: "+ lastTimeClicked.ToString());
-                NewPlayerDayOne();
-            }
-        }
+        // public void DailyIconClick()
+        // {
+        //     if(PlayerPrefs.HasKey("LastTimeClicked")){
+		// 	lastTimeClicked = ulong.Parse(PlayerPrefs.GetString("LastTimeClicked"));
+        //     Debug.Log("Player has: "+ lastTimeClicked.ToString());
+        //     }else{
+        //         lastTimeClicked = (ulong)DateTime.Now.Ticks;
+        //         PlayerPrefs.SetString("LastTimeClicked", lastTimeClicked.ToString());
+        //         Debug.Log("Last time clicked wasn't set, it is now: "+ lastTimeClicked.ToString());
+        //         NewPlayerDayOne();
+        //     }
+        // }
     
         public void Click()
         {
 
                 lastTimeClicked = (ulong)DateTime.Now.Ticks;
                 PlayerPrefs.SetString("LastTimeClicked", lastTimeClicked.ToString());
+                msToWait = 86400000; // Day time in ticks
+                PlayerPrefs.SetFloat("mstowait", msToWait);
+                PlayerPrefs.Save();
+
 
                 if(currentDay < 6)
                 {
@@ -125,6 +128,7 @@ public class DailyRewards : MonoBehaviour
         }
         void NewPlayerDayOne()
         {
+            
             msToWait = 0;
             StartCoroutine(WaitForFrame());
 
