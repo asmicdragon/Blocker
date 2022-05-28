@@ -80,6 +80,7 @@ public class StartingBlock : MonoBehaviour
 
                 
                 gameManager.ComboIncrementation();
+                gameManager.comboThisRound++;
                 gameManager.FindTreasure();
 
                 GameManager.gameManager.playStackSound = true;

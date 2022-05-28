@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
@@ -11,11 +12,12 @@ public class ShopManager : MonoBehaviour
 
     public static ShopManager instance {get; set;}
     public int coins;
+    
     [SerializeField]
     Button button;
     public int lifeUpgrade, treasureUpgrade, growthUpgrade;
 
-    public GameObject coinsToXP, slowDescent, fastDescent, emptyObject, ctxpFade, canvas, dailyRewardsOBJ;
+    public GameObject coinsToXP, slowDescent, fastDescent, emptyObject, ctxpFade,timeRewardOBJ, canvas, dailyRewardsOBJ;
 
     public int haveSlowDescent, haveFastDescent;
     public bool coinsToXPSelected;
@@ -33,7 +35,7 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     public int currentLevel;
     public float growthPercent;
-    public bool ctxpBuy;
+    public bool ctxpBuy, claimPressed;
     public int levelUPCoins;
     private bool checkProgressDone;
     public bool addXP;
@@ -277,6 +279,9 @@ public class ShopManager : MonoBehaviour
             addXP = true;
             checkProgressDone = false;
         }
+        if(GameObject.Find("ActiveRewardXP") == null) {
+            claimPressed = true;
+        }
         
     }
 
@@ -485,6 +490,91 @@ public class ShopManager : MonoBehaviour
         GameAnalytics.NewResourceEvent(GAResourceFlowType.Sink, "Coins", _coinsConverted, "CoinsType", "CoinsToXP");
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "Shop", "CurrentLevel", _currentLevel);
     }
+    public void GACheckDailyRewards()
+    {
+        int clicked = PlayerPrefs.GetInt("clicksDaily", 0);
+        PlayerPrefs.SetInt("clicksDaily", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Daily Rewards Button clicked: "+ PlayerPrefs.GetInt("clicksDaily", 0));
+
+    }
+    public void GACheckShop()
+    {
+        int clicked = PlayerPrefs.GetInt("clicksShop", 0);
+        PlayerPrefs.SetInt("clicksShop", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Shop Button clicked: "+ PlayerPrefs.GetInt("clicksShop", 0));
+    }
+    public void GACheckHighscore()
+    {
+        int clicked = PlayerPrefs.GetInt("clicksHighscores", 0);
+        PlayerPrefs.SetInt("clicksHighscores", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Highscores menu clicked: "+ PlayerPrefs.GetInt("clicksHighscores", 0));
+    }
+    public void GACheckHowToPlay()
+    {
+        int clicked = PlayerPrefs.GetInt("clicksHTP", 0);
+        PlayerPrefs.SetInt("clicksHTP", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("How to play checked: "+ PlayerPrefs.GetInt("clicksHTP", 0));
+    }
+    public void GACheckSettings()
+    {
+        int clicked = PlayerPrefs.GetInt("clicksSettings", 0);
+        PlayerPrefs.SetInt("clicksSettings", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Settings clicked: "+ PlayerPrefs.GetInt("clicksSettings", 0));
+    }
+    public void GACheckCTXP()
+    {
+        int clicked = PlayerPrefs.GetInt("clicksCTXP", 0);
+        PlayerPrefs.SetInt("clicksCTXP", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("CTXP clicked: "+ PlayerPrefs.GetInt("clicksCTXP", 0));
+    }
+    public void GACheckPlay()
+    {
+        int clicked = PlayerPrefs.GetInt("countPlay", 0);
+        PlayerPrefs.SetInt("countPlay", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Play clicked: "+ PlayerPrefs.GetInt("countPlay", 0));
+    }
+    public void GACheckSlowDescent()
+    {
+        int clicked = PlayerPrefs.GetInt("countSD", 0);
+        PlayerPrefs.SetInt("countSD", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Slow Descent selected: "+ PlayerPrefs.GetInt("countSD", 0));
+    }
+        public void GACheckFastDescent()
+    {
+        int clicked = PlayerPrefs.GetInt("countFD", 0);
+        PlayerPrefs.SetInt("countFD", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Fast Descent selected: "+ PlayerPrefs.GetInt("countFD", 0));
+    }
+    public void GACheckLifeCombo()
+    {
+        int clicked = PlayerPrefs.GetInt("countLC", 0);
+        PlayerPrefs.SetInt("countLC", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Life Combo Pressed: "+ PlayerPrefs.GetInt("countLC", 0));
+    }
+    public void GACheckTreasureCombo()
+    {
+        int clicked = PlayerPrefs.GetInt("countTC", 0);
+        PlayerPrefs.SetInt("countTC", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Treasure Combo Pressed: "+ PlayerPrefs.GetInt("countTC", 0));
+    }
+    public void GACheckGrowthCombo()
+    {
+        int clicked = PlayerPrefs.GetInt("countGC", 0);
+        PlayerPrefs.SetInt("countGC", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Growth Combo Pressed: "+ PlayerPrefs.GetInt("countGC", 0));
+    }
     public void LoadCurrentXP()
     {
         XPBarSlider.instance.xpBarSlider.value = currentXP;
@@ -512,7 +602,33 @@ public class ShopManager : MonoBehaviour
         }
         
     }
-    
+            public void ResetOnBack()
+        {
+            if(PlayerPrefs.HasKey("lastLogin"))
+            {
+
+                TimeReward.timeReward.lastLogin = DateTime.Parse(PlayerPrefs.GetString("lastLogin", "Nothing here"));
+
+            }
+        }
+        public void OfflineReward()
+    {
+        if(claimPressed){
+            
+            
+            var fade = Instantiate(timeRewardOBJ) as GameObject;
+            fade.GetComponent<Image>().CrossFadeAlpha(0,0,true);
+            fade.name = "ActiveRewardXP";
+            fade.transform.SetParent(canvas.transform, false);
+            fade.GetComponent<Image>().CrossFadeAlpha(1f, 0.2f, true);
+
+
+            PlayerPrefs.Save();
+            claimPressed = false;
+        }
+        
+        
+    }
 
 
 }

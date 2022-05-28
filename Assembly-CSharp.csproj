@@ -46,6 +46,7 @@
      <Compile Include="Assets\ComboText.cs" />
      <Compile Include="Assets\DailyRewards.cs" />
      <Compile Include="Assets\DestroyGameObject.cs" />
+     <Compile Include="Assets\EfficiencyBarsController.cs" />
      <Compile Include="Assets\FadeOutStart.cs" />
      <Compile Include="Assets\FadeOutText.cs" />
      <Compile Include="Assets\FadeOutUI.cs" />
@@ -105,6 +106,8 @@
      <Compile Include="Assets\LevelUpReward.cs" />
      <Compile Include="Assets\MainMenu.cs" />
      <Compile Include="Assets\MasterVolume.cs" />
+     <Compile Include="Assets\MultiplierManager.cs" />
+     <Compile Include="Assets\OfflineRewardSlider.cs" />
      <Compile Include="Assets\ParticleSystemController.cs" />
      <Compile Include="Assets\ScoreMovement.cs" />
      <Compile Include="Assets\Scripts\BlockSpawner.cs" />
@@ -134,6 +137,7 @@
      <Compile Include="Assets\XPBarMovement.cs" />
      <Compile Include="Assets\XPBarSlider.cs" />
      <Compile Include="Assets\XPBarText.cs" />
+     <Compile Include="Assets\XPRewardController.cs" />
      <None Include="Assets\GameAnalytics\Readme.txt" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

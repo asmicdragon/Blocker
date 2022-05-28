@@ -206,7 +206,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3636370}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckSlowDescent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3636370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,6 +277,7 @@ MonoBehaviour:
   fastDescent: {fileID: 0}
   emptyObject: {fileID: 0}
   ctxpFade: {fileID: 0}
+  timeRewardOBJ: {fileID: 0}
   canvas: {fileID: 0}
   dailyRewardsOBJ: {fileID: 0}
   haveSlowDescent: 0
@@ -281,6 +293,7 @@ MonoBehaviour:
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  claimPressed: 0
   levelUPCoins: 0
   addXP: 0
 --- !u!95 &3636373
@@ -787,6 +800,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1253628458}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckSettings
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1386,7 +1410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &91026124
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1623,7 +1647,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &108087007
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2183,6 +2207,17 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 417916778}
         m_MethodName: FindTreasureBuy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckTreasureCombo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4614,6 +4649,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 292229466}
+  - component: {fileID: 292229467}
   m_Layer: 5
   m_Name: EfficiencyMenu
   m_TagString: Untagged
@@ -4645,6 +4681,24 @@ RectTransform:
   m_AnchoredPosition: {x: 1.5097961, y: 0}
   m_SizeDelta: {x: 245.95886, y: 86.98337}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &292229467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 292229465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d694bdbcd89b2994cb36058f1d6824a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameplaySlider: {fileID: 1794123470}
+  offlineSlider: {fileID: 1704253054}
+  gameplayPercentText: {fileID: 496788407}
+  offlinePercentText: {fileID: 1644262255}
+  gameplayPercent: 0
+  offlinePercent: 0
 --- !u!1 &312104175
 GameObject:
   m_ObjectHideFlags: 0
@@ -6205,6 +6259,8 @@ MonoBehaviour:
   emptyObject: {fileID: 0}
   ctxpFade: {fileID: 4655198364743290866, guid: 6ed29a8361af30c458f00115010eb4d1,
     type: 3}
+  timeRewardOBJ: {fileID: 4803843329761431089, guid: 91daf5c975f87774280aa38b325650ff,
+    type: 3}
   canvas: {fileID: 0}
   dailyRewardsOBJ: {fileID: 0}
   haveSlowDescent: 0
@@ -6220,6 +6276,7 @@ MonoBehaviour:
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  claimPressed: 0
   levelUPCoins: 0
   addXP: 0
 --- !u!114 &417916779
@@ -7563,7 +7620,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -65.5, y: 0.58}
+  m_AnchoredPosition: {x: -63, y: 0.58}
   m_SizeDelta: {x: 16.51577, y: 8.620655}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &496788407
@@ -7585,7 +7642,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100%
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1a5746dc29ee81046a7cc1e04c467b0b, type: 2}
   m_sharedMaterial: {fileID: 3190712151549335080, guid: 1a5746dc29ee81046a7cc1e04c467b0b,
@@ -7613,7 +7670,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5.2
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8577,12 +8634,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simpleTooltipStyle: {fileID: 11400000, guid: f1d1c287ded68be43934c42c517f05d2, type: 2}
-  infoLeft: "Offline Efficiency\n\nThe offline efficiency bar reflects the reward
-    that you get from stepping away from the game. \n\nThe offline efficiency increases
-    when game play efficiency decreases\n\nExample; if game play efficiency is reduced
-    by 10%, offline efficiency is increased by the same amount\n\nOffline efficiency
-    also decreases at a rate of 10% every 2 hours.\n\nOffline efficiency caps at
-    minimum 20% and Maximum 100%"
+  infoLeft: "Offline Efficiency\n\nThe offline efficiency bar increases the rewards
+    from !Time Rewards'. \n\nThe rate at which offline efficiency increases is at
+    25% per 30 minutes of gameplay.\n\nExample; if game play efficiency is reduced
+    by 10%, offline efficiency is increased by 25%\n\nAfter claiming !Time Rewards'
+    Offline efficiency goes back to 0%"
   infoRight: 
 --- !u!1 &530872731
 GameObject:
@@ -11151,7 +11207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -66, y: 0}
+  m_AnchoredPosition: {x: -63.500008, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &703977750
@@ -11936,6 +11992,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!114 &786528218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12369,6 +12436,17 @@ MonoBehaviour:
       - m_Target: {fileID: 701522665}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckDailyRewards
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13862,6 +13940,7 @@ MonoBehaviour:
   fastDescent: {fileID: 0}
   emptyObject: {fileID: 0}
   ctxpFade: {fileID: 0}
+  timeRewardOBJ: {fileID: 0}
   canvas: {fileID: 0}
   dailyRewardsOBJ: {fileID: 0}
   haveSlowDescent: 0
@@ -13877,6 +13956,7 @@ MonoBehaviour:
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  claimPressed: 0
   levelUPCoins: 0
   addXP: 0
 --- !u!114 &896266687
@@ -14054,7 +14134,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 905070680}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckFastDescent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &905070680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14114,6 +14205,7 @@ MonoBehaviour:
   fastDescent: {fileID: 0}
   emptyObject: {fileID: 0}
   ctxpFade: {fileID: 0}
+  timeRewardOBJ: {fileID: 0}
   canvas: {fileID: 0}
   dailyRewardsOBJ: {fileID: 0}
   haveSlowDescent: 0
@@ -14129,6 +14221,7 @@ MonoBehaviour:
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  claimPressed: 0
   levelUPCoins: 0
   addXP: 0
 --- !u!114 &905070684
@@ -15500,12 +15593,23 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1210465266}
-        m_MethodName: 
+      - m_Target: {fileID: 1210465269}
+        m_MethodName: OnClaim
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: OfflineReward
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -16070,6 +16174,17 @@ MonoBehaviour:
       - m_Target: {fileID: 542561079}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckHighscore
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -16760,6 +16875,17 @@ MonoBehaviour:
       - m_Target: {fileID: 1907298255}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckHowToPlay
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -18458,6 +18584,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckLifeCombo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1145306481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18779,8 +18916,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 1210465269}
-        m_MethodName: ResetOnPlay
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckPlay
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18912,6 +19049,7 @@ GameObject:
   - component: {fileID: 1210465268}
   - component: {fileID: 1210465267}
   - component: {fileID: 1210465269}
+  - component: {fileID: 1210465270}
   m_Layer: 0
   m_Name: RewardManager
   m_TagString: Untagged
@@ -18973,6 +19111,24 @@ MonoBehaviour:
   timer: {fileID: 1461094987}
   coinsPMText: {fileID: 360875094}
   xpPMText: {fileID: 1689942194}
+  efficiencyText: {fileID: 104095531}
+  rewardXP: 0
+  rewardCoins: 0
+--- !u!114 &1210465270
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1210465266}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f97ce488d69254c97461f6d1b9115f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameplayPercent: 0
+  offlinePercent: 0
+  gameplayTime: 0
 --- !u!1 &1233708124
 GameObject:
   m_ObjectHideFlags: 0
@@ -21748,7 +21904,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 4.3, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -23000,7 +23156,7 @@ MonoBehaviour:
           m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 417916778}
-        m_MethodName: CheckCoins
+        m_MethodName: GACheckCTXP
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24325,11 +24481,11 @@ MonoBehaviour:
 
 
     Efficiency is reduced
-    at a rate of 10% per 30 minutes of gameplay.
+    at a rate of 10% per 30 minutes of gameplay, and caps at minimum, 20% efficiency.
 
 
-    Efficiency increases after
-    taking time off from the game at a rate of 10% per hour.'
+    Gameplay
+    Efficiency is replenished to 100% after claiming the !Time Rewards''.'
   infoRight: 
 --- !u!1 &1614534332
 GameObject:
@@ -24698,7 +24854,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -65.49999, y: 0.7500019}
+  m_AnchoredPosition: {x: -63, y: 0.7500019}
   m_SizeDelta: {x: 16.51577, y: 8.620655}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1644262255
@@ -24720,7 +24876,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100%
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 1a5746dc29ee81046a7cc1e04c467b0b, type: 2}
   m_sharedMaterial: {fileID: 3190712151549335080, guid: 1a5746dc29ee81046a7cc1e04c467b0b,
@@ -24748,7 +24904,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 5.2
+  m_fontSize: 36
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -24817,7 +24973,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1657223926
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25521,6 +25677,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 417916778}
+        m_MethodName: GACheckGrowthCombo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1689222358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26053,9 +26220,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -27320,6 +27487,7 @@ MonoBehaviour:
   fastDescent: {fileID: 0}
   emptyObject: {fileID: 0}
   ctxpFade: {fileID: 0}
+  timeRewardOBJ: {fileID: 0}
   canvas: {fileID: 0}
   dailyRewardsOBJ: {fileID: 0}
   haveSlowDescent: 0
@@ -27335,6 +27503,7 @@ MonoBehaviour:
   currentLevel: 0
   growthPercent: 0
   ctxpBuy: 0
+  claimPressed: 0
   levelUPCoins: 0
   addXP: 0
 --- !u!1 &1788782918
@@ -27632,9 +27801,9 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 1
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -29104,19 +29273,15 @@ MonoBehaviour:
 
 
     !The Reward ''is
-    calculated on a per minute basis. Once you hit claim, the reward is calculated
-    based on the number shown.
+    calculated on a per minute basis, and based on the numbers shown.
 
 
-    Offline rewards cap at 8 hours.
+    Offline
+    rewards cap at 12 hours.
 
 
-    The higher
-    the level, the higher the reward.
-
-
-    `Playing the game will reset the timer
-    and you will lose the rewards, claim before playing.'
+    The higher the level, the higher the reward, rising
+    exponentially.'
   infoRight: 
 --- !u!114 &1925701697
 MonoBehaviour:
@@ -29552,7 +29717,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -66, y: 0}
+  m_AnchoredPosition: {x: -63.500004, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1974975761
@@ -30688,7 +30853,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 4.3, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}

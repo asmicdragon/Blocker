@@ -29,7 +29,7 @@ public class GameoverText : MonoBehaviour
             
             if(!gameplayTimeAdded && timeAdded == 0)
             {
-                
+                GameManager.gameManager.GACheckCombosThisRound();
                 GameManager.gameManager.SaveTime();
                 gameplayTimeAdded = true;
                 timeAdded++;

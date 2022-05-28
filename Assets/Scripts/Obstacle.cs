@@ -14,7 +14,9 @@ public class Obstacle : MonoBehaviour
 
     
     private void Start() {
-        lastBlockSize = StartingBlock.LastBlock.transform.localScale.x;
+        if(StartingBlock.CurrentBlock != null){
+            lastBlockSize = StartingBlock.LastBlock.transform.localScale.x;
+        }
     }
     // Start is called before the first frame update
     private void Awake() {

@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     string volumeKey = "Volume";
     public int lives = 3;
     public int combo = 0;
+
+    public int comboThisRound = 0;
     public int lifeCombo = 0;
     public int treasureCombo = 0;
 
@@ -375,6 +377,7 @@ public class GameManager : MonoBehaviour
         //pressing escape takes you to the menu
         if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1 && startDone){
             PauseGame();
+            GACheckEscape();
         } else
         if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 0 && startDone){
             ResumeGame();
@@ -410,6 +413,31 @@ public class GameManager : MonoBehaviour
     {
         GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "Coins",_coins,"CoinsType", "CoinsGameOver");
         
+    }
+    public void GACheckRestart()
+    {
+        int clicked = PlayerPrefs.GetInt("countRestart", 0);
+        PlayerPrefs.SetInt("countRestart", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Game Restarted: "+ PlayerPrefs.GetInt("countRestart", 0));
+    }
+    public void GACheckPause()
+    {
+        int clicked = PlayerPrefs.GetInt("countPause", 0);
+        PlayerPrefs.SetInt("countPause", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Pause Button Pressed: "+ PlayerPrefs.GetInt("countPause", 0));
+    }
+    public void GACheckEscape()
+    {
+        int clicked = PlayerPrefs.GetInt("countESC", 0);
+        PlayerPrefs.SetInt("countESC", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("ESC pause: "+ PlayerPrefs.GetInt("countESC", 0));
+    }
+    public void GACheckCombosThisRound()
+    {
+        GameAnalytics.NewDesignEvent("Total Combos this round: "+ comboThisRound.ToString());
     }
     
 
