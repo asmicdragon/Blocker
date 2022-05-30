@@ -66,7 +66,7 @@ public void ProgressBar()
             LevelUpReward.instance.leveledUP = true;
             GameManager.gameManager.SaveLevelUpReward();
             GameManager.gameManager.coins += GameManager.gameManager.levelUPCoins;
-            GameManager.gameManager.SaveCoins();
+            
 
             LevelUpReward.instance.OnLevelUp();
 

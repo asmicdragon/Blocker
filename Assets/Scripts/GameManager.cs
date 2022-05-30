@@ -50,6 +50,10 @@ public class GameManager : MonoBehaviour
     public int coins = 0;
     float coinsF = 0;
 
+    public int gameplayPercent;
+
+    float multiplier;
+
     public int levelUPCoins;
     public int globalCoins = 0;
     public int currentXP, targetXP, xpThisRound, xpInc;
@@ -98,8 +102,17 @@ public class GameManager : MonoBehaviour
         StartCoroutine(Timer());
         startDone = false;
         PauseGameOnLoad();
+        gameplayPercent = PlayerPrefs.GetInt("gameplayPercent", 100);
+        string str = "" +gameplayPercent.ToString();
+        multiplier = float.Parse(str);
+        multiplier /= 100;
+        Debug.Log("Multiplier is: "+multiplier.ToString());
 
-        IEnumerator WaitForFade(){FadeScreen.instance.playFade = true; yield return new WaitForSecondsRealtime(2f); FadeScreen.instance.playFade = false;}
+        IEnumerator WaitForFade(){
+            FadeScreen.instance.playFade = true;
+            yield return new WaitForSecondsRealtime(2f);
+            FadeScreen.instance.playFade = false;
+        }
         
         StartCoroutine(WaitForFade());
         
@@ -234,12 +247,12 @@ public class GameManager : MonoBehaviour
                 if(combo >= comboRange){
                     TreasureReward.treasureReward.enabled = true;
                     //The higher your combo, the higher the chance 
-                    coins += randomCoins;
+                    // coins += randomCoins;
+                    coins += (int)(randomCoins * multiplier);// Depending on the efficiency, coins are granted
                     FindObjectOfType<TreasureReward>().triggerAnimation = true;
                     FindObjectOfType<TreasureReward>().rewardCoins = randomCoins;
                     FindObjectOfType<TreasureReward>().RewardAnimation();
                     Debug.Log("You won "+randomCoins + " coins!");
-                    SaveCoins();
                     ResetCombo();
                 }
             }
@@ -312,7 +325,8 @@ public class GameManager : MonoBehaviour
     }
     public void SaveCoins()
     {
-        PlayerPrefs.SetInt("globalCoins", coins);
+        globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
+        PlayerPrefs.SetInt("globalCoins", globalCoins + coins);
         PlayerPrefs.Save();
     }
 
@@ -333,20 +347,12 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("currentlevel", currentLevel);
         PlayerPrefs.Save();
     }
-        void IncrementGlobalCoins() {
-        if(gameOver){
-                //if the score is greater than the highscore, we input the score into the highscore.
-                PlayerPrefs.SetInt("globalCoins", globalCoins + coins);
-                PlayerPrefs.Save();
-            
-        }
-    }
     //This reset is to test out the help menu which works on the highscore being zero
-    void ResetHighScore(){
-        if(Input.GetKey(KeyCode.P)){
-            PlayerPrefs.DeleteAll();
-        }
-    }
+    // void ResetPlayerPrefs(){
+    //     if(Input.GetKey(KeyCode.P)){
+    //         PlayerPrefs.DeleteAll();
+    //     }
+    // }
     public void ReduceCoins() {
         coinsF *= 0.90f; //-10%
         coins = Mathf.FloorToInt(coinsF);
@@ -355,10 +361,11 @@ public class GameManager : MonoBehaviour
     {
         //Game analytics section after gameover
         if(gameOver && !eventAdded) {
-            
+            SaveCoins(); //Save coins as the last thing
             GAXPThisRound(xpThisRound);
             GAScoreThisRound(score, currentLevel);
             GACoinsThisRound(coins);
+            GACheckCurrentEfficiency();
             eventAdded = true;
         }
         OnSpacePressed();
@@ -372,8 +379,6 @@ public class GameManager : MonoBehaviour
         
         CheckForSkills();
 
-        IncrementGlobalCoins();
-        ResetHighScore();
         //pressing escape takes you to the menu
         if(Input.GetKeyDown(KeyCode.Escape) && Time.timeScale == 1 && startDone){
             PauseGame();
@@ -394,7 +399,8 @@ public class GameManager : MonoBehaviour
 
             //everytime the block is spawned, the score increments by 1 
             score++;
-            xpThisRound = score * xpInc;
+            // xpThisRound = score * xpInc;
+            xpThisRound = (int)((score * xpInc) * (multiplier));
 
         } 
     } 
@@ -438,6 +444,10 @@ public class GameManager : MonoBehaviour
     public void GACheckCombosThisRound()
     {
         GameAnalytics.NewDesignEvent("Total Combos this round: "+ comboThisRound.ToString());
+    }
+    public void GACheckCurrentEfficiency()
+    {
+        GameAnalytics.NewDesignEvent("Gameplay Efficiency this round: " + gameplayPercent.ToString() + " percent");
     }
     
 
@@ -539,11 +549,15 @@ public class GameManager : MonoBehaviour
     }
 
     public void ComboIncrementation(){
-        coins += 10 + (combo * 10);
+        // coins += 10 + (combo * 10);
+        coins += (int)(((10 + (combo * 10)) * multiplier));
         combo++;
         lifeCombo++;
         growthCombo++;
         
+    }
+    private void OnApplicationQuit() {
+        PlayerPrefs.Save();
     }
 
     void CheckForObstacleCollision(){

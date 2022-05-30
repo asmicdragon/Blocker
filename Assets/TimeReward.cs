@@ -12,16 +12,20 @@ using TMPro;
         public static TimeReward timeReward {get; set;}
         public DateTime lastLogin;
         public TMP_Text timer, coinsPMText, xpPMText, efficiencyText;
-        TimeSpan timeSpan;
+        public TimeSpan timeSpan;
+
+        public Animator anim;
         int sec, min, hours;
         int currentLevel;
         int coinsPM, xpPM;
         public int rewardXP,rewardCoins;
     private int globalCoins, currentXP;
     int offlinePercent;
+    public bool enableClaimScreen;
     void Start()
         {
-            
+
+            enableClaimScreen = false;
             timeReward = this;
 
             if(PlayerPrefs.HasKey("lastLogin"))
@@ -43,12 +47,19 @@ using TMPro;
             TimeCounter();
             RewardSet();
 
+            if(PlayerPrefs.HasKey("newPlayer"))
+            {
+                anim.SetBool("Play", false);
+            } else {
+                anim.SetBool("Play", true);
+            }
         }
         public void OnClaim()
         {
 
-            if(min > 0)
+            if(timeSpan.TotalMinutes > 0)
             {
+                enableClaimScreen = true;
                 globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
                 currentXP = PlayerPrefs.GetInt("currentxp", 0);
 
@@ -105,6 +116,7 @@ using TMPro;
                     
                 } else {
                     timeSpan = new TimeSpan(12,0,0);
+                    PlayerPrefs.DeleteKey("newPlayer");
                 }
                 string str = "";
 

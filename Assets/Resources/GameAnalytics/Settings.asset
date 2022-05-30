@@ -26,21 +26,21 @@ MonoBehaviour:
   UserMessagesFailed: 0
   CustomArea: 
   gameKey:
-  - a6f3ed69664636f3126a868bb301f636
+  - d1b412a614ad343adeb710ab2713de55
   secretKey:
-  - d9cff426a5fc4bbefd4e1d992b1f4b34a63dc6a3
+  - 8bde1975fd8b550d26eb16f1c40edff2da9195eb
   Build:
-  - 1.1
+  - 1.2
   SelectedPlatformOrganization:
   - kieranpaulmagri
   SelectedPlatformStudio:
   - blocker
   SelectedPlatformGame:
-  - Blocker V1
-  SelectedPlatformGameID: 63180300
+  - Blocker V2
+  SelectedPlatformGameID: 64180300
   SelectedOrganization: 01000000
   SelectedStudio: 01000000
-  SelectedGame: 01000000
+  SelectedGame: 02000000
   NewVersion: 
   Changes: 
   SignUpOpen: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 00
+  PlatformFoldOut: 01
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0

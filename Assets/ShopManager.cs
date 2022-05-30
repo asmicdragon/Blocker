@@ -575,6 +575,30 @@ public class ShopManager : MonoBehaviour
         PlayerPrefs.Save();
         GameAnalytics.NewDesignEvent("Growth Combo Pressed: "+ PlayerPrefs.GetInt("countGC", 0));
     }
+    public void GACheckEfficiencyMenu()
+    {
+        int clicked = PlayerPrefs.GetInt("countEff", 0);
+        PlayerPrefs.SetInt("countEff", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Checked Efficiency Menu: "+ PlayerPrefs.GetInt("countEff", 0));
+    }
+    public void GACheckActiveReward()
+    {
+        int clicked = PlayerPrefs.GetInt("countAR", 0);
+        PlayerPrefs.SetInt("countAR", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Checked Time Rewards: "+ PlayerPrefs.GetInt("countAR", 0));
+    }
+    public void GAClaimedRewards()
+    {
+        int offlinePercent = PlayerPrefs.GetInt("offlinePercent", 0);
+        int totalMin = (int)TimeReward.timeReward.timeSpan.TotalMinutes;
+        GameAnalytics.NewDesignEvent("Claimed Rewards with "+totalMin.ToString()+ " Total minutes: Efficiency "+offlinePercent.ToString()+" percent");
+        int clicked = PlayerPrefs.GetInt("countClaim", 0);
+        PlayerPrefs.SetInt("countClaim", clicked + 1);
+        PlayerPrefs.Save();
+        GameAnalytics.NewDesignEvent("Claim pressed: "+ PlayerPrefs.GetInt("countClaim", 0));
+    }
     public void LoadCurrentXP()
     {
         XPBarSlider.instance.xpBarSlider.value = currentXP;
@@ -582,6 +606,9 @@ public class ShopManager : MonoBehaviour
     public void DestroyOnCall(bool booleans)
     {
         FindObjectOfType<DestroyGameObject>().destroy = booleans;
+    }
+    private void OnApplicationQuit() {
+        PlayerPrefs.Save();
     }
     public void BuyCTXP()
     {
@@ -602,6 +629,10 @@ public class ShopManager : MonoBehaviour
         }
         
     }
+    public void NewPlayer()
+    {
+        PlayerPrefs.SetString("newPlayer", "false");
+    }
             public void ResetOnBack()
         {
             if(PlayerPrefs.HasKey("lastLogin"))
@@ -613,7 +644,7 @@ public class ShopManager : MonoBehaviour
         }
         public void OfflineReward()
     {
-        if(claimPressed){
+        if(claimPressed && TimeReward.timeReward.enableClaimScreen){
             
             
             var fade = Instantiate(timeRewardOBJ) as GameObject;
@@ -625,6 +656,7 @@ public class ShopManager : MonoBehaviour
 
             PlayerPrefs.Save();
             claimPressed = false;
+            TimeReward.timeReward.enableClaimScreen = false;
         }
         
         
