@@ -67,7 +67,7 @@ public void ProgressBar()
             GameManager.gameManager.SaveLevelUpReward();
             GameManager.gameManager.coins += GameManager.gameManager.levelUPCoins;
             
-
+            
             LevelUpReward.instance.OnLevelUp();
 
             XPBarSlider.instance.progress -= GameManager.gameManager.targetXP;

@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     public int sec, min, gameplayTime;
 
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
-    public float seconds = 5; //Original spawning speed is set to 5.
+    public float seconds = 8; //Original spawning speed is set to 5.
     public float difficultySeconds;
     public float obstacleMovement = 1.5f;
     public const float comboGrowth = 0.1f;
@@ -325,7 +325,7 @@ public class GameManager : MonoBehaviour
     }
     public void SaveCoins()
     {
-        globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
+        
         PlayerPrefs.SetInt("globalCoins", globalCoins + coins);
         PlayerPrefs.Save();
     }

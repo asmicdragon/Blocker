@@ -426,15 +426,15 @@ public class ShopManager : MonoBehaviour
 
 
 
-    public void Buy()
+    public void BuySlowDescent()
     {
-        button.animator.Play("Pressed");
+        
 
         int slowDescentCost = 5000;
-        int fastDescentCost = 5000;
+        
 
         
-        if(EventSystem.current.firstSelectedGameObject == slowDescent && coins >= slowDescentCost && haveSlowDescent == 0)
+        if(coins >= slowDescentCost && haveSlowDescent == 0)
         {
             coins -= slowDescentCost;
             PlayerPrefs.SetInt("globalCoins", coins);
@@ -448,14 +448,19 @@ public class ShopManager : MonoBehaviour
 
 
             
-            IEnumerator WaitForAnim(float seconds){yield return new WaitForSecondsRealtime(seconds); slowDescent.SetActive(false); }
+            // IEnumerator WaitForAnim(float seconds){yield return new WaitForSecondsRealtime(seconds); slowDescent.SetActive(false); }
             
-            StartCoroutine(WaitForAnim(0.15f));
-
+            // StartCoroutine(WaitForAnim(0.15f));
+            Destroy(slowDescent,0.15f);
 
 
         }
-        if(EventSystem.current.firstSelectedGameObject == fastDescent && coins >= fastDescentCost && haveFastDescent == 0)
+
+    }
+    public void BuyFastDescent()
+    {
+        int fastDescentCost = 5000;
+        if(coins >= fastDescentCost && haveFastDescent == 0)
         {
             coins -= fastDescentCost;
             PlayerPrefs.SetInt("globalCoins", coins);
@@ -467,11 +472,12 @@ public class ShopManager : MonoBehaviour
             FadeOutUI.instance.FastFadeUI();
             
             
-            IEnumerator WaitForAnim(float seconds){yield return new WaitForSecondsRealtime(seconds); fastDescent.SetActive(false); }
+            // IEnumerator WaitForAnim(float seconds){yield return new WaitForSecondsRealtime(seconds); fastDescent.SetActive(false); }
             
-            StartCoroutine(WaitForAnim(0.15f));
+            // StartCoroutine(WaitForAnim(0.15f));
             fadeOut = true;
             fastDescentSelected = false;
+            Destroy(fastDescent,0.15f);
             
         }
     }

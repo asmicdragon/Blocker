@@ -49,10 +49,9 @@ public class LerpMovement : MonoBehaviour
             LevelUpReward.instance.leveledUP = true;
             ShopManager.instance.SaveLevelUpReward();
             ShopManager.instance.coins += ShopManager.instance.levelUPCoins;
-            ShopManager.instance.SaveCoins();
-
+            
             LevelUpReward.instance.OnLevelUp();
-
+            
             progress -= ShopManager.instance.targetXP;
             ShopManager.instance.SaveLevel();
             barIsFull = false;

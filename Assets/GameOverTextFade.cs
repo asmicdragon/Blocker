@@ -9,9 +9,12 @@ public class GameOverTextFade : MonoBehaviour
     public TMP_Text restart, backToMenu;
     public Button resButton, menuButton;
     public GameObject restartTextOBJ, backToMenuTextOBJ, restartButtonOBJ, backToMenuButtonOBJ;
+    private bool savedCoins;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         if(this.gameObject != null){
         restartTextOBJ = GameObject.Find("RestartText");
         backToMenuTextOBJ = GameObject.Find("BackToMenuText");
@@ -24,7 +27,7 @@ public class GameOverTextFade : MonoBehaviour
 
         restart.CrossFadeAlpha(0,0,true);
         backToMenu.CrossFadeAlpha(0,0,true);
-        
+        savedCoins = true;
 
         restartButtonOBJ.GetComponent<Button>().enabled = false;
         backToMenuButtonOBJ.GetComponent<Button>().enabled = false;
@@ -60,7 +63,10 @@ public class GameOverTextFade : MonoBehaviour
             restartTextOBJ.GetComponent<TMP_Text>().enabled = true;
             restartButtonOBJ.GetComponent<Image>().enabled = true;
             backToMenuButtonOBJ.GetComponent<Image>().enabled = true;
-
+            if(savedCoins){
+            GameManager.gameManager.SaveCoins();
+            savedCoins = false;
+            }
             restart.CrossFadeAlpha(1,2,true);
             backToMenu.CrossFadeAlpha(1,2,true);
             
@@ -74,7 +80,10 @@ public class GameOverTextFade : MonoBehaviour
             backToMenuButtonOBJ.GetComponent<Image>().enabled = true;
             restart.CrossFadeAlpha(1,2,true);
             backToMenu.CrossFadeAlpha(1,2,true);
-            
+            if(savedCoins){
+                GameManager.gameManager.SaveCoins();
+                savedCoins = false;
+            }
         }
     }
 }

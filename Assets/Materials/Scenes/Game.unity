@@ -9153,7 +9153,7 @@ MonoBehaviour:
   sec: 0
   min: 0
   gameplayTime: 0
-  seconds: 5
+  seconds: 8
   difficultySeconds: 0
   obstacleMovement: 1.5
   comboMaxGrowth: 0
