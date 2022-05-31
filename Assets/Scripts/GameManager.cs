@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     public int currentXP, targetXP, xpThisRound, xpInc;
     public int currentLevel = 1;
 
-    public int sec, min, gameplayTime;
+    public int sec, min, gameplayTime, totalSeconds;
 
     //int seconds is used for the obstacle spawning routine, so that we can adjust the progression of the game through this variable
     public float seconds = 8; //Original spawning speed is set to 5.
@@ -96,6 +96,7 @@ public class GameManager : MonoBehaviour
     }
     
     private void Start() {
+        totalSeconds = PlayerPrefs.GetInt("totalSeconds", 0);
         eventAdded = false;
         GameAnalytics.Initialize();
         gameplayTime = PlayerPrefs.GetInt("gameplayTime", 0);
@@ -606,7 +607,10 @@ public class GameManager : MonoBehaviour
     public void SaveTime()
     {
         
-        PlayerPrefs.SetInt("gameplayTime", gameplayTime + min);
+        totalSeconds += sec;
+        gameplayTime += min;
+        PlayerPrefs.SetInt("totalSeconds", totalSeconds);
+        PlayerPrefs.SetInt("gameplayTime", gameplayTime);
         PlayerPrefs.Save();
         
     }

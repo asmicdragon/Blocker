@@ -11,7 +11,7 @@ using TMPro;
     {
         public static TimeReward timeReward {get; set;}
         public DateTime lastLogin;
-        public TMP_Text timer, coinsPMText, xpPMText, efficiencyText;
+        public TMP_Text timer, coinsPMText, xpPMText, efficiencyText, gameplayTimeText;
         public TimeSpan timeSpan;
 
         public Animator anim;
@@ -19,12 +19,13 @@ using TMPro;
         int currentLevel;
         int coinsPM, xpPM;
         public int rewardXP,rewardCoins;
+        private int gameplayText, gameplayTime;
     private int globalCoins, currentXP;
     int offlinePercent;
     public bool enableClaimScreen;
     void Start()
         {
-
+            
             enableClaimScreen = false;
             timeReward = this;
 
@@ -43,9 +44,19 @@ using TMPro;
         }
         private void Update()
         {
+            gameplayTime = PlayerPrefs.GetInt("gameplayTime", 0);
             currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
             TimeCounter();
             RewardSet();
+            if(gameplayTime < 5)
+            {
+                gameplayText = 5 - gameplayTime;
+                gameplayTimeText.text = "Gameplay time till next change:   " + gameplayText.ToString("0 Minutes") ;
+            } else if(gameplayTime > 5 && offlinePercent == 100)
+            {
+                gameplayTimeText.text = "Maximum Efficiency reached"; 
+            }
+            
 
             if(PlayerPrefs.HasKey("newPlayer"))
             {
@@ -88,8 +99,8 @@ using TMPro;
             string str = "" + offlinePercent.ToString();
             multiplier = float.Parse(str);
             multiplier /= 100;
-            coinsPM = (int)(((((currentLevel * (currentLevel / 4)) / 80) * 2) + 30) * multiplier);//Integrated with efficiency
-            xpPM = (int)(((((currentLevel * (currentLevel / 4)) / 80) * 5) + 60) * multiplier);//Integrated with efficiency
+            coinsPM = (int)(((((currentLevel * (currentLevel / 4)) / 80) * 2) + 40) * multiplier);//Integrated with efficiency
+            xpPM = (int)(((((currentLevel * (currentLevel / 4)) / 80) * 5) + 80) * multiplier);//Integrated with efficiency
             coinsPMText.text = coinsPM.ToString() + " P/M";
             xpPMText.text = xpPM.ToString() + " P/M";
             efficiencyText.text = offlinePercent.ToString() + "%";

@@ -13,7 +13,10 @@ public class GameoverText : MonoBehaviour
     bool animationDone = false;
     bool gameplayTimeAdded;
     int timeAdded = 0;
+    private bool timeNotAdded;
+
     private void Start() {
+        timeNotAdded = false;
         gameplayTimeAdded = false;
         Pause = GameObject.Find("PauseButton");
     }
@@ -30,8 +33,7 @@ public class GameoverText : MonoBehaviour
             if(!gameplayTimeAdded && timeAdded == 0)
             {
                 GameManager.gameManager.GACheckCombosThisRound();
-                GameManager.gameManager.SaveTime();
-                gameplayTimeAdded = true;
+
                 timeAdded++;
                 StartCoroutine(Reset());
             }
@@ -80,7 +82,7 @@ public class GameoverText : MonoBehaviour
     }
     IEnumerator Reset()
     {
-        yield return new WaitForSecondsRealtime(0.01f);
+        yield return new WaitForSecondsRealtime(0.05f);
         timeAdded = 0;
     }
 }

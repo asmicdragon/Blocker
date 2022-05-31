@@ -1,7 +1,5 @@
 ScriptsOnlyBuild:
   usedScripts:
-    Assembly-CSharp-Editor.dll:
-    - GameAnalyticsSDK.Editor.GA_SettingsInspector
     Assembly-CSharp.dll:
     - BlockSpawner
     - BonusXPText
@@ -707,7 +705,7 @@ ScriptsOnlyBuild:
     className: ControlPlayableAsset
   - hash:
       serializedVersion: 2
-      Hash: 3d0aade0d927504ce72c6ccfccdd7bd7
+      Hash: afcac94f36c02b2ea8ece4a3209ee439
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: MultiplierManager
@@ -1055,7 +1053,7 @@ ScriptsOnlyBuild:
     className: TMP_StyleSheet
   - hash:
       serializedVersion: 2
-      Hash: f6456caa6ae1b8ce02100a3c96a4271c
+      Hash: c7861cea54b086af750b81c510dd511e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: TimeReward
@@ -1199,7 +1197,7 @@ ScriptsOnlyBuild:
     className: StaminaBar
   - hash:
       serializedVersion: 2
-      Hash: 5f80bb878ffda8c1022dea6e081db464
+      Hash: b5f9f58c84f279eb53500dd58f86abc3
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
