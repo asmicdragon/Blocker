@@ -25,10 +25,7 @@ public class XPBarSlider : MonoBehaviour
         // xpBarSlider.value = xpBarValue;
             
 
-            if(this.gameObject != null) {
-                xpBarSlider.maxValue = PlayerPrefs.GetInt("targetxp", 0);
-                xpBarSlider.value = PlayerPrefs.GetInt("currentxp", 0);
-            }
+
             
             
     }
@@ -37,7 +34,10 @@ public class XPBarSlider : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+            if(this.gameObject != null) {
+                xpBarSlider.maxValue = PlayerPrefs.GetInt("targetxp", 0);
+                xpBarSlider.value = PlayerPrefs.GetInt("currentxp", 0);
+            }
         currentXP = PlayerPrefs.GetInt("currentxp", 0);
         targetXP = PlayerPrefs.GetInt("targetxp", 0);
     if(GameObject.Find("GameManager") != null)

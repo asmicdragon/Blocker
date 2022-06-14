@@ -67,6 +67,7 @@ public class ShopManager : MonoBehaviour
         treasureUpgrade = PlayerPrefs.GetInt("treasureupgrade", 0);
         growthUpgrade = PlayerPrefs.GetInt("growthupgrade", 0);
         currentLevel = PlayerPrefs.GetInt("currentlevel", 0);
+        
         fadeOut = true;
         
         GACurrentCoins(coins);
@@ -639,7 +640,7 @@ public class ShopManager : MonoBehaviour
     {
         PlayerPrefs.SetString("newPlayer", "false");
     }
-            public void ResetOnBack()
+    public void ResetOnBack()
         {
             if(PlayerPrefs.HasKey("lastLogin"))
             {
@@ -666,6 +667,11 @@ public class ShopManager : MonoBehaviour
         }
         
         
+    }
+    public void BackPressed()
+    {
+        PlayerPrefs.SetInt("currentxp",(int)(CTXPSlider.instance.xpBarSlider.value));
+        PlayerPrefs.Save();
     }
 
 

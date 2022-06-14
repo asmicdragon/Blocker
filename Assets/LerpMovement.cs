@@ -8,6 +8,7 @@ public class LerpMovement : MonoBehaviour
     
     bool barIsReset;
     bool barIsFull;
+    int globalCoins;
     
 
     public int progress;
@@ -19,6 +20,7 @@ public class LerpMovement : MonoBehaviour
         barIsReset = false;
         barIsFull = false;
         calculateProgress = false;
+    
         
     }
 
@@ -43,6 +45,7 @@ public class LerpMovement : MonoBehaviour
         }
         if(CTXPSlider.instance.xpBarSlider.value >= CTXPSlider.instance.xpBarSlider.maxValue && !barIsReset)
         {
+            
             barIsFull = true;
             CTXPSlider.instance.xpBarSlider.value = 0;
             ShopManager.instance.currentLevel++;
@@ -53,6 +56,8 @@ public class LerpMovement : MonoBehaviour
             LevelUpReward.instance.OnLevelUp();
             
             progress -= ShopManager.instance.targetXP;
+            globalCoins = PlayerPrefs.GetInt("globalCoins", 0);
+            PlayerPrefs.SetInt("globalCoins", ShopManager.instance.coins);
             ShopManager.instance.SaveLevel();
             barIsFull = false;
             barIsReset = true;

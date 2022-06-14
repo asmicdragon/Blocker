@@ -248,8 +248,8 @@ public class GameManager : MonoBehaviour
                 if(combo >= comboRange){
                     TreasureReward.treasureReward.enabled = true;
                     //The higher your combo, the higher the chance 
-                    // coins += randomCoins;
-                    coins += (int)(randomCoins * multiplier);// Depending on the efficiency, coins are granted
+                    coins += randomCoins;
+                    // coins += (int)(randomCoins * multiplier);// Depending on the efficiency, coins are granted
                     FindObjectOfType<TreasureReward>().triggerAnimation = true;
                     FindObjectOfType<TreasureReward>().rewardCoins = randomCoins;
                     FindObjectOfType<TreasureReward>().RewardAnimation();
@@ -400,8 +400,8 @@ public class GameManager : MonoBehaviour
 
             //everytime the block is spawned, the score increments by 1 
             score++;
-            // xpThisRound = score * xpInc;
-            xpThisRound = (int)((score * xpInc) * (multiplier));
+            xpThisRound = score * xpInc;
+            // xpThisRound = (int)((score * xpInc) * (multiplier));
 
         } 
     } 
