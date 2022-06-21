@@ -14,15 +14,22 @@ public class StartingBlock : MonoBehaviour
     private GameManager gameManager;
     public int colliding = 0;
     [SerializeField]
-    private float _speed = 3.5f;
+    float _speed = 3.5f;
     public float slowDown = 2;
     public float hangover;
-    public float _verticalMovement = -1.5f;
+    public float _verticalMovement = -3.5f;
     public float LastBlockXSize;
     public bool hasStacked = false;
     bool canTrim = true;
     public bool perfectStack = false;
     bool dropCube = false;
+    private bool pressingW;
+    private bool upArrow;
+    private bool pressingS;
+    private bool downArrow;
+
+    public float staminaUsage = 1.2f;
+
 
     //Enabling the game to set the variable currentBlock to this gameobject
 
@@ -38,14 +45,16 @@ public class StartingBlock : MonoBehaviour
             //OnEnable starts the local scale of the current cube to these set of parameters
             transform.localScale = new Vector3(LastBlock.transform.localScale.x, transform.localScale.y, LastBlock.transform.localScale.z);
             
+            
         
     }
     private void Awake() {
         gameManager = GameObject.FindObjectOfType<GameManager>();
-
+        
+        
     }
 
-    
+  
     internal void Stop()
     {
             //turns the speed to zero when the method is called
@@ -60,10 +69,6 @@ public class StartingBlock : MonoBehaviour
                     
                     GameManager.gameManager.gameOver = true;
                 }
-            if(Mathf.Abs(hangover) > 0.1f && colliding == 0)
-            {
-                GameManager.gameManager.coins++;
-            }
             
             float direction = hangover > 0 ? 1f : -1f; //if hangover is greater than 0, we get a value of 1f, else we get a value of -1f
             //calculates the trimming on the currentblock only along with the direction it is at
@@ -75,7 +80,8 @@ public class StartingBlock : MonoBehaviour
 
                 
                 gameManager.ComboIncrementation();
-                
+                gameManager.comboThisRound++;
+                gameManager.FindTreasure();
 
                 GameManager.gameManager.playStackSound = true;
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
@@ -84,8 +90,10 @@ public class StartingBlock : MonoBehaviour
             if(Mathf.Abs(hangover) > 0.1f && colliding == 0) {
                 
                 SplitBlockOnX(hangover, direction);
-                
+                gameManager.ResetLifeCombo();
                 gameManager.ResetCombo();
+                gameManager.ResetGrowthCombo();
+                GameManager.gameManager.coins++;
 
                 GameManager.gameManager.playStackSound = true;
                 Debug.Log("Combo: "+GameManager.gameManager.combo);
@@ -127,7 +135,7 @@ public class StartingBlock : MonoBehaviour
         var block = GameObject.CreatePrimitive(PrimitiveType.Cube);
         //creates the block variable and give it a gameobject, which is set to createprimitive type cube
         if(Mathf.Abs(hangover) < LastBlock.transform.localScale.x || CurrentBlock.transform.localScale.x > Mathf.Abs(0.1f)){
-
+            
             block.transform.localScale = new Vector3(fallingBlockSize, transform.localScale.y, transform.localScale.z);
             block.transform.position = new Vector3(fallingBlockXPosition, transform.position.y, transform.localPosition.z);
             block.tag = "FallingBlock"; //This is done so that we have better access to primitivetype.cube
@@ -135,6 +143,11 @@ public class StartingBlock : MonoBehaviour
             dropCube = true;
             Destroy(block.gameObject, 1f); //the float number gives it a running time of a second
         } 
+    }
+
+    void FixedUpdate()
+    {
+        CalculateMovement();
     }
     void CalculateMovement()
     {
@@ -149,22 +162,72 @@ public class StartingBlock : MonoBehaviour
         transform.Translate(goingDown * Time.deltaTime);
 
         //checks for W pressed the verticalmovement is still going down and that you have enough stamina, which has to be max value to use
-        if(HelpMenu.helpMenu.helpMenuDone){
-            if(Input.GetKey(KeyCode.W) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true){
-                
-                //When the stamina bar is above 30 u can use the W slowing down
-                StaminaBar.instance.UseStamina(0.8f);
-                _speed = 1.5f;
-                StaminaBar.instance.usingStamina = true;
-                transform.Translate(Vector3.up * slowDown * Time.deltaTime);
 
-            } else if(_verticalMovement < 0){
+            if(GameManager.gameManager.slowDescentActivated)
+            {
+                if(Input.GetKey(KeyCode.W)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !upArrow){
+                    
+                    //When the stamina bar is above 30 u can use the W slowing down
+                    StaminaBar.instance.UseStamina(staminaUsage);
+                    _speed = 1.5f;
+                    StaminaBar.instance.usingStamina = true;
+                    transform.Translate(Vector3.up * slowDown * Time.deltaTime);
+                    pressingW = true;
+                    upArrow = false;
 
-                //when running out of stamina it will stop the slowing down
-                _speed = 5f;
-                StartCoroutine(RechargingStamina());
-            }
+                } else if(_verticalMovement < 0 && !upArrow){
+                    pressingW = false;
+                    //when running out of stamina it will stop the slowing down
+                    _speed = 5f;
+                    StartCoroutine(RechargingStamina());
+                }
+                if(Input.GetKey(KeyCode.UpArrow)  && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !downArrow){
+                    
+                    //When the stamina bar is above 30 u can use the W slowing down
+                    StaminaBar.instance.UseStamina(staminaUsage);
+                    _speed = 1.2f;
+                    StaminaBar.instance.usingStamina = true;
+                    transform.Translate(Vector3.up * slowDown * Time.deltaTime);
+                    upArrow = true;
+                    pressingW = false;
+
+                } else if(_verticalMovement < 0 && !pressingW){
+                    upArrow = false;
+                    //when running out of stamina it will stop the slowing down
+                    _speed = 5f;
+                    StartCoroutine(RechargingStamina());
+                }
+            } 
+                        if(GameManager.gameManager.fastDescentActivated)
+            {
+                if(Input.GetKey(KeyCode.S) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !pressingW){
+                    
+                    //When the stamina bar is above 30 u can use the W slowing down
+                    StaminaBar.instance.UseStamina(staminaUsage * 0.8f); //stamina usage is decreased by 20% compared to slow descent
+                    StaminaBar.instance.usingStamina = true;
+                    transform.Translate(Vector3.down * 2 * Time.deltaTime);
+                    pressingS = true;
+                    downArrow = false;
+
+                } else if(_verticalMovement < 0 && !downArrow){
+                    pressingS = false;
+                    StartCoroutine(RechargingStamina());
+                }
+                if(Input.GetKey(KeyCode.DownArrow) && _verticalMovement < 0 && StaminaBar.instance.enoughStamina == true && !upArrow){
+                    
+                    //When the stamina bar is above 30 u can use the W slowing down
+                    StaminaBar.instance.UseStamina(staminaUsage * 0.8f);
+                    StaminaBar.instance.usingStamina = true;
+                    transform.Translate(Vector3.down * 2 * Time.deltaTime);
+                    pressingS = true;
+                    downArrow = false;
+
+                } else if(_verticalMovement < 0 && !pressingS){
+                    downArrow = false;
+                    StartCoroutine(RechargingStamina());
+                }
         }
+            
 
     }
     void CheckForOutOfBounds(){
@@ -179,7 +242,7 @@ public class StartingBlock : MonoBehaviour
     }
             IEnumerator RechargingStamina(){
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(1);
             StaminaBar.instance.usingStamina = false;
         }
     void Start() {
@@ -189,9 +252,8 @@ public class StartingBlock : MonoBehaviour
     void Update()
     {
         CheckForOutOfBounds();
-
+        
         IsGameOver();
-        CalculateMovement();
     }
     void IsGameOver(){
         if(GameManager.gameManager.gameOver && CurrentBlock != null){
@@ -223,6 +285,8 @@ public class StartingBlock : MonoBehaviour
             GameManager.gameManager.playDestroySound = true;
             GameManager.gameManager.collidedWithObstacle = true;
             GameManager.gameManager.ResetCombo();
+            GameManager.gameManager.ResetLifeCombo();
+            gameManager.ResetGrowthCombo();
             if(colliding == 0)
             {
                 gameManager.ReduceCoins(); // Without the if statement, reads the code twice
@@ -250,6 +314,7 @@ public class StartingBlock : MonoBehaviour
             gameManager.DifficultyProgression();
             //sets the hasStacked boolean to true
             hasStacked = true;
+            gameManager.Growth();
             colliding++;
             StartCoroutine(Reset());
             //calls the coroutine to reset the colliding integer to zero

@@ -31,8 +31,8 @@ public class ScoreMovement : MonoBehaviour
         if(gameOver == true){
 
             StartCoroutine(WaitForAnimation(1));
-            
-         //Update the localPosition towards the newPos
+
+            //Update the localPosition towards the newPos
             if(animationDone == true){
                 scoreText.localPosition = Vector3.Lerp(scoreText.localPosition, newPos, Time.unscaledDeltaTime * 2f);
             }
@@ -41,6 +41,7 @@ public class ScoreMovement : MonoBehaviour
     IEnumerator WaitForAnimation(int animationTime){
         //uses unscaled time since its on paused timescale (0)
         yield return new WaitForSecondsRealtime(animationTime);
+
         animationDone = true;
         
     }

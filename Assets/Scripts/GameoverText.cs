@@ -7,18 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class GameoverText : MonoBehaviour
 {
-    public GameObject MenuButton;
-    public GameObject RestartButton;
+
     public GameObject Pause;
     public Animator anim;
     bool animationDone = false;
-    
+    bool gameplayTimeAdded;
+    int timeAdded = 0;
+    private bool timeNotAdded;
+
     private void Start() {
-        
+        timeNotAdded = false;
+        gameplayTimeAdded = false;
         Pause = GameObject.Find("PauseButton");
-        if(MenuButton != null || RestartButton != null){
-            StartCoroutine(SetActiveGameObjects(false, 0));
-        }
     }
     private void Update() {
         FadeIn();
@@ -29,12 +29,21 @@ public class GameoverText : MonoBehaviour
 
             StartCoroutine(WaitForText(1.2f));
             Destroy(Pause);
+            
+            if(!gameplayTimeAdded && timeAdded == 0)
+            {
+                GameManager.gameManager.GACheckCombosThisRound();
+
+                timeAdded++;
+                StartCoroutine(Reset());
+            }
+            
 
                 if(animationDone == true){
                     anim.SetTrigger("Start");
                     
                 }
-                StartCoroutine(SetActiveGameObjects(true, 1));
+                FindObjectOfType<BonusXPText>().BonusXP();
         }
         
     }
@@ -51,11 +60,6 @@ public class GameoverText : MonoBehaviour
         //using realtime for unscaled time because the game is paused on gameover
         yield return new WaitForSecondsRealtime(seconds);
         animationDone = true;
-    }
-    IEnumerator SetActiveGameObjects(bool isActive, float seconds){
-        yield return new WaitForSecondsRealtime(seconds);
-        MenuButton.SetActive(isActive);
-        RestartButton.SetActive(isActive);
     }
     public void RestartGame(){
         
@@ -75,5 +79,10 @@ public class GameoverText : MonoBehaviour
         yield return new WaitForEndOfFrame();
         Time.timeScale = 1;
 
+    }
+    IEnumerator Reset()
+    {
+        yield return new WaitForSecondsRealtime(0.05f);
+        timeAdded = 0;
     }
 }
